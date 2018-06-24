@@ -1,0 +1,54 @@
+package com.timbirichi.eltimbirichi.presentation.model;
+
+/**
+ * Created by JM on 11/16/2017.
+ */
+
+public class FileItem {
+    String filename;
+    String path;
+    int type;
+    int level;
+
+    public FileItem(String filename, String path, int type, int level) {
+        this.filename = filename;
+        this.path = path;
+        this.type = type;
+        this.level = level;
+    }
+
+    public FileItem() {
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+}

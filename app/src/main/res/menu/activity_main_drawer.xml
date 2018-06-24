@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Portada" />
+
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_favorites_full"
+            android:title="Favoritos" />
+
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/ic_categories"
+            android:title="Categorias" />
+
+        <item
+            android:id="@+id/nav_update"
+            android:icon="@drawable/ic_update"
+            android:title="Actualizar" />
+
+        <item
+            android:id="@+id/nav_publish"
+            android:icon="@drawable/ic_send"
+            android:title="Publicar" />
+
+        <item
+            android:id="@+id/nav_timbirichi"
+            android:icon="@drawable/ic_web"
+            android:title="Timbirichi" />
+    </group>
+
+
+
+</menu>

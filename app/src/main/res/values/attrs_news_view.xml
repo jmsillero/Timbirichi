@@ -1,0 +1,9 @@
+<resources>
+    <declare-styleable name="NewsView">
+        <attr name="main_text" format="string" />
+        <attr name="background_color" format="color" />
+        <attr name="rotate" format="boolean" />
+        <attr name="main_image" format="reference" />
+        <attr name="secondary_image" format="reference" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF9900</color>
+    <color name="colorPrimaryDark">#EF7E20</color>
+    <color name="colorAccent">#ff9100</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="panel_color">#2A323C</color>
+    <color name="gray">#666666</color>
+    <color name="light_gray">#F2F2F2</color>
+    <color name="cyan">#2196f3</color>
+    <color name="pink">#ec407a</color>
+
+
+    <color name="a_yellow_100">#ffff8d</color>
+    <color name="a_cyan_100">#82b1ff</color>
+    <color name="a_pink_100">#ff80ab</color>
+    <color name="a_orange_100">#ffd180</color>
+
+    <color name="a_yellow_400">#ffea00</color>
+    <color name="a_cyan_400">#2979ff</color>
+    <color name="a_pink_400">#f50057</color>
+    <color name="a_orange_400">#ff9100</color>
+    <color name="a_purple_400">#d500f9</color>
+    <color name="a_green_400">#00e676</color>
+
+
+    <color name="a_gray_600">#FF757575</color>
+
+</resources>

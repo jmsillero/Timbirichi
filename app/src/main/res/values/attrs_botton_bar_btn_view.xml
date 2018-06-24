@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="BottonBarBtnView">
+        <attr name="order_text" format="string" />
+        <attr name="indicator" format="reference" />
+        <attr name="order_up" format="reference" />
+        <attr name="order_down" format="reference" />
+    </declare-styleable>
+</resources>

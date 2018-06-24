@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="CustomFabView">
+        <attr name="text" format="string" />
+        <attr name="color" format="color" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,374 @@
+package com.timbirichi.eltimbirichi.presentation.view.activity;
+
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.storage.StorageManager;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.timbirichi.eltimbirichi.R;
+import com.timbirichi.eltimbirichi.data.model.Meta;
+import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
+import com.timbirichi.eltimbirichi.presentation.adapter.FileAdapter;
+import com.timbirichi.eltimbirichi.presentation.model.FileItem;
+import com.timbirichi.eltimbirichi.presentation.model.Response;
+import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
+import com.timbirichi.eltimbirichi.presentation.view.custom.DividerDecoration;
+import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
+import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
+import com.timbirichi.eltimbirichi.utils.Utils;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+
+public class UpdateActivity extends BaseActivity {
+
+    public final static int FILE = 0;
+    public final static int FOLDER = 1;
+    public final static int EXTERNAL_STORAGE = 2;
+    public final static int INTERNAL_STORAGE = 3;
+    public final static int GO_BACK = 4;
+
+    public final static String EXTRA_EXIST_DATABASE = "com.timbirichi.eltimbirichi.exist_database";
+    public final static String EXTRA_META_INFORMATION = "com.timbirichi.eltimbirichi.meta_information";
+
+    private String externalSd;
+    private String internalSd;
+    private int currentLevel;
+
+    DividerDecoration divider;
+
+   // OnDatabaseSelectedListener onDatabaseSelectedListener;
+
+    boolean isDbSelected;
+    boolean isFromBackPressed;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.rv_files)
+    RecyclerView rvFiles;
+
+    LinearLayoutManager layoutManager;
+    FileAdapter fileAdapter;
+
+    boolean existDatabase;
+    String path;
+
+    @Inject
+    DatabaseViewModelFactory databaseViewModelFactory;
+    DatabaseViewModel databaseViewModel;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_update);
+        initButterNife();
+        setSupportActionBar(toolbar);
+
+        existDatabase = getIntent().getBooleanExtra(EXTRA_EXIST_DATABASE, false);
+
+        if(existDatabase){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(R.string.update_database);
+        } else{
+            getSupportActionBar().setTitle(R.string.new_database);
+        }
+
+        setupDatabaseViewModel();
+        setupUi();
+    }
+
+
+    private void setupDatabaseViewModel(){
+        databaseViewModel = ViewModelProviders.of(this, databaseViewModelFactory).get(DatabaseViewModel.class);
+
+        databaseViewModel.databaseSaved.observe(this, new Observer<Response<Boolean>>() {
+            @Override
+            public void onChanged(@Nullable Response<Boolean> booleanResponse) {
+                switch (booleanResponse.status){
+                    case LOADING:
+                        break;
+
+                    case SUCCESS:
+                        if(booleanResponse.data){
+                            databaseViewModel.getMetaInformation();
+                        }
+                        break;
+
+                    case ERROR:
+                        showErrorDialog(getString(R.string.database_incompatible));
+                        break;
+                }
+            }
+        });
+
+        databaseViewModel.databaseCheck.observe(this, new Observer<Response<Boolean>>() {
+            @Override
+            public void onChanged(@Nullable Response<Boolean> booleanResponse) {
+                switch (booleanResponse.status){
+                    case LOADING:
+                        break;
+
+                    case SUCCESS:
+                        if(booleanResponse.data){
+                            databaseViewModel.saveDatabasePath(UpdateActivity.this.path);
+                        }else{
+                            showErrorDialog(getString(R.string.database_incompatible));
+                        }
+                        break;
+
+                    case ERROR:
+                        showErrorDialog(getString(R.string.database_incompatible));
+                        break;
+                }
+            }
+        });
+
+        databaseViewModel.metaInformation.observe(this, new Observer<Response<Meta>>() {
+            @Override
+            public void onChanged(@Nullable Response<Meta> metaResponse) {
+                switch (metaResponse.status){
+                    case LOADING:
+                        break;
+
+                    case SUCCESS:
+                        if(existDatabase) {
+                            onDatabaseSavedAndMetaInformationResult(metaResponse.data);
+                        } else{
+                            openMainActivity(metaResponse.data);
+                        }
+                        break;
+
+                    case ERROR:
+                        showErrorDialog(getString(R.string.database_incompatible));
+                        break;
+                }
+            }
+        });
+    }
+
+    private void openMainActivity(Meta meta){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(UpdateActivity.EXTRA_META_INFORMATION, meta);
+        startActivity(intent);
+        finish();
+    }
+
+    private void onDatabaseSavedAndMetaInformationResult(Meta meta){
+        Intent data = new Intent();
+        data.putExtra(EXTRA_META_INFORMATION, meta);
+        setResult(RESULT_OK, data);
+        finish();
+    }
+
+    private void setupUi(){
+        divider = new DividerDecoration.Builder(this)
+                .setHeight(R.dimen.default_divider_height)
+                .setPadding(R.dimen.default_divider_padding)
+                .setColorResource(R.color.a_orange_100)
+                .build();
+
+        layoutManager = new LinearLayoutManager(this);
+        fileAdapter = new FileAdapter(this);
+        fileAdapter.setOnFileItemClickListener(new FileAdapter.OnFileItemClickListener() {
+            @Override
+            public void onItemClick(int fileType, int pos, String filename, String path) {
+                if (fileType != FILE){
+                    if (fileType != GO_BACK){
+                        currentLevel ++;
+
+                    } else if (currentLevel == 1){
+                        fileAdapter.setFiles(getAllsds());
+                        currentLevel --;
+                        return;
+                    } else{
+                        currentLevel --;
+
+                    }
+                    fileAdapter.setFiles(loadFileList(path));
+
+                } else{
+                    isDbSelected = true;
+                    UpdateActivity.this.path = path;
+                    LocalDataBase.DB_NAME = filename;
+                    LocalDataBase.DB_PATH = path;
+                    databaseViewModel.checkDatabase();
+
+                }
+            }
+        });
+
+        isDbSelected = false;
+        currentLevel = 0;
+        isFromBackPressed = false;
+
+        rvFiles.addItemDecoration(divider);
+        rvFiles.setLayoutManager(layoutManager);
+        rvFiles.setAdapter(fileAdapter);
+        fileAdapter.setFiles(getAllsds());
+    }
+
+    @Override
+    public void initInject() {
+        getActivityComponent().inject(this);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home:
+                    onBackPressed();
+                    finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private List<FileItem> loadFileList(String filePath){
+        List<FileItem> listFiles = new ArrayList<>();
+
+        File path = new File(filePath);
+        if (path.toString().isEmpty()){
+            path = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        }
+        if (path.exists()){
+            FilenameFilter filter = new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String filename) {
+                    File sel = new File(dir, filename);
+                    // Filters based on whether the file is hidden or not
+                    return (sel.isDirectory() || (sel.isFile() && sel.getName().endsWith(".db")))
+                            && !sel.isHidden();
+                }
+            };
+
+            String[] fileList = path.list(filter);
+            File currentFile;
+            int type = 0;
+
+            filePath =  Utils.removeLastDirectory(filePath);
+
+            listFiles.add(new FileItem(getResources().getString(R.string.go_back), filePath,  GO_BACK, currentLevel));
+
+            for (int i = 0; i < fileList.length; i++){
+                currentFile = new File(path ,fileList[i]);
+                if (currentFile.isDirectory()){
+                    type = FOLDER;
+                } else if (currentFile.isFile()){
+                    type = FILE;
+                }
+                listFiles.add(new FileItem(fileList[i], currentFile.getAbsolutePath(), type, currentLevel));
+            }
+        }
+        return  listFiles;
+    }
+
+    private String getStoragePath(boolean isRemovable){
+        String storagePath = "";
+        File[] list = ContextCompat.getExternalFilesDirs(this, null);
+
+        for (int i = 0; i < list.length; i++){
+            if (isRemovable && Environment.isExternalStorageRemovable(list[i])){
+                return processPath(list[i].getAbsolutePath());
+            } else if (!isRemovable && Environment.isExternalStorageEmulated(list[i])){
+                return processPath(list[i].getAbsolutePath());
+            }
+        }
+        return storagePath;
+    }
+
+    private String processPath (String path){
+        String storage = path;
+        storage = path.substring(0,path.toString().lastIndexOf("/Android"));
+        return storage;
+    }
+
+    private static String getStoragePath(Context mContext, boolean is_removale) {
+
+        StorageManager mStorageManager = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
+        Class<?> storageVolumeClazz = null;
+        try {
+            storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
+            Method getVolumeList = mStorageManager.getClass().getMethod("getVolumeList");
+            Method getPath = storageVolumeClazz.getMethod("getPath");
+            Method isRemovable = storageVolumeClazz.getMethod("isRemovable");
+            Object result = getVolumeList.invoke(mStorageManager);
+            final int length = Array.getLength(result);
+            for (int i = 0; i < length; i++) {
+                Object storageVolumeElement = Array.get(result, i);
+                String path = (String) getPath.invoke(storageVolumeElement);
+                boolean removable = (Boolean) isRemovable.invoke(storageVolumeElement);
+                if (is_removale == removable) {
+                    return path;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private ArrayList<FileItem> getAllsds(){
+        ArrayList<FileItem> list = new ArrayList<>();
+        internalSd = getStoragePath(this, false);
+        externalSd= getStoragePath(this, true);
+
+        if (internalSd == null && externalSd == null){
+            internalSd = getStoragePath(false);
+            externalSd = getStoragePath(true);
+        }
+
+
+        File ex = null;
+        File in = null;
+
+        if (externalSd != null){
+            ex = new File(externalSd);
+
+            if (ex.listFiles() != null){
+                list.add(new FileItem(getResources().getString(R.string.external_sd), externalSd, EXTERNAL_STORAGE, currentLevel));
+            }
+        }
+
+        if (internalSd != null){
+            in = new File(internalSd);
+
+            if (in.listFiles() != null){
+                list.add(new FileItem(getResources().getString(R.string.internal_sd), internalSd, INTERNAL_STORAGE, currentLevel));
+            }
+        }
+        return list;
+    }
+
+}

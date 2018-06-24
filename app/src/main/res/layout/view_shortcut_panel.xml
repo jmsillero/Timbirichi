@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+        android:id="@+id/btn_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:text="@string/categories"
+        app:icon="@drawable/ic_categories"
+        app:color="@color/a_orange_400"/>
+
+    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+        android:id="@+id/btn_publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:text="@string/publish"
+        app:icon="@drawable/ic_send"
+        app:color="@color/a_cyan_400"/>
+
+    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+        android:id="@+id/btn_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:text="@string/favorites"
+        app:icon="@drawable/ic_favorites_full"
+        app:color="@color/a_yellow_400"/>
+
+    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+        android:id="@+id/btn_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        app:text="@string/contact"
+        app:icon="@drawable/ic_contact"
+        app:color="@color/a_green_400"/>
+</LinearLayout>
