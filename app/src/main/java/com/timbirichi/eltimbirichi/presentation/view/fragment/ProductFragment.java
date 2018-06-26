@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.glide.slider.library.Indicators.PagerIndicator;
 import com.glide.slider.library.SliderLayout;
 import com.timbirichi.eltimbirichi.R;
+import com.timbirichi.eltimbirichi.data.model.Banner;
 import com.timbirichi.eltimbirichi.data.model.Category;
 import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.data.model.Province;
@@ -24,8 +25,10 @@ import com.timbirichi.eltimbirichi.presentation.model.constant.ProductState;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseFragment;
 import com.timbirichi.eltimbirichi.presentation.view.custom.ImageSliderView;
 import com.timbirichi.eltimbirichi.presentation.view.dialog.FilterDialog;
+import com.timbirichi.eltimbirichi.presentation.view_model.BannerViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.ProductViewModel;
+import com.timbirichi.eltimbirichi.presentation.view_model.factory.BannerViewModelFactory;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.ProductViewModelFactory;
 import com.timbirichi.eltimbirichi.utils.Utils;
 
@@ -68,6 +71,11 @@ public class ProductFragment extends BaseFragment {
     ProductViewModelFactory productViewModelFactory;
     ProductViewModel productViewModel;
 
+
+    @Inject
+    BannerViewModelFactory bannerViewModelFactory;
+    BannerViewModel bannerViewModel;
+
     public ProductFragment() {
         // Required empty public constructor
     }
@@ -105,7 +113,11 @@ public class ProductFragment extends BaseFragment {
         rvProducts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvProducts.setNestedScrollingEnabled(false);
         setupProductAdapter();
+
         setupProductViewModel();
+        setupBannerProductViewModel();
+
+        bannerViewModel.getBannerByCatId(category.getId());
 
         productViewModel.getProducts(null,
                 start, end, category,
@@ -113,7 +125,7 @@ public class ProductFragment extends BaseFragment {
                 false, min, max, ProductState.NO_NEW,
                 Province.NO_PROVINCE);
 
-        fillSlider();
+
         return v;
     }
 
@@ -153,18 +165,32 @@ public class ProductFragment extends BaseFragment {
         });
     }
 
-    // TODO: TEMP
-    private void fillSlider(){
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Hannibal",R.drawable.s1);
-        file_maps.put("Big Bang Theory",R.drawable.s2);
-        file_maps.put("House of Cards",R.drawable.s3);
-        file_maps.put("Game of Thrones", R.drawable.s4);
+    private void setupBannerProductViewModel(){
+        bannerViewModel = ViewModelProviders.of(this, bannerViewModelFactory).get(BannerViewModel.class);
+        bannerViewModel.banners.observe(this, new Observer<Response<List<Banner>>>() {
+            @Override
+            public void onChanged(@Nullable Response<List<Banner>> listResponse) {
+                switch (listResponse.status){
+                    case LOADING:
+                        break;
 
-        for(String name : file_maps.keySet()){
+                    case SUCCESS:
+                        fillSlider(listResponse.data);
+                        break;
+
+                    case ERROR:
+                        showErrorDialog(getString(R.string.banner_error));
+                        break;
+                }
+            }
+        });
+    }
+
+
+    private void fillSlider(List<Banner> banners){
+        for(Banner banner : banners){
             ImageSliderView imageSliderView = new ImageSliderView(getActivity());
-            imageSliderView.setImageDrawable(getActivity().getResources().getDrawable(file_maps.get(name)));
-
+            imageSliderView.setImageByteArray(banner.getImage());
             mDemoSlider.addSlider(imageSliderView);
         }
     }

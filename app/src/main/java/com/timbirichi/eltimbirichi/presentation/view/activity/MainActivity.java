@@ -30,9 +30,11 @@ import com.timbirichi.eltimbirichi.presentation.view.fragment.ProductFragment;
 import com.timbirichi.eltimbirichi.presentation.view_model.CategoryViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewModelFactory;
+import com.timbirichi.eltimbirichi.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -60,9 +62,6 @@ public class MainActivity extends BaseActivity
     CategoryViewModelFactory categoryViewModelFactory;
     CategoryViewModel categoryViewModel;
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setResult(RESULT_OK);
@@ -84,8 +83,9 @@ public class MainActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        updateMetaInformation();
         openCoverPageFragment();
+        updateMetaInformation();
+
     }
 
     private void setupCategoryViewModel(){
@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity
                         break;
 
                     case SUCCESS:
+
                         break;
 
                     case ERROR:
@@ -109,7 +110,6 @@ public class MainActivity extends BaseActivity
             }
         });
     }
-
 
     private void openCoverPageFragment(){
         coverPageFragment = CoverPageFragment.newInstance();
@@ -252,6 +252,7 @@ public class MainActivity extends BaseActivity
 
     private void openDetailActivity(Product prod){
         Intent intent = new Intent(this, DetailActivity.class);
+        Utils.productSelected = prod;
         startActivity(intent);
     }
 

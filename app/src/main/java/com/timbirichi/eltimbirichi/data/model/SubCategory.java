@@ -13,6 +13,9 @@ public class SubCategory implements Parcelable{
     long id;
     String name;
 
+    // imagen del banner para mostrar en la portada...
+    byte [] image;
+
     public SubCategory(long id, String name) {
         this.id = id;
         this.name = name;
@@ -24,6 +27,7 @@ public class SubCategory implements Parcelable{
     public SubCategory(Parcel parcel) {
         id = parcel.readLong();
         name = parcel.readString();
+        parcel.readByteArray(image);
     }
 
 
@@ -36,6 +40,7 @@ public class SubCategory implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(name);
+        dest.writeByteArray(image);
     }
 
     public static final Parcelable.Creator<SubCategory> CREATOR = new Parcelable.Creator<SubCategory>(){
@@ -66,5 +71,13 @@ public class SubCategory implements Parcelable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

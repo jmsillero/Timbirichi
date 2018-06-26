@@ -8,24 +8,21 @@
 
 
     <com.timbirichi.eltimbirichi.presentation.view.custom.NewsView
-        android:id="@+id/newsView"
+        android:id="@+id/prod_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_weight="1"
         android:layout_gravity="center"
         app:background_color="@color/cyan"
         app:main_text="El lanzamiento de timbirichi sera pronto"
         app:main_image="@drawable/s2"
-        app:secondary_image="@drawable/s4"
-        app:rotate="true"
+        app:rotate="false"
         app:elevation="2dp"/>
 
     <com.timbirichi.eltimbirichi.presentation.view.custom.NewsView
-        android:id="@+id/newsView2"
+        android:id="@+id/prod_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_weight="1"
         android:layout_gravity="center"
         app:background_color="@color/pink"

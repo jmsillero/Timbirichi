@@ -36,8 +36,8 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Observable<List<Product>> loadCoverPageProduct(int start, int end) {
-        return productsDataStore.loadCoverPageProduct(start, end);
+    public Observable<List<Product>> loadCoverPageProduct() {
+        return productsDataStore.loadCoverPageProduct();
     }
 
     @Override

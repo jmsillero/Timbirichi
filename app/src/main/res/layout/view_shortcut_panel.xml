@@ -45,7 +45,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center"
-        app:text="@string/contact"
-        app:icon="@drawable/ic_contact"
-        app:color="@color/a_green_400"/>
+        app:text="@string/the_last"
+        app:icon="@drawable/ic_the_last"
+        app:color="@color/a_pink_400"/>
 </LinearLayout>

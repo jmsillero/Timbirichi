@@ -42,11 +42,11 @@ public class ProductsDataStore {
         });
     }
 
-    public Observable<List<Product>> loadCoverPageProduct(final int start, final int end){
+    public Observable<List<Product>> loadCoverPageProduct(){
         return Observable.create(new ObservableOnSubscribe<List<Product>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Product>> e) throws Exception {
-             //  e.onNext(localDataBase.loadCoverPageProducts(start, end));
+               e.onNext(localDataBase.loadCoverPageProducts());
                e.onComplete();
             }
         }).doOnError(new Consumer<Throwable>() {

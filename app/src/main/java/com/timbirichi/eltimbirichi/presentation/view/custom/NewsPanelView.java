@@ -5,7 +5,11 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import com.timbirichi.eltimbirichi.R;
+import com.timbirichi.eltimbirichi.data.model.Product;
 
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -13,6 +17,11 @@ import butterknife.ButterKnife;
  */
 public class NewsPanelView extends LinearLayout {
 
+    @BindView(R.id.prod_1)
+    NewsView prod1;
+
+    @BindView(R.id.prod_2)
+    NewsView prod2;
 
     public NewsPanelView(Context context) {
         super(context);
@@ -32,6 +41,11 @@ public class NewsPanelView extends LinearLayout {
     private void init(AttributeSet attrs, int defStyle) {
         inflate(getContext(), R.layout.view_news_panel, this);
         ButterKnife.bind(this);
+    }
+
+    public void addProducts(Product prod1, Product prod2){
+        this.prod1.setProduct(prod1);
+        this.prod2.setProduct(prod2);
     }
 
 

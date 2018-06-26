@@ -45,26 +45,7 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
     @Override
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
         SubCategory category = categories.get(position);
-
-        // todo: Cambiar
-        Drawable d = null;
-        switch (position){
-            case 0:
-                d = context.getResources().getDrawable(R.drawable.s1);
-                break;
-
-            case 1:
-                d = context.getResources().getDrawable(R.drawable.s2);
-                break;
-
-            case 2:
-                d = context.getResources().getDrawable(R.drawable.s3);
-                break;
-
-                default:
-                    d = context.getResources().getDrawable(R.drawable.s4);
-        }
-        holder.setValues(d, category.getName());
+        holder.setValues(category.getImage(), category.getName());
     }
 
     @Override
@@ -87,12 +68,18 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
         }
 
 
-        public void setValues(Drawable image, String description){
-            GlideApp.with(context)
-                    .load(image)
-                    .override(300, 300)
-                    .centerCrop()
-                    .into(ivImage);
+        public void setValues(byte [] image, String description){
+
+            if(image != null){
+                GlideApp.with(context)
+                        .load(image)
+                        .override(300, 300)
+                        .centerCrop()
+                        .into(ivImage);
+            } else {
+                ivImage.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_launcher_round));
+            }
+
 
             tvDescription.setText(description);
         }

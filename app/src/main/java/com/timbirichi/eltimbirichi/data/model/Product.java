@@ -1,14 +1,17 @@
 package com.timbirichi.eltimbirichi.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Product {
+public class Product implements Parcelable{
 
     long id;
     String category;
     String subCategory;
-    float price;
-    float priceDown;
+    double price;
+    double priceDown;
     String title;
     String description;
     byte [] bannerImage;
@@ -54,6 +57,8 @@ public class Product {
     public static final String ORDER_ASC = " ASC ";
     public static final String ORDER_DESC = " DESC ";
 
+    public static final int COVER_PAGE = 0;
+
 
 
     public Product(String category, String subCategory, float price,
@@ -84,6 +89,70 @@ public class Product {
     public Product() {
     }
 
+    public Product(Parcel parcel){
+       id =  parcel.readLong();
+       category = parcel.readString();
+       subCategory =  parcel.readString();
+       price =  parcel.readDouble();
+       priceDown =  parcel.readDouble();
+       title =  parcel.readString();
+       description =  parcel.readString();
+       province = parcel.readParcelable(Province.class.getClassLoader());
+       parcel.readList(images, Image.class.getClassLoader());
+       name =  parcel.readString();
+       email =  parcel.readString();
+       phone =  parcel.readString();
+       time =  parcel.readLong();
+       views =  parcel.readInt();
+       newProduct = parcel.readInt() == 1;
+       ultra = parcel.readInt() == 1;
+       photosCount = parcel.readInt();
+       favorite = parcel.readInt() == 1;
+       main = parcel.readInt() == 1;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(category);
+        dest.writeString(subCategory);
+        dest.writeDouble(price);
+        dest.writeDouble(priceDown);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeParcelable(province, Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeList(images);
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeLong(time);
+        dest.writeInt(views);
+        dest.writeInt(newProduct ? 1 : 0);
+        dest.writeInt(ultra ? 1 : 0);
+        dest.writeInt(photosCount);
+        dest.writeInt(favorite ? 1 : 0);
+        dest.writeInt(main ? 1 : 0);
+    }
+
+    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
+        @Override
+        public Product createFromParcel(Parcel source) {
+            return new Product(source);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
     public long getId() {
         return id;
     }
@@ -108,16 +177,20 @@ public class Product {
         this.subCategory = subCategory;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public float getPriceDown() {
+    public double getPriceDown() {
         return priceDown;
+    }
+
+    public void setPriceDown(double priceDown) {
+        this.priceDown = priceDown;
     }
 
     public void setPriceDown(float priceDown) {

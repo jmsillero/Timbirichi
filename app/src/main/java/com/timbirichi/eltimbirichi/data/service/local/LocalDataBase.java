@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.timbirichi.eltimbirichi.data.model.Banner;
 import com.timbirichi.eltimbirichi.data.model.Category;
 import com.timbirichi.eltimbirichi.data.model.Image;
 import com.timbirichi.eltimbirichi.data.model.Meta;
@@ -123,6 +124,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
 
 
+
     /**
      * Nota: Lo divido en dos metodos para evitar el join...
      * @return Devuelve la lista de categorias
@@ -149,6 +151,54 @@ public class LocalDataBase extends SQLiteOpenHelper {
                       category.setSubCategories(getSubCategories(db, category.getId()));
 
                       categories.add(category);
+                }
+                while (cursor.moveToNext());
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new SQLiteException();
+        }
+        finally {
+            cursor.close();
+            db.close();
+        }
+        close();
+        return  categories;
+    }
+
+
+    /**
+     *
+     * select * from quest order by RANDOM();
+     * @return
+     */
+    public List<SubCategory> getRandomSubcategories(int limit){
+        List<SubCategory> categories = null;
+
+        String query = "SELECT * FROM " + SubCategory.SUBCATEGORY_TABLE
+                + " ORDER BY RANDOM() LIMIT " + Integer.toString(limit);
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH , null, SQLiteDatabase.OPEN_READONLY);
+        Cursor cursor = db.rawQuery(query,null);
+
+        try{
+            if(cursor.moveToFirst())
+            {
+                categories = new ArrayList<>();
+                do{
+                    SubCategory category = new SubCategory();
+                    category.setId(Long.parseLong(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_ID))));
+                    category.setName(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_NAME)));
+
+                    List<Banner> banners =  getBannersByCategoryId(category.getId());
+                    if(banners != null && banners.get(0).getImage() != null){
+                        byte [] image = banners.get(0).getImage();
+                        category.setImage(image);
+                    }
+
+                    categories.add(category);
                 }
                 while (cursor.moveToNext());
             }
@@ -335,48 +385,45 @@ public class LocalDataBase extends SQLiteOpenHelper {
 //    }
 //
 //
-//    /**
-//     * SELECT anuncios.* FROM anuncios WHERE tipo = 'Portada' ORDER BY prioridad ASC LIMIT
-//     * Carga loa anuncios de la portada dentro de un limite de anuncios
-//     *
-//     * @param start limite de inicio
-//     * @param end limite de fin
-//     * @return Anuncios de la portada
-//     */
-//    public List<ProductBo> loadCoverPageProducts(int start, int end){
-//        List<ProductBo> products = new ArrayList<>();
-//        String query = "SELECT * FROM " + ProductBo.TABLE_PRODUCTS
-//                     + " WHERE " + ProductBo.COL_TYPE + " = '" + ProductBo.COVER_PAGE_PRODUCT
-//                     + "' ORDER BY " + ProductBo.COL_PRIORITY
-//                     + " ASC LIMIT " + Integer.toString(start) + ", " + Integer.toString(end);
-//
-//        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.OPEN_READONLY);
-//        Cursor cursor = db.rawQuery(query,null);
-//
-//        try{
-//            if(cursor.moveToFirst())
-//            {
-//                do{
-//                    ProductBo product = createOrdinaryProduct(cursor, db);
-//                    product.setCategoryName(ProductBo.COVER_PAGE_CATEGORY_NAME);
-//                    product.setCategory(ProductBo.BANNER_CAT_ID);
-//                    product.setType(ProductBo.COVER_PAGE_PRODUCT);
-//                    products.add(product);
-//                }
-//                while (cursor.moveToNext());
-//            }
-//        }
-//        catch (SQLiteException e)
-//        {
-//            e.printStackTrace();
-//            throw new SQLiteException();
-//        }
-//        finally {
-//            cursor.close();
-//            db.close();
-//        }
-//        return products;
-//    }
+    /**
+     *
+     * Carga loa anuncios de la portada dentro de un limite de anuncios
+     * @return Anuncios de la portada
+     */
+    public List<Product> loadCoverPageProducts(){
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM " + Product.PRODUCT_TABLE
+                     + " WHERE " + Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
+                     + " ORDER BY " + Product.PRODUCT_COL_ULTRA + ", " + Product.PRODUCT_COL_COVER_PAGE + ", " + Product.PRODUCT_COL_ID + Product.ORDER_DESC
+                     + " LIMIT " + Integer.toString(6);
+
+        // todo: Cambiar el limite de productos de la portada...
+
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
+        Cursor cursor = db.rawQuery(query,null);
+
+        try{
+            if(cursor.moveToFirst())
+            {
+                do{
+                    Product product = createOrdinaryProduct(cursor, db);
+                    products.add(product);
+                }
+                while (cursor.moveToNext());
+            }
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+            throw new SQLiteException();
+        }
+        finally {
+            cursor.close();
+            db.close();
+        }
+        return products;
+    }
 //
 //
 //    /**
@@ -617,6 +664,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
         product.setEmail(cursor.getString(cursor.getColumnIndex(Product.PRODUCT_COL_EMAIL)));
         product.setName(cursor.getString(cursor.getColumnIndex(Product.PRODUCT_COL_NAME)));
         product.setPhotosCount(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_PHOTO_COUNT)));
+        product.setProvince(new Province());
 
         //product.setDate(cursor.getString(cursor.getColumnIndex(Product.COL_DATE)));
 
@@ -642,6 +690,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + Image.IMAGE_TABLE
                      + " WHERE " + Image.IMAGE_COL_PRODUCT_ID + " = "
                      + Long.toString(productId);
+
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -670,6 +719,44 @@ public class LocalDataBase extends SQLiteOpenHelper {
         }
         return images;
 
+    }
+
+
+    public List<Banner> getBannersByCategoryId(long catId){
+        List<Banner> banners = null;
+        String query = "SELECT * FROM " + Banner.BANNER_TABLE
+                + " WHERE " + Banner.BANNER_COL_SUBCATEGORY_ID + " = "
+                + Long.toString(catId);
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH , null, SQLiteDatabase.OPEN_READONLY);
+        Cursor cursor = db.rawQuery(query, null);
+
+        Banner banner = null;
+        try{
+            if (cursor != null){
+                if (cursor.moveToFirst()) {
+                    banners = new ArrayList<>();
+                    do {
+                        banner = new Banner();
+                        banner.setId(cursor.getLong(cursor.getColumnIndex(Banner.BANNER_COL_ID)));
+                        banner.setImage(cursor.getBlob(cursor.getColumnIndex(Banner.BANNER_COL_IMAGE)));
+                        banners.add(banner);
+                    }
+                    while (cursor.moveToNext());
+                }
+            }
+        }
+
+        catch (SQLiteException e){
+            e.printStackTrace();
+            throw new SQLiteException();
+        }
+        finally {
+            cursor.close();
+            close();
+        }
+
+        return banners;
     }
 
     @Override

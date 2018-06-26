@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.timbirichi.eltimbirichi.ElTimbirichiApplication;
+import com.timbirichi.eltimbirichi.data.repository.BannerRepository;
 import com.timbirichi.eltimbirichi.data.repository.CategoryRepository;
 import com.timbirichi.eltimbirichi.data.repository.MetaRepository;
 import com.timbirichi.eltimbirichi.data.repository.ProductRepository;
 import com.timbirichi.eltimbirichi.data.repository.ProvinceRepository;
 import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
 import com.timbirichi.eltimbirichi.data.service.local.PreferencesDataBase;
+import com.timbirichi.eltimbirichi.domain.repository.IBannerRepository;
 import com.timbirichi.eltimbirichi.domain.repository.ICategoryRepository;
 import com.timbirichi.eltimbirichi.domain.repository.IMetaRepository;
 import com.timbirichi.eltimbirichi.domain.repository.IProductRepository;
@@ -89,6 +91,12 @@ public class ApplicationModule {
     @Singleton
     @Provides
     IProvinceRepository provideProvinceRepository(ProvinceRepository repository){
+        return repository;
+    }
+
+    @Singleton
+    @Provides
+    IBannerRepository provideBannerRepository(BannerRepository repository){
         return repository;
     }
 

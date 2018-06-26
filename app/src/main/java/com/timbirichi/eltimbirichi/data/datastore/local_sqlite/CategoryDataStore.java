@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.data.datastore.local_sqlite;
 
 import com.timbirichi.eltimbirichi.data.model.Category;
+import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.inject.Named;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 
 import static com.timbirichi.eltimbirichi.utils.Utils.LOCAL_DATABASE_NAMED;
 
@@ -32,6 +34,17 @@ public class CategoryDataStore {
                 e.onComplete();
             }
         });
+    }
+
+    public Observable<List<SubCategory>> getRandomSubcategories(final int limit){
+        return  Observable.create(new ObservableOnSubscribe<List<SubCategory>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<SubCategory>> e) throws Exception {
+                e.onNext(localDataBase.getRandomSubcategories(limit));
+                e.onComplete();
+            }
+        });
+
     }
 
 }

@@ -24,7 +24,7 @@ public interface IProductRepository {
      * @param end limite del fin
      * @return
      */
-    Observable<List<Product>> loadCoverPageProduct(int start, int end);
+    Observable<List<Product>> loadCoverPageProduct();
 
     /**
      * Carga los productos filtrados desde las categorias

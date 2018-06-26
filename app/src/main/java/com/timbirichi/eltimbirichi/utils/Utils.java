@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.utils;
 
 import com.timbirichi.eltimbirichi.data.model.Meta;
+import com.timbirichi.eltimbirichi.data.model.Product;
 
 public class Utils {
     public static final String LOCAL_DATABASE_NAMED = "com.timbirichi.eltimbirichi.local_database";
@@ -16,6 +17,8 @@ public class Utils {
 
     public static int PRODUCT_OFFSET = 0;
     public static int PRODUCT_COUNT = 10;
+
+    public static Product productSelected;
 
     public static  String removeLastDirectory(String path){
         return path.substring(0, path.lastIndexOf('/'));

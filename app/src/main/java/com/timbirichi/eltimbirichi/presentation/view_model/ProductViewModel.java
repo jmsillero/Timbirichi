@@ -8,6 +8,7 @@ import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.domain.use_case.base.UseCaseObserver;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.model.Status;
 import com.timbirichi.eltimbirichi.presentation.model.constant.ProductState;
@@ -16,12 +17,16 @@ import java.util.List;
 
 public class ProductViewModel extends ViewModel {
     LoadCategoryProductsUseCase loadCategoryProductsUseCase;
+    LoadCoverPageProductUseCase loadCoverPageProductUseCase;
 
 
     public final MutableLiveData<Response<List<Product>>> products = new MutableLiveData<>();
+    public final MutableLiveData<Response<List<Product>>> coverPageProducts = new MutableLiveData<>();
 
-    public ProductViewModel(LoadCategoryProductsUseCase loadCategoryProductsUseCase) {
+    public ProductViewModel(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
+                            LoadCoverPageProductUseCase loadCoverPageProductUseCase) {
         this.loadCategoryProductsUseCase = loadCategoryProductsUseCase;
+        this.loadCoverPageProductUseCase = loadCoverPageProductUseCase;
     }
 
 
@@ -36,6 +41,12 @@ public class ProductViewModel extends ViewModel {
                 minPrice, maxPrice, state,
                 province);
         loadCategoryProductsUseCase.execute(new LoadProductObserver());
+    }
+
+    public void loadCoverPageProducts(){
+        coverPageProducts.setValue(new Response<List<Product>>(Status.LOADING, null, null));
+        loadCoverPageProductUseCase.execute(new LoadCoverPageObserver());
+
     }
 
 
@@ -53,6 +64,21 @@ public class ProductViewModel extends ViewModel {
         @Override
         public void onError(Throwable throwable) {
             products.setValue(new Response<List<Product>>(Status.SUCCESS, null, throwable));
+        }
+    }
+
+    public final class LoadCoverPageObserver extends UseCaseObserver<List<Product>>{
+        public LoadCoverPageObserver() {
+        }
+
+        @Override
+        public void onNext(List<Product> products) {
+            coverPageProducts.setValue(new Response<List<Product>>(Status.SUCCESS, products, null));
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            coverPageProducts.setValue(new Response<List<Product>>(Status.ERROR, null, throwable));
         }
     }
 }

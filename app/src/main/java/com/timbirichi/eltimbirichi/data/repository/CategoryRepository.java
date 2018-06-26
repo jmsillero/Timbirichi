@@ -2,6 +2,7 @@ package com.timbirichi.eltimbirichi.data.repository;
 
 import com.timbirichi.eltimbirichi.data.datastore.local_sqlite.CategoryDataStore;
 import com.timbirichi.eltimbirichi.data.model.Category;
+import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.domain.repository.ICategoryRepository;
 
 import java.util.List;
@@ -26,5 +27,8 @@ public class CategoryRepository implements ICategoryRepository {
         return categoryDataStore.getCategories();
     }
 
-
+    @Override
+    public Observable<List<SubCategory>> getRandomSubcategories(int limit) {
+        return categoryDataStore.getRandomSubcategories(limit);
+    }
 }

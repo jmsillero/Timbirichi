@@ -13,6 +13,8 @@ import com.timbirichi.eltimbirichi.domain.use_case.database.GetDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetMetaInformationUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.SaveDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.LoadRandomSubCategoriesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.province.GetProvincesUseCase;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewModelFactory;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
@@ -70,8 +72,8 @@ public class ActivityModule {
 
 
     @Provides
-    CategoryViewModelFactory provideCategoryViewModelFactory(GetCategoriesUseCase categoriesUseCase) {
-        return new CategoryViewModelFactory(categoriesUseCase);
+    CategoryViewModelFactory provideCategoryViewModelFactory(GetCategoriesUseCase categoriesUseCase, LoadRandomSubCategoriesUseCase loadRandomSubCategoriesUseCase) {
+        return new CategoryViewModelFactory(categoriesUseCase, loadRandomSubCategoriesUseCase);
     }
 
     @Provides
@@ -99,8 +101,9 @@ public class ActivityModule {
 
 
     @Provides
-    ProductViewModelFactory providePProductViewModelFactory(LoadCategoryProductsUseCase loadCategoryProductsUseCase){
-        return new ProductViewModelFactory(loadCategoryProductsUseCase);
+    ProductViewModelFactory providePProductViewModelFactory(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
+                                                            LoadCoverPageProductUseCase loadCoverPageProductUseCase){
+        return new ProductViewModelFactory(loadCategoryProductsUseCase, loadCoverPageProductUseCase);
     }
 
 

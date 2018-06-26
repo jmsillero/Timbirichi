@@ -1,6 +1,9 @@
 package com.timbirichi.eltimbirichi.data.model;
 
-public class Image {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Image implements Parcelable{
 
     public static String IMAGE_TABLE = "fotos";
     public static String IMAGE_COL_ID = "id";
@@ -19,6 +22,39 @@ public class Image {
 
     public Image() {
     }
+
+    public Image(Parcel parcel){
+        id = parcel.readLong();
+        productId = parcel.readLong();
+        parcel.readByteArray(image);
+    }
+
+    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>(){
+        @Override
+        public Image createFromParcel(Parcel source) {
+            return new Image(source);
+        }
+
+        @Override
+        public Image[] newArray(int size) {
+            return new Image[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeLong(productId);
+        dest.writeByteArray(image);
+    }
+
+
 
     public long getId() {
         return id;

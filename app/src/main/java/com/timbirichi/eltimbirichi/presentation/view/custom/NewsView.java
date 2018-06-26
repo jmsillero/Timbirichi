@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.glide.slider.library.svg.GlideApp;
 import com.timbirichi.eltimbirichi.R;
+import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.presentation.view.custom.flip_3d.DisplayNextView;
 import com.timbirichi.eltimbirichi.presentation.view.custom.flip_3d.Flip3DAnimation;
 
@@ -98,6 +99,22 @@ public class NewsView extends ConstraintLayout {
         setupUi();
 
         a.recycle();
+
+    }
+
+    public void setProduct(Product prod){
+        tvMainText.setText(prod.getTitle());
+
+        if(prod.getImages() != null && prod.getImages().get(0) != null){
+            GlideApp.with(getContext())
+                    .load(prod.getImages().get(0).getImage())
+                    .override(200, 200)
+                    .circleCrop()
+                    .thumbnail(.5f)
+                    .into(ivMainImage);
+        } else{
+            ivMainImage.setImageDrawable(getContext().getResources().getDrawable(R.mipmap.ic_launcher_round));
+        }
 
     }
 

@@ -45,25 +45,11 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
         Product product = products.get(position);
 
-        // todo: Cambiar
-        Drawable d = null;
-        switch (position){
-            case 0:
-                d = context.getResources().getDrawable(R.drawable.p1);
-                break;
-
-            case 1:
-                d = context.getResources().getDrawable(R.drawable.p2);
-                break;
-
-            case 2:
-                d = context.getResources().getDrawable(R.drawable.p3);
-                break;
-
-                default:
-                    d = context.getResources().getDrawable(R.drawable.creatina);
+        byte [] image = null;
+        if(product.getImages() != null && product.getImages().get(0) != null){
+            image = product.getImages().get(0).getImage();
         }
-        holder.setValues(d, product.getPrice(), product.getTitle());
+        holder.setValues(image, product.getPrice(), product.getTitle());
     }
 
     @Override
@@ -89,11 +75,18 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
         }
 
 
-        public void setValues(Drawable image, double price, String description){
-            GlideApp.with(context)
-                    .load(image)
-                    .override(300, 300)
-                    .into(ivImage);
+        public void setValues(byte [] image, double price, String description){
+
+            if(image != null){
+                GlideApp.with(context)
+                        .load(image)
+                        .centerCrop()
+                        .override(300, 300)
+                        .into(ivImage);
+            } else{
+                ivImage.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_launcher_round));
+            }
+
 
             tvPrice.setText(Double.toString(price));
             tvDescription.setText(description);
