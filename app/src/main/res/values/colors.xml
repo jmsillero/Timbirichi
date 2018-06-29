@@ -26,4 +26,7 @@
 
     <color name="a_gray_600">#FF757575</color>
 
+    <color name="background">#ff9100</color>
+    <!--<color name="background">#dddddd</color>-->
+
 </resources>

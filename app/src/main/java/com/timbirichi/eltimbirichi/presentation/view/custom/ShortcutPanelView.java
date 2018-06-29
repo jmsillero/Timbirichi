@@ -38,8 +38,8 @@ public class ShortcutPanelView extends LinearLayout {
     @BindView(R.id.btn_favorites)
     CustomFabView btnFavorites;
 
-    @BindView(R.id.btn_contact)
-    CustomFabView btnContact;
+    @BindView(R.id.btn_last)
+    CustomFabView btnLast;
 
 
 
@@ -77,10 +77,10 @@ public class ShortcutPanelView extends LinearLayout {
         });
 
 
-        btnContact.setCustomFabCallback(new CustomFabView.CustomFabCallback() {
+        btnLast.setCustomFabCallback(new CustomFabView.CustomFabCallback() {
             @Override
             public void onClick() {
-                shorcutPanelCallback.onButtonClick(ShorcutType.CONTACT);
+                shorcutPanelCallback.onButtonClick(ShorcutType.THE_LAST);
             }
         });
 

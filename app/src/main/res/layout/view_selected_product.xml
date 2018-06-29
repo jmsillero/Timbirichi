@@ -6,6 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        app:shimmer_duration="1000">
+
+        <!-- Adding 7 rows of placeholders -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:columnCount="2">
+            <include layout="@layout/item_product_selected_progress"/>
+            <include layout="@layout/item_product_selected_progress"/>
+            <include layout="@layout/item_product_selected_progress"/>
+            <include layout="@layout/item_product_selected_progress"/>
+            <include layout="@layout/item_product_selected_progress"/>
+            <include layout="@layout/item_product_selected_progress"/>
+            <include layout="@layout/item_product_selected_progress"/>
+        </GridLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="0dp"
         android:layout_height="0dp"

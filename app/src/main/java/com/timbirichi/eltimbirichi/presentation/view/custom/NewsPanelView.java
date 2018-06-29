@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.presentation.view.custom;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -22,6 +23,9 @@ public class NewsPanelView extends LinearLayout {
 
     @BindView(R.id.prod_2)
     NewsView prod2;
+
+    @NonNull
+    PanelNewsCallback panelNewsCallback;
 
     public NewsPanelView(Context context) {
         super(context);
@@ -45,8 +49,26 @@ public class NewsPanelView extends LinearLayout {
 
     public void addProducts(Product prod1, Product prod2){
         this.prod1.setProduct(prod1);
+        this.prod1.setNewsCallback(new NewsView.NewsCallback() {
+            @Override
+            public void onNewsClick(Product product) {
+                 panelNewsCallback.onNewsClick(product);
+            }
+        });
         this.prod2.setProduct(prod2);
+        this.prod2.setNewsCallback(new NewsView.NewsCallback() {
+            @Override
+            public void onNewsClick(Product product) {
+                panelNewsCallback.onNewsClick(product);
+            }
+        });
     }
 
+    public void setPanelNewsCallback(@NonNull PanelNewsCallback panelNewsCallback) {
+        this.panelNewsCallback = panelNewsCallback;
+    }
 
+    public interface PanelNewsCallback{
+        void onNewsClick(Product product);
+    }
 }

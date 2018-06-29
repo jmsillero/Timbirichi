@@ -4,5 +4,6 @@
         <attr name="indicator" format="reference" />
         <attr name="order_up" format="reference" />
         <attr name="order_down" format="reference" />
+        <attr name="order_active" format="boolean" />
     </declare-styleable>
 </resources>

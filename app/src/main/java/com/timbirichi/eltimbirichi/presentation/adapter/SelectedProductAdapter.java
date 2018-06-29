@@ -4,6 +4,7 @@ package com.timbirichi.eltimbirichi.presentation.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,9 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
     Context context;
     List<Product> products;
 
+    @NonNull
+    SelectProductAdapterCallback selectProductAdapterCallback;
+
     public SelectedProductAdapter(Context context, List<Product> products) {
         this.context = context;
         this.products = products;
@@ -43,13 +47,25 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
 
     @Override
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
-        Product product = products.get(position);
+        final Product product = products.get(position);
 
         byte [] image = null;
         if(product.getImages() != null && product.getImages().get(0) != null){
             image = product.getImages().get(0).getImage();
         }
         holder.setValues(image, product.getPrice(), product.getTitle());
+
+        holder.cvMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectProductAdapterCallback.onProductClick(product);
+            }
+        });
+
+    }
+
+    public void setSelectProductAdapterCallback(@NonNull SelectProductAdapterCallback selectProductAdapterCallback) {
+        this.selectProductAdapterCallback = selectProductAdapterCallback;
     }
 
     @Override
@@ -66,6 +82,9 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
 
         @BindView(R.id.tv_description)
         TextView tvDescription;
+
+        @BindView(R.id.cv_main)
+        public CardView cvMain;
 
 
         public SelectedProductViewHolder(View itemView) {
@@ -91,9 +110,9 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
             tvPrice.setText(Double.toString(price));
             tvDescription.setText(description);
         }
+    }
 
-
-
-
+    public interface SelectProductAdapterCallback{
+        void onProductClick(Product product);
     }
 }

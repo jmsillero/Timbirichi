@@ -12,6 +12,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.database.CopyDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetMetaInformationUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.SaveDbPathUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.GetLastedNewProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadRandomSubCategoriesUseCase;
@@ -102,8 +103,11 @@ public class ActivityModule {
 
     @Provides
     ProductViewModelFactory providePProductViewModelFactory(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
-                                                            LoadCoverPageProductUseCase loadCoverPageProductUseCase){
-        return new ProductViewModelFactory(loadCategoryProductsUseCase, loadCoverPageProductUseCase);
+                                                            LoadCoverPageProductUseCase loadCoverPageProductUseCase,
+                                                            GetLastedNewProductsUseCase getLastedNewProductsUseCase){
+        return new ProductViewModelFactory(loadCategoryProductsUseCase,
+                loadCoverPageProductUseCase,
+                getLastedNewProductsUseCase);
     }
 
 

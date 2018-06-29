@@ -480,16 +480,28 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
         String withImage = image ? " AND " + Product.PRODUCT_COL_PHOTO_COUNT + " > 0" : " ";
 
+        String newProd = "";
+        if(state == ProductState.NEW){
+            newProd = " AND " + Product.PRODUCT_COL_IS_NEW + " = 1 ";
+        }
+
+        String prov = province > 0 ? " AND " + Product.PRODUCT_COL_PROVINCE + " = " + Long.toString(province) + " " : " ";
+
+
         String min = minPrice > 0 ? " AND " + Product.PRODUCT_COL_PRICE + " > " + Double.toString(minPrice) : " ";
 
         String max = maxPrice > 0 ? " AND " + Product.PRODUCT_COL_PRICE + " < " + Double.toString(maxPrice) : " ";
 
         String limit = " LIMIT " + Integer.toString(start) + ", " + Integer.toString(end);
 
+        String cat = category.getId() != SubCategory.CATEGORY_LASTED ? Product.PRODUCT_COL_SUBCATEGORY + " = " + Long.toString(category.getId()) : Product.PRODUCT_COL_SUBCATEGORY + " <> " + Long.toString(category.getId());
+
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
-                + " WHERE " + Product.PRODUCT_COL_SUBCATEGORY + " = " + Long.toString(category.getId())
+                + " WHERE " + cat
+                + newProd + prov
                 + like + withImage + min + max + " GROUP BY " + Product.PRODUCT_COL_ID
-                + orderBy + limit;
+                + orderBy + ", " + Product.PRODUCT_COL_ULTRA + Product.ORDER_DESC + ", " + Product.PRODUCT_COL_COVER_PAGE + Product.ORDER_DESC
+                + limit;
 
 
 
@@ -535,6 +547,22 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
         return products;
     }
+
+
+    public List<Product> loadLastedProducts(String text, int start, int end,
+                                            String order, String orderType,
+                                            boolean image, double minPrice, double maxPrice,
+                                            ProductState state, long province){
+        SubCategory cat = new SubCategory();
+        cat.setId(SubCategory.CATEGORY_LASTED);
+
+        return loadProductsByCategory(text, start, end,
+                                      cat, order, orderType,
+                                      image, minPrice, maxPrice,
+                                      state, province);
+
+    }
+
 //
 //
 //    /**
@@ -647,6 +675,8 @@ public class LocalDataBase extends SQLiteOpenHelper {
 //    }
 //
 //
+
+
     /**
      * Crea un producto contenido dentro del cursor...
      * @param cursor
@@ -664,7 +694,8 @@ public class LocalDataBase extends SQLiteOpenHelper {
         product.setEmail(cursor.getString(cursor.getColumnIndex(Product.PRODUCT_COL_EMAIL)));
         product.setName(cursor.getString(cursor.getColumnIndex(Product.PRODUCT_COL_NAME)));
         product.setPhotosCount(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_PHOTO_COUNT)));
-        product.setProvince(new Province());
+        product.setNewProduct(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_IS_NEW)) == 1);
+        product.setProvince(getProvinceForProduct(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_PROVINCE)), db));
 
         //product.setDate(cursor.getString(cursor.getColumnIndex(Product.COL_DATE)));
 
@@ -672,6 +703,8 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
 
       //  product.setDateFormated(cursor.getString(cursor.getColumnIndex(Product.COL_DATE_FORMATED)));
+
+
         product.setImages(loadImageForProduct(product.getId(), db));
 
         return product;
@@ -718,6 +751,44 @@ public class LocalDataBase extends SQLiteOpenHelper {
             cursor.close();
         }
         return images;
+
+    }
+
+
+    /**
+     * @param provinceId
+     * @param db
+     * @return
+     */
+    public Province getProvinceForProduct(long provinceId, SQLiteDatabase db){
+
+        Province province = null;
+
+        String query = "SELECT * FROM " + Province.PROVINCE_TABLE
+                + " WHERE " + Province.PROVINCE_COL_ID + " = "
+                + Long.toString(provinceId);
+
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        try{
+            if (cursor != null){
+                if (cursor.moveToFirst()) {
+                    province = new Province();
+                    province.setId(cursor.getLong(cursor.getColumnIndex(Province.PROVINCE_COL_ID)));
+                    province.setName(cursor.getString(cursor.getColumnIndex(Province.PROVINCE_COL_NAME)));
+                }
+            }
+        }
+
+        catch (SQLiteException e){
+            e.printStackTrace();
+            throw new SQLiteException();
+        }
+        finally {
+            cursor.close();
+        }
+        return province;
 
     }
 

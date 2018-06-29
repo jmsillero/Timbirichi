@@ -12,6 +12,8 @@ public class Category implements Parcelable {
     public static String CATEGORY_COL_ID = "id";
     public static String CATEGORY_COL_NAME = "name";
 
+
+
     long id;
     String name;
     List<SubCategory> subCategories;

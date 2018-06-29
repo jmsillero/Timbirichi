@@ -7,6 +7,7 @@ import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.domain.use_case.base.UseCaseObserver;
+import com.timbirichi.eltimbirichi.domain.use_case.product.GetLastedNewProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
@@ -18,15 +19,18 @@ import java.util.List;
 public class ProductViewModel extends ViewModel {
     LoadCategoryProductsUseCase loadCategoryProductsUseCase;
     LoadCoverPageProductUseCase loadCoverPageProductUseCase;
+    GetLastedNewProductsUseCase getLastedNewProductsUseCase;
 
 
     public final MutableLiveData<Response<List<Product>>> products = new MutableLiveData<>();
     public final MutableLiveData<Response<List<Product>>> coverPageProducts = new MutableLiveData<>();
 
     public ProductViewModel(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
-                            LoadCoverPageProductUseCase loadCoverPageProductUseCase) {
+                            LoadCoverPageProductUseCase loadCoverPageProductUseCase,
+                            GetLastedNewProductsUseCase getLastedNewProductsUseCase) {
         this.loadCategoryProductsUseCase = loadCategoryProductsUseCase;
         this.loadCoverPageProductUseCase = loadCoverPageProductUseCase;
+        this.getLastedNewProductsUseCase = getLastedNewProductsUseCase;
     }
 
 
@@ -36,11 +40,20 @@ public class ProductViewModel extends ViewModel {
                             ProductState state, long province){
 
         products.setValue(new Response<List<Product>>(Status.LOADING, null, null));
-        loadCategoryProductsUseCase.setParams(text, start, end, category,
-                order, orderType, image,
-                minPrice, maxPrice, state,
-                province);
-        loadCategoryProductsUseCase.execute(new LoadProductObserver());
+
+        if(category.getId() != SubCategory.CATEGORY_LASTED){
+            loadCategoryProductsUseCase.setParams(text, start, end, category,
+                    order, orderType, image,
+                    minPrice, maxPrice, state,
+                    province);
+            loadCategoryProductsUseCase.execute(new LoadProductObserver());
+        } else{
+            getLastedNewProductsUseCase.setParams(text, start, end, order,
+                    orderType, image, minPrice,
+                    maxPrice, state, province);
+            getLastedNewProductsUseCase.execute(new LoadProductObserver());
+        }
+
     }
 
     public void loadCoverPageProducts(){

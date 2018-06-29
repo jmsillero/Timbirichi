@@ -79,6 +79,26 @@ public class ProductsDataStore {
         });
     }
 
+    public Observable<List<Product>> loadLastedNewProducts(final String text, final int start, final int end,
+                                                           final String order, final String orderType,
+                                                           final boolean image, final double minPrice, final double maxPrice,
+                                                           final ProductState state, final long province){
+        return Observable.create(new ObservableOnSubscribe<List<Product>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<Product>> e) throws Exception {
+                e.onNext(localDataBase.loadLastedProducts(text, start, end, order,
+                        orderType, image, minPrice,
+                        maxPrice, state, province));
+
+                e.onComplete();
+            }
+        });
+
+    }
+
+
+
+
     public Observable<List<Product>> loadProductsFilteredFromCoverPage(final String text, final int start, final int end,
                                                                              final String order, final String orderType,
                                                                              final boolean image, final double minPrice, final double maxPrice){

@@ -4,6 +4,7 @@ package com.timbirichi.eltimbirichi.presentation.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,9 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
     Context context;
     List<SubCategory> categories;
 
+    @NonNull
+    SelectedCategoryCallback selectedCategoryCallback;
+
     public SelectedCategoryAdapter(Context context, List<SubCategory> categories) {
         this.context = context;
         this.categories = categories;
@@ -39,13 +43,25 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
                  .inflate(R.layout.item_selected_category, parent, false);
 
         SelectedProductViewHolder holder = new SelectedProductViewHolder(v);
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
-        SubCategory category = categories.get(position);
+        final SubCategory category = categories.get(position);
         holder.setValues(category.getImage(), category.getName());
+
+        holder.cvMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedCategoryCallback.onCategoryClick(category);
+            }
+        });
+    }
+
+    public void setSelectedCategoryCallback(@NonNull SelectedCategoryCallback selectedCategoryCallback) {
+        this.selectedCategoryCallback = selectedCategoryCallback;
     }
 
     @Override
@@ -59,6 +75,9 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
 
         @BindView(R.id.tv_category)
         TextView tvDescription;
+
+        @BindView(R.id.cv_main)
+        public CardView cvMain;
 
 
         public SelectedProductViewHolder(View itemView) {
@@ -83,9 +102,9 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
 
             tvDescription.setText(description);
         }
+    }
 
-
-
-
+    public interface SelectedCategoryCallback{
+        void onCategoryClick(SubCategory cat);
     }
 }

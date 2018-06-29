@@ -10,8 +10,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.manager.DefaultConnectivityMonitorFactory;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.glide.slider.library.Indicators.PagerIndicator;
 import com.glide.slider.library.SliderLayout;
 import com.timbirichi.eltimbirichi.R;
@@ -73,6 +75,15 @@ public class CoverPageFragment extends BaseFragment {
     @BindView(R.id.newsPanelView)
     NewsPanelView newsPanelView;
 
+    @BindView(R.id.shimmer_view_container)
+    ShimmerFrameLayout shimmerFrameLayout;
+
+    @BindView(R.id.shimmer_selected_product)
+    ShimmerFrameLayout shimmerSelectedProduct;
+
+    @BindView(R.id.container_banner)
+    LinearLayout containerBanner;
+
     @NonNull
     CoverPageCallback coverPageCallback;
 
@@ -119,6 +130,9 @@ public class CoverPageFragment extends BaseFragment {
         mDemoSlider.setDuration(4000);
         mDemoSlider.requestFocus();
 
+        shimmerFrameLayout.startShimmer();
+        shimmerSelectedProduct.startShimmer();
+
         setupBannerProductViewModel();
         setupProductViewModel();
         setupCategoryViewModel();
@@ -129,7 +143,7 @@ public class CoverPageFragment extends BaseFragment {
 
         setupShorcutPanelView();
 
-        mainScroll.setScrollX(0);
+        mainScroll.setScrollY(0);
 
         return v;
     }
@@ -144,8 +158,8 @@ public class CoverPageFragment extends BaseFragment {
                         coverPageCallback.onOpenCategories();
                         break;
 
-                    case CONTACT:
-                        // todo: abrir contactos
+                    case THE_LAST:
+                        coverPageCallback.openLastNewProductFragment();
                         break;
 
                     case PUBLISH:
@@ -192,13 +206,21 @@ public class CoverPageFragment extends BaseFragment {
             public void onChanged(@Nullable Response<List<Banner>> listResponse) {
                 switch (listResponse.status){
                     case LOADING:
+
                         break;
 
                     case SUCCESS:
+                        containerBanner.setVisibility(View.VISIBLE);
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+
                         fillSlider(listResponse.data);
                         break;
 
                     case ERROR:
+                        containerBanner.setVisibility(View.VISIBLE);
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
                         showErrorDialog(getString(R.string.banner_error));
                         break;
                 }
@@ -213,17 +235,22 @@ public class CoverPageFragment extends BaseFragment {
             public void onChanged(@Nullable Response<List<Product>> listResponse) {
                 switch (listResponse.status){
                     case LOADING:
-                        //todo: Mostrar un cargando
+
                         break;
 
                     case SUCCESS:
+
                         if(listResponse.data != null){
+                            shimmerSelectedProduct.stopShimmer();
+                            shimmerSelectedProduct.setVisibility(View.GONE);
                             fillProducts(listResponse.data);
+
                         }
                         break;
 
 
                     case ERROR:
+
                         showErrorDialog(getString(R.string.loading_product_error));
                         break;
                 }
@@ -232,6 +259,7 @@ public class CoverPageFragment extends BaseFragment {
     }
 
     private void fillSlider(List<Banner> banners){
+        mDemoSlider.removeAllSliders();
         for(Banner banner : banners){
             ImageSliderView imageSliderView = new ImageSliderView(getActivity());
             imageSliderView.setImageByteArray(banner.getImage());
@@ -240,16 +268,39 @@ public class CoverPageFragment extends BaseFragment {
     }
 
     private void fillProducts(List<Product> products){
-        newsPanelView.addProducts(products.remove(0), products.remove(0));
+        if(products.size() >= 2){
+            newsPanelView.addProducts(products.get(0), products.get(1));
+            newsPanelView.setPanelNewsCallback(new NewsPanelView.PanelNewsCallback() {
+                @Override
+                public void onNewsClick(Product product) {
+                    coverPageCallback.openDetailActivity(product);
+                }
+            });
 
-        selectedProductAdapter = new SelectedProductAdapter(getActivity(), products);
-        selectedProductsView.setNestedScrollingEnabled(false);
-        selectedProductsView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        selectedProductsView.setAdapter(selectedProductAdapter);
+            List<Product> newList = products.subList(2, products.size());
+
+            selectedProductAdapter = new SelectedProductAdapter(getActivity(), newList);
+            selectedProductAdapter.setSelectProductAdapterCallback(new SelectedProductAdapter.SelectProductAdapterCallback() {
+                @Override
+                public void onProductClick(Product product) {
+                    coverPageCallback.openDetailActivity(product);
+                }
+            });
+
+            selectedProductsView.setNestedScrollingEnabled(false);
+            selectedProductsView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            selectedProductsView.setAdapter(selectedProductAdapter);
+        }
     }
 
     private void fillCategories(List<SubCategory> categories){
         selectedCategoryAdapter = new SelectedCategoryAdapter(getActivity(), categories);
+        selectedCategoryAdapter.setSelectedCategoryCallback(new SelectedCategoryAdapter.SelectedCategoryCallback() {
+            @Override
+            public void onCategoryClick(SubCategory cat) {
+                coverPageCallback.openCategorySelected(cat);
+            }
+        });
         selecctedCategories.setNestedScrollingEnabled(false);
         selecctedCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
         selecctedCategories.setAdapter(selectedCategoryAdapter);
@@ -268,5 +319,8 @@ public class CoverPageFragment extends BaseFragment {
     public interface  CoverPageCallback{
         void onOpenCategories();
         void openUpdateActivity();
+        void openDetailActivity(Product prod);
+        void openCategorySelected(SubCategory cat);
+        void openLastNewProductFragment();
     }
 }

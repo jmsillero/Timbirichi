@@ -13,4 +13,9 @@
 
     <dimen name="default_divider_height">.5dp</dimen>
     <dimen name="default_divider_padding">1dp</dimen>
+
+    <dimen name="activityPadding">100dp</dimen>
+    <dimen name="placeholderImage">100dp</dimen>
+    <dimen name="placeholderTextHeight">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
 </resources>

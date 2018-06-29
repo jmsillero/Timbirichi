@@ -57,6 +57,7 @@ public class DetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.product_detail);
 
+
         product = Utils.productSelected;
 
         fillGuiWithProduct();

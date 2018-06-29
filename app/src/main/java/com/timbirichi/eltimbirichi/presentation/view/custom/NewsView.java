@@ -5,13 +5,16 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.glide.slider.library.svg.GlideApp;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Product;
@@ -45,6 +48,15 @@ public class NewsView extends ConstraintLayout {
     @BindView(R.id.cv_main)
     CardView cvMain;
 
+    @BindView(R.id.shimmer)
+    ShimmerFrameLayout shimmerFrameLayout;
+
+    @BindView(R.id.main_layout)
+    ConstraintLayout mainLayout;
+
+
+    @NonNull
+    NewsCallback newsCallback;
 
 
     public NewsView(Context context) {
@@ -102,7 +114,13 @@ public class NewsView extends ConstraintLayout {
 
     }
 
-    public void setProduct(Product prod){
+    public void setNewsCallback(@NonNull NewsCallback newsCallback) {
+        this.newsCallback = newsCallback;
+    }
+
+    public void setProduct(final Product prod){
+        shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(GONE);
         tvMainText.setText(prod.getTitle());
 
         if(prod.getImages() != null && prod.getImages().get(0) != null){
@@ -116,9 +134,19 @@ public class NewsView extends ConstraintLayout {
             ivMainImage.setImageDrawable(getContext().getResources().getDrawable(R.mipmap.ic_launcher_round));
         }
 
+        cvMain.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newsCallback.onNewsClick(prod);
+            }
+        });
+        mainLayout.setVisibility(VISIBLE);
     }
 
     private void setupUi(){
+
+        shimmerFrameLayout.startShimmer();
+
         if(mainImage != null){
             GlideApp.with(getContext())
                     .load(mainImage)
@@ -184,7 +212,7 @@ public class NewsView extends ConstraintLayout {
     }
 
     public interface NewsCallback{
-        void onNewsClick();
+        void onNewsClick(Product product);
     }
 
 

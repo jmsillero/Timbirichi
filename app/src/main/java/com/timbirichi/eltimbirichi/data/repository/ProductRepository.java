@@ -52,6 +52,15 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
+    public Observable<List<Product>> loadLastedProducts(String text, int start, int end, String order, String orderType, boolean image, double minPrice, double maxPrice, ProductState state, long province) {
+
+        return productsDataStore.loadLastedNewProducts(text, start, end,
+                order, orderType, image,
+                minPrice, maxPrice, state,
+                province);
+    }
+
+    @Override
     public Observable<List<Product>> loadProductsFilteredFromCoverPage(String text, int start, int end,
                                                                          String order, String orderType,
                                                                          boolean image, double minPrice,

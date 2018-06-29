@@ -16,6 +16,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Category;
@@ -54,7 +55,9 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    List<Category> cats;
+    SubCategory catSelected;
+
+    ProductFragment productFragment;
 
     public static final int CODE_DATABASE_UPDATE = 2003;
 
@@ -67,6 +70,9 @@ public class MainActivity extends BaseActivity
         setResult(RESULT_OK);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        catSelected = new SubCategory();
+        catSelected.setId(SubCategory.CATEGORY_LASTED);
 
         initButterNife();
         setSupportActionBar(toolbar);
@@ -123,6 +129,26 @@ public class MainActivity extends BaseActivity
             public void openUpdateActivity() {
                 openUpdateActivity();
             }
+
+            @Override
+            public void openDetailActivity(Product prod) {
+                 MainActivity.this.openDetailActivity(prod);
+            }
+
+            @Override
+            public void openCategorySelected(SubCategory cat) {
+                 openProductsFragment(cat, null);
+                 catSelected = cat;
+            }
+
+            @Override
+            public void openLastNewProductFragment() {
+                SubCategory category = new SubCategory();
+                category.setId(SubCategory.CATEGORY_LASTED);
+                openProductsFragment(category, null);
+                catSelected = category;
+
+            }
         });
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, coverPageFragment, CoverPageFragment.TAG);
@@ -134,15 +160,17 @@ public class MainActivity extends BaseActivity
         categoryFragment.setCategoryFragmentCallback(new CategoryFragment.CategoryFragmentCallback() {
             @Override
             public void onCategorySelected(SubCategory category) {
-                openProductsFragment(category);
+                openProductsFragment(category, null);
+                MainActivity.this.catSelected = catSelected;
             }
         });
 
         openFragment(categoryFragment, R.id.fragment_container, true);
     }
 
-    private void openProductsFragment(SubCategory category){
-        ProductFragment productFragment = ProductFragment.newInstance(category);
+
+    private void openProductsFragment(SubCategory category, String findText){
+        productFragment = ProductFragment.newInstance(category, findText);
         productFragment.setProductFragmentCallback(new ProductFragment.ProductFragmentCallback() {
             @Override
             public void onProductClick(Product prod) {
@@ -150,7 +178,13 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        openFragment(productFragment, R.id.fragment_container, true);
+        if(productFragment.isVisible()){
+            openFragment(productFragment, R.id.fragment_container, false);
+        }else{
+            openFragment(productFragment, R.id.fragment_container, true);
+        }
+
+
     }
 
     @Override
@@ -177,6 +211,26 @@ public class MainActivity extends BaseActivity
 
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                openProductsFragment(catSelected, query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                if(newText.length() > 3){
+//                    openProductsFragment(catSelected, newText);
+//                } else if(newText == null || newText.isEmpty()){
+//                    openProductsFragment(catSelected, null);
+//                }
+
+                return false;
+            }
+        });
+
 
 //        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 //        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
@@ -227,6 +281,11 @@ public class MainActivity extends BaseActivity
         // Handle products_navigation view item clicks here.
         int id = item.getItemId();
         switch (id){
+
+            case R.id.nav_home:
+                openCoverPageFragment();
+                break;
+
             case R.id.nav_category:
                 if(categoryViewModel.categories.getValue().status == Status.SUCCESS){
                     openCategoryFragment(categoryViewModel.categories.getValue().data);

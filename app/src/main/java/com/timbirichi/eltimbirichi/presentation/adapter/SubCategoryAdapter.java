@@ -73,7 +73,7 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
 
 
     ImageView ivCat = convertView.findViewById(R.id.iv_cat);
-    ivCat.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_home));
+    ivCat.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_categories_prod));
 //
 //        GlideApp.with(context)
 //                .load(context.getResources().getDrawable(R.drawable.ic_home))

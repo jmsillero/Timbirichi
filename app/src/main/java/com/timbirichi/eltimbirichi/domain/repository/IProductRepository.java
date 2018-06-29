@@ -44,6 +44,12 @@ public interface IProductRepository {
                                                      boolean image, double minPrice, double maxPrice,
                                                      ProductState state, long province);
 
+
+    Observable<List<Product>> loadLastedProducts(String text, int start, int end,
+                                                 String order, String orderType,
+                                                 boolean image, double minPrice, double maxPrice,
+                                                 ProductState state, long province);
+
     /**
      * Carga los productos filtrados desde la portada y los favoritos
      * @param text

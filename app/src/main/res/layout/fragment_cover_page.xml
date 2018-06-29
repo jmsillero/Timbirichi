@@ -13,6 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            app:shimmer_duration="800">
+
+            <View
+                android:id="@+id/gallery_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/background" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
 
         <LinearLayout
@@ -20,8 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:orientation="vertical"
-            android:layout_marginBottom="5dp">
-
+            android:layout_marginBottom="5dp"
+            android:visibility="gone">
             <com.glide.slider.library.SliderLayout
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
@@ -59,6 +74,63 @@
             android:id="@+id/newsPanelView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_selected_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            app:shimmer_duration="1000">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:columnCount="2">
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+                <include layout="@layout/item_product_selected_progress"
+                    android:layout_columnWeight=".5"
+                    android:layout_height="100dp"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"/>
+            </GridLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <com.timbirichi.eltimbirichi.presentation.view.custom.SelectedProductsView
             android:id="@+id/selectedProductsView"

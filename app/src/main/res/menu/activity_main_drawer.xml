@@ -13,22 +13,22 @@
 
         <item
             android:id="@+id/nav_favorites"
-            android:icon="@drawable/ic_favorites_full"
+            android:icon="@drawable/ic_saved"
             android:title="Favoritos" />
 
         <item
             android:id="@+id/nav_category"
-            android:icon="@drawable/ic_categories"
+            android:icon="@drawable/ic_categories_prod"
             android:title="Categorias" />
 
         <item
             android:id="@+id/nav_update"
-            android:icon="@drawable/ic_update"
+            android:icon="@drawable/ic_update_database"
             android:title="Actualizar" />
 
         <item
             android:id="@+id/nav_publish"
-            android:icon="@drawable/ic_send"
+            android:icon="@drawable/ic_publish"
             android:title="Publicar" />
 
         <item

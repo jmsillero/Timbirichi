@@ -33,7 +33,8 @@
             android:name=".presentation.view.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.SEARCH" /> -->

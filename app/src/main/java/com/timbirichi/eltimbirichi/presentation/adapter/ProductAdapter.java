@@ -26,54 +26,77 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProductViewHolder>{
 
     Context context;
     List<Product> products;
+    boolean loadMore;
+
+    public static final int PROGRESS_VIEW_TYPE = 2001;
+    public static final int PRODUCT_VIEW_TYPE = 2002;
 
     @NonNull
     ProductCallback productCallback;
     int lastPosition = 0;
 
-    public ProductAdapter(Context context, List<Product> products) {
+    public ProductAdapter(Context context, List<Product> products, boolean loadMore) {
         this.context = context;
         this.products = products;
+        this.loadMore = loadMore;
     }
 
-    public void addProducts(List<Product> products){
+    public void addProducts(List<Product> products,  boolean loadMore){
         this.products.addAll(products);
         notifyItemChanged(this.products.size() - products.size());
+        this.loadMore = loadMore;
     }
+
+    public void removeAllProducts(){
+        this.products.clear();
+        notifyDataSetChanged();
+    }
+
+
 
     @NonNull
     @Override
-    public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View  v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_product, parent, false);
+    public BaseProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View  v = null;
+        BaseProductViewHolder holder = null;
+        if (viewType == PRODUCT_VIEW_TYPE){
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_product, parent, false);
+            holder = new ProductHolder(v);
+        } else {
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_progress, parent, false);
+            holder = new BaseProductViewHolder(v);
+        }
 
-        return new ProductHolder(v);
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
-        final Product prod = products.get(position);
+    public void onBindViewHolder(@NonNull BaseProductViewHolder holder, int position) {
+        if(holder instanceof ProductHolder){
+            final Product prod = products.get(position);
+          //  setAnimation(holder.itemView, position);
 
-        setAnimation(holder.itemView, position);
+            ((ProductHolder)holder).setValues(prod.getImages() != null ? prod.getImages().get(0).getImage() : null,
+                    prod.getTitle(),
+                    prod.getPrice(),
+                    prod.getViews(),
+                    prod.isNewProduct() ? ProductState.NEW : ProductState.NO_NEW,
+                    prod.getProvince() != null ? prod.getProvince().getName() : "",
+                    prod.isFavorite());
 
-        holder.setValues(prod.getImages() != null ? prod.getImages().get(0).getImage() : null,
-                prod.getTitle(),
-                prod.getPrice(),
-                prod.getViews(),
-                prod.isNewProduct() ? ProductState.NEW : ProductState.NO_NEW,
-                "CAMBIAR",
-                prod.isFavorite());
-
-        holder.cvMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                productCallback.onItemClick(prod);
-            }
-        });
+            ((ProductHolder)holder).cvMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    productCallback.onItemClick(prod);
+                }
+            });
+        }
     }
 
 
@@ -84,15 +107,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if(products != null && position < products.size()){
+            return PRODUCT_VIEW_TYPE;
+        }
+        return PROGRESS_VIEW_TYPE;
+    }
+
+    @Override
     public int getItemCount() {
-        return products.size();
+        if (products != null){
+            return loadMore ? products.size() + 1   : products.size();
+        }
+        return 0;
     }
 
     public void setProductCallback(ProductCallback productCallback) {
         this.productCallback = productCallback;
     }
 
-    public final class ProductHolder extends RecyclerView.ViewHolder{
+
+    public class BaseProductViewHolder extends RecyclerView.ViewHolder{
+        public BaseProductViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+
+    public final class ProductHolder extends BaseProductViewHolder{
         @BindView(R.id.iv_product)
         ImageView ivProduct;
 
@@ -147,6 +189,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         }
     }
+
 
     public interface ProductCallback{
         void onItemClick(Product prod);
