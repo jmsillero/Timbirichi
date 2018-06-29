@@ -6,6 +6,7 @@ import com.timbirichi.eltimbirichi.dagger.module.FragmentModule;
 import com.timbirichi.eltimbirichi.dagger.scope.FragmentScope;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CategoryFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CoverPageFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.FavoriteFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.ProductFragment;
 
 import dagger.Component;
@@ -23,5 +24,6 @@ public interface FragmentComponent {
     void inject(CoverPageFragment fragment);
     void inject(CategoryFragment fragment);
     void inject(ProductFragment fragment);
+    void inject(FavoriteFragment fragment);
 
 }
