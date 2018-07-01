@@ -27,6 +27,6 @@ public class ClearDatabaseUseCase extends UseCase<Boolean> {
 
     @Override
     protected Observable<Boolean> createObservableCaseUse() {
-        return productRepository.cleaDatabase(DB_PREFERENCES);
+        return productRepository.cleaDatabase();
     }
 }

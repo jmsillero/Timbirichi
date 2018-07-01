@@ -85,6 +85,15 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
+    public Observable<List<Product>> getFavorites(String text, int start, int end, String order,
+                                                  String orderType, boolean image, double minPrice,
+                                                  double maxPrice, ProductState state, long province) {
+        return dbPreferencesDataStore.getProducts(text, start, end, order,
+                orderType, image, minPrice,
+                maxPrice, state, province);
+    }
+
+    @Override
     public Observable<Boolean> findProductById(long id) {
         return dbPreferencesDataStore.findProductById(id);
     }
@@ -110,7 +119,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Observable<Boolean> cleaDatabase(int dbType) {
+    public Observable<Boolean> cleaDatabase() {
         return dbPreferencesDataStore.clearDatabase();
     }
 }

@@ -12,10 +12,15 @@ import com.timbirichi.eltimbirichi.domain.use_case.database.CopyDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetMetaInformationUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.SaveDbPathUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.ClearFavoritesUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.FindProductByIdUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.GetFavoritesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetLastedNewProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadRandomSubCategoriesUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.RemoveProductFromFavoriteUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.SaveToFavoritesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.province.GetProvincesUseCase;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewModelFactory;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
@@ -104,10 +109,20 @@ public class ActivityModule {
     @Provides
     ProductViewModelFactory providePProductViewModelFactory(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
                                                             LoadCoverPageProductUseCase loadCoverPageProductUseCase,
-                                                            GetLastedNewProductsUseCase getLastedNewProductsUseCase){
+                                                            GetLastedNewProductsUseCase getLastedNewProductsUseCase,
+                                                            GetFavoritesUseCase getFavoritesUseCase,
+                                                            SaveToFavoritesUseCase saveToFavoritesUseCase,
+                                                            RemoveProductFromFavoriteUseCase removeProductFromFavoriteUseCase,
+                                                            ClearFavoritesUseCase clearFavoritesUseCase,
+                                                            FindProductByIdUseCase findProductByIdUseCase){
         return new ProductViewModelFactory(loadCategoryProductsUseCase,
                 loadCoverPageProductUseCase,
-                getLastedNewProductsUseCase);
+                getLastedNewProductsUseCase,
+                getFavoritesUseCase,
+                saveToFavoritesUseCase,
+                removeProductFromFavoriteUseCase,
+                clearFavoritesUseCase,
+                findProductByIdUseCase);
     }
 
 

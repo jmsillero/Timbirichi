@@ -167,7 +167,7 @@ public class CoverPageFragment extends BaseFragment {
                         break;
 
                     case FAVORITES:
-                        // todo: abrir favoritos
+                        coverPageCallback.openFavorites();
                         break;
                 }
             }
@@ -322,5 +322,6 @@ public class CoverPageFragment extends BaseFragment {
         void openDetailActivity(Product prod);
         void openCategorySelected(SubCategory cat);
         void openLastNewProductFragment();
+        void openFavorites();
     }
 }

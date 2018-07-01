@@ -53,15 +53,15 @@
     <include layout="@layout/content_detail" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/fb_favorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:clickable="true"
         android:tint="@android:color/white"
+        app:backgroundTint="@color/colorAccent"
         app:elevation="2dp"
         app:fabSize="normal"
-        android:layout_marginRight="10dp"
-        app:backgroundTint="@color/colorAccent"
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="right|bottom"
         app:srcCompat="@drawable/ic_favorites_empty" />

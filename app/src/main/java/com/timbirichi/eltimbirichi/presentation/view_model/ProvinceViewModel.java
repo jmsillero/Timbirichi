@@ -17,6 +17,7 @@ public class ProvinceViewModel extends ViewModel {
 
     public final MutableLiveData<Response<List<Province>>> provinces = new MutableLiveData<>();
 
+
     public ProvinceViewModel(GetProvincesUseCase getProvincesUseCase) {
         this.getProvincesUseCase = getProvincesUseCase;
     }

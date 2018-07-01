@@ -47,6 +47,7 @@
     <string name="filter">Filtro</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="product_detail">Detalles</string>
+    <string name="clear">Limpiar</string>
 
     <string name="update_database">Actualizar Base de datos</string>
     <string name="new_database">Adicionar base de datos</string>
@@ -55,6 +56,19 @@
     <string name="loading_category_error">Error cargando categorias</string>
     <string name="loading_product_error">Error cargando anuncios</string>
     <string name="banner_error">Error cargando banner</string>
+    <string name="province_error">Error cargando provincias</string>
+    <string name="check_reference_error">Error chequeando base de datos de favoritos</string>
+    <string name="copy_error">Error cargando base de datos de favoritos</string>
+    <string name="select">Seleccione</string>
+
+    <string name="extra_filter_max_range_error">El rango máximo no puede ser menor que el mínimo.</string>
+    <string name="extra_filter_equals_range_error">Los valores de los rangos no pueden ser los mismos.</string>
+
+    <string name="save_favorites_error">Error guardando el anuncio en favoritos.</string>
+    <string name="remove_favorites_error">Error borrando el anuncio de favoritos.</string>
+    <string name="clear_favorites_error">Error eliminando los anuncios de favoritos.</string>
+    <string name="find_favorites_error">Error buscando el auncio en favoritos.</string>
+
 
 
     <string name="min">Mínimo</string>
@@ -67,6 +81,8 @@
     <string name="external_sd">Micro SD</string>
     <string name="internal_sd">Almacenamiento interno</string>
     <string name="go_back">Atrás</string>
+
+    <string name="no_products">Su búsqueda no arrojó resultado, intente buscar nuevamente</string>
 
 
     <string name="large_text">

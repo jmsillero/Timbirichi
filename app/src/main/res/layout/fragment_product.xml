@@ -93,6 +93,25 @@
 
             </com.facebook.shimmer.ShimmerFrameLayout>
 
+
+            <TextView
+                android:id="@+id/tv_no_products"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/no_products"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_sad"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:tint="@color/colorAccent"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_sad"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_products"
                 android:layout_width="match_parent"

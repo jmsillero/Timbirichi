@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,7 @@ import com.timbirichi.eltimbirichi.presentation.model.Status;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CategoryFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CoverPageFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.FavoriteFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.ProductFragment;
 import com.timbirichi.eltimbirichi.presentation.view_model.CategoryViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     CoverPageFragment coverPageFragment;
+    FavoriteFragment favoriteFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -58,6 +61,8 @@ public class MainActivity extends BaseActivity
     SubCategory catSelected;
 
     ProductFragment productFragment;
+
+    String findText = null;
 
     public static final int CODE_DATABASE_UPDATE = 2003;
 
@@ -147,8 +152,13 @@ public class MainActivity extends BaseActivity
                 category.setId(SubCategory.CATEGORY_LASTED);
                 openProductsFragment(category, null);
                 catSelected = category;
-
             }
+
+            @Override
+            public void openFavorites() {
+                openFavoriteFragment(null);
+            }
+
         });
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, coverPageFragment, CoverPageFragment.TAG);
@@ -187,6 +197,16 @@ public class MainActivity extends BaseActivity
 
     }
 
+    private void openFavoriteFragment(String findText){
+
+        toolbar.getMenu().add(getString(R.string.clear))
+                .setIcon(R.drawable.ic_clear)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        favoriteFragment = FavoriteFragment.newInstance(findText);
+        openFragment(favoriteFragment, R.id.fragment_container, true);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer =   findViewById(R.id.drawer_layout);
@@ -216,17 +236,28 @@ public class MainActivity extends BaseActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 openProductsFragment(catSelected, query);
+                findText = query;
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                if(newText.length() > 3){
-//                    openProductsFragment(catSelected, newText);
-//                } else if(newText == null || newText.isEmpty()){
-//                    openProductsFragment(catSelected, null);
-//                }
+                if(findText != null && !findText.isEmpty() && newText.isEmpty()){
+                    openProductsFragment(catSelected, null);
+                    findText = null;
+                }
 
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                if(findText == null || findText.isEmpty()){
+                    openProductsFragment(catSelected, null);
+                    findText = null;
+                }
                 return false;
             }
         });

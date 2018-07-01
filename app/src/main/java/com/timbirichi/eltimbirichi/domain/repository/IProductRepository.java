@@ -20,8 +20,6 @@ public interface IProductRepository {
 
     /**
      * Retorna los productos de la portada
-     * @param start limite de inicio
-     * @param end limite del fin
      * @return
      */
     Observable<List<Product>> loadCoverPageProduct();
@@ -98,6 +96,12 @@ public interface IProductRepository {
 
     Observable<Boolean> removeFromFavorite(long productId);
 
+    Observable<List<Product>> getFavorites(String text, int start, int end,
+                                                    String order, String orderType,
+                                                    boolean image, double minPrice,
+                                                    double maxPrice, ProductState state,
+                                                    long province);
+
 
     /**
      * Busca una base de datos (preferencias)
@@ -113,7 +117,7 @@ public interface IProductRepository {
     Observable<Boolean> copyDatabase();
 
 
-    Observable<Boolean> cleaDatabase(int dbType);
+    Observable<Boolean> cleaDatabase();
 
 
 

@@ -11,7 +11,7 @@ import javax.inject.Named;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 
-public class GetProvincesUseCase extends UseCase<List<Province>> {
+public class    GetProvincesUseCase extends UseCase<List<Province>> {
 
     IProvinceRepository provinceRepository;
 

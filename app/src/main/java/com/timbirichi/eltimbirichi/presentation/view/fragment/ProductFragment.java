@@ -105,10 +105,7 @@ public class ProductFragment extends BaseProductFragment {
         mDemoSlider.setCustomIndicator(pageIndicator);
         mDemoSlider.setDuration(4000);
 
-        shimmerFrameLayout.startShimmer();
         shimmerBanner.startShimmer();
-
-        setupProductAdapter();
         setupBannerProductViewModel();
 
         if(category.getId() == SubCategory.CATEGORY_LASTED){
@@ -154,11 +151,6 @@ public class ProductFragment extends BaseProductFragment {
     }
 
 
-    @OnClick(R.id.btn_filter)
-    public void onBtnFilterClick(){
-        filterDialog = FilterDialog.newInstance(true, 0, 0, false);
-        filterDialog.show(getActivity().getFragmentManager(), TAG);
-    }
 
 
 

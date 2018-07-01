@@ -122,8 +122,11 @@ public class BottonBarBtnView extends ConstraintLayout {
 
     public void setBtnEnabled(boolean enabled){
         mainlayout.setEnabled(enabled);
-        active = false;
-        setAlpha(.5f);
+
+
+        active = enabled && active;
+
+        setAlpha(enabled ? 1f : .5f);
         setupColors();
     }
 

@@ -2,7 +2,9 @@ package com.timbirichi.eltimbirichi.data.datastore.preferences.sqlite;
 
 
 import com.timbirichi.eltimbirichi.data.model.Product;
+import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.data.service.local.PreferencesDataBase;
+import com.timbirichi.eltimbirichi.presentation.model.constant.ProductState;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class DbPreferencesDataStore {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-              //  e.onNext(preferencesDataBase.saveProductToFavorite(productBo));
+                e.onNext(preferencesDataBase.saveProductToFavorite(productBo));
                 e.onComplete();
             }
         });
@@ -46,13 +48,14 @@ public class DbPreferencesDataStore {
 
 
     public Observable<List<Product>> getProducts(final String text, final int start, final int end,
-                                                   final String order, final String orderType,
-                                                   final boolean image, final double minPrice, final double maxPrice){
+                                                 final String order, final String orderType,
+                                                 final boolean image, final double minPrice, final double maxPrice,
+                                                 final ProductState state, final long province){
         return Observable.create(new ObservableOnSubscribe<List<Product>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Product>> e) throws Exception {
-//                e.onNext(preferencesDataBase.loadProducts(text, start, end,
-//                order, orderType,image, minPrice, maxPrice));
+                e.onNext(preferencesDataBase.loadProducts(text, start, end,
+                order, orderType,image, minPrice, maxPrice, state, province));
 
                 e.onComplete();
             }
@@ -63,7 +66,7 @@ public class DbPreferencesDataStore {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-              //  e.onNext(preferencesDataBase.checkDataBase());
+                e.onNext(preferencesDataBase.checkDataBase());
                 e.onComplete();
             }
         });
@@ -73,7 +76,7 @@ public class DbPreferencesDataStore {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-             //   e.onNext(preferencesDataBase.copyDataBase());
+                e.onNext(preferencesDataBase.copyDataBase());
                 e.onComplete();
             }
         });
@@ -83,7 +86,7 @@ public class DbPreferencesDataStore {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-           //   e.onNext(preferencesDataBase.findProductById(id));
+              e.onNext(preferencesDataBase.findProductById(id));
               e.onComplete();
             }
         });
@@ -93,7 +96,7 @@ public class DbPreferencesDataStore {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-          //      e.onNext(preferencesDataBase.removeFromFavorites(id));
+                e.onNext(preferencesDataBase.removeFromFavorites(id));
                 e.onComplete();
             }
         });
@@ -103,7 +106,7 @@ public class DbPreferencesDataStore {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
-             //   e.onNext(preferencesDataBase.clearDatabase());
+                e.onNext(preferencesDataBase.clearDatabase());
                 e.onComplete();
             }
         });

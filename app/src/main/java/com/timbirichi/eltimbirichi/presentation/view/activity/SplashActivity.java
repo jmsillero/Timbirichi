@@ -43,11 +43,13 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         initButterNife();
 
         setupDatabaseViewModel();
+        setupCheckAndCopyDatabase();
 
         handler = new Handler();
         task = new Runnable() {
             @Override
             public void run() {
+                databaseViewModel.checkPreferences();
                 databaseViewModel.getDbPath();
             }
         };
@@ -55,10 +57,33 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         if( Build.VERSION.SDK_INT >= 23) {
             checkPerissions();
         } else {
-            handler.postDelayed(task, 1000);
+            handler.post(task);
         }
     }
 
+    private void setupCheckAndCopyDatabase(){
+        databaseViewModel.checkPreferences.observe(this, new Observer<Response<Boolean>>() {
+            @Override
+            public void onChanged(@Nullable Response<Boolean> booleanResponse) {
+                switch (booleanResponse.status){
+                    case ERROR:
+                        showErrorDialog(getString(R.string.check_reference_error));
+                        break;
+                }
+            }
+        });
+
+        databaseViewModel.copyDatabase.observe(this, new Observer<Response<Boolean>>() {
+            @Override
+            public void onChanged(@Nullable Response<Boolean> booleanResponse) {
+                switch (booleanResponse.status){
+                    case ERROR:
+                        showErrorDialog(getString(R.string.copy_error));
+                        break;
+                }
+            }
+        });
+    }
 
     private void setupDatabaseViewModel(){
         databaseViewModel = ViewModelProviders.of(this, databaseViewModelFactory).get(DatabaseViewModel.class);
@@ -154,7 +179,7 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, TELEPHONY);
         } else{
-            handler.postDelayed(task, 1000);
+            handler.post(task);
         }
     }
 
@@ -168,7 +193,7 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
                 }
             }
 
-            handler.postDelayed(task, 1000);
+            handler.post(task);
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

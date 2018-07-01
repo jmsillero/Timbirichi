@@ -32,6 +32,9 @@ public class DatabaseViewModel extends ViewModel {
     public final MutableLiveData<Response<Boolean>> databaseCheck = new MutableLiveData<>();
     public final MutableLiveData<Response<Boolean>> databaseSaved = new MutableLiveData<>();
 
+    public final MutableLiveData<Response<Boolean>> checkPreferences = new MutableLiveData<>();
+    public final MutableLiveData<Response<Boolean>> copyDatabase = new MutableLiveData<>();
+
 
     public DatabaseViewModel(CheckDatabaseUseCase checkDatabaseUseCase,
                              CheckPreferencesDatabaseUseCase checkPreferencesDatabaseUseCase,
@@ -83,6 +86,39 @@ public class DatabaseViewModel extends ViewModel {
         saveDbPathUseCase.setPath(path);
         saveDbPathUseCase.execute(new SaveDbPathObserver());
     }
+
+    public void checkPreferences(){
+        checkPreferencesDatabaseUseCase.execute(new UseCaseObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                if(!aBoolean){
+                    copyDatabasePreferences();
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                copyDatabasePreferences();
+            }
+        });
+    }
+
+
+    public void copyDatabasePreferences(){
+        copyDatabaseUseCase.execute(new UseCaseObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                super.onNext(aBoolean);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                copyDatabase.setValue(new Response<Boolean>(Status.ERROR, null, throwable));
+            }
+        });
+    }
+
+
 
 
 
