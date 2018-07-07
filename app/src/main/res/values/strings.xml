@@ -17,9 +17,12 @@
 
     <string name="accept">Aceptar</string>
 
+    <string name="product_title">Anuncio: </string>
+    <string name="details_mail_subject">Sobre su anuncio de Timbirichi</string>
+
     <string name="categories">Categoría</string>
     <string name="publish">Publicar</string>
-    <string name="favorites">Favoritos</string>
+    <string name="favorites">Anuncios guardados</string>
     <string name="contact">Contactar</string>
 
     <string name="price">Precio: </string>
@@ -57,17 +60,17 @@
     <string name="loading_product_error">Error cargando anuncios</string>
     <string name="banner_error">Error cargando banner</string>
     <string name="province_error">Error cargando provincias</string>
-    <string name="check_reference_error">Error chequeando base de datos de favoritos</string>
-    <string name="copy_error">Error cargando base de datos de favoritos</string>
+    <string name="check_reference_error">Error chequeando base de datos de anuncios guardados</string>
+    <string name="copy_error">Error cargando base de datos de anuncios guardados</string>
     <string name="select">Seleccione</string>
 
     <string name="extra_filter_max_range_error">El rango máximo no puede ser menor que el mínimo.</string>
     <string name="extra_filter_equals_range_error">Los valores de los rangos no pueden ser los mismos.</string>
 
-    <string name="save_favorites_error">Error guardando el anuncio en favoritos.</string>
-    <string name="remove_favorites_error">Error borrando el anuncio de favoritos.</string>
-    <string name="clear_favorites_error">Error eliminando los anuncios de favoritos.</string>
-    <string name="find_favorites_error">Error buscando el auncio en favoritos.</string>
+    <string name="save_favorites_error">Error guardando el anuncio.</string>
+    <string name="remove_favorites_error">Error borrando el anuncio de los anuncios guardados.</string>
+    <string name="clear_favorites_error">Error eliminando los anuncios guardados.</string>
+    <string name="find_favorites_error">Error buscando el auncio en los anuncios guardados.</string>
 
 
 

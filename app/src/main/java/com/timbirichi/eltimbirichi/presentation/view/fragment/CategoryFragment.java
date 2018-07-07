@@ -1,5 +1,6 @@
 package com.timbirichi.eltimbirichi.presentation.view.fragment;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -32,6 +33,8 @@ public class CategoryFragment extends BaseFragment {
 
     SubCategoryAdapter subCategoryAdapter;
 
+
+
     @NonNull
     CategoryFragmentCallback categoryFragmentCallback;
 
@@ -56,6 +59,8 @@ public class CategoryFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
+
+
 
         subCategoryAdapter = new SubCategoryAdapter(getActivity(), categories);
         elCategories.setAdapter(subCategoryAdapter);

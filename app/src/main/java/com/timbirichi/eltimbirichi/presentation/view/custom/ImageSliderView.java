@@ -3,6 +3,7 @@ package com.timbirichi.eltimbirichi.presentation.view.custom;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class ImageSliderView extends BaseSliderView {
     Bitmap bitmap;
     Drawable drawable;
     byte [] image;
+    String base64Img;
     public ImageSliderView(Context context) {
         super(context);
     }
@@ -35,6 +37,11 @@ public class ImageSliderView extends BaseSliderView {
 
     public BaseSliderView setImageByteArray(byte [] image){
         this.image = image;
+        return this;
+    }
+
+    public BaseSliderView setImageBase64(String base64Img){
+        this.base64Img = base64Img;
         return this;
     }
 
@@ -56,6 +63,14 @@ public class ImageSliderView extends BaseSliderView {
         if (image != null){
             GlideApp.with(getContext())
                     .load(image)
+                    .override(1000, 406)
+                    .centerInside()
+                    .into(imageView);
+        }
+
+        if(base64Img != null){
+            GlideApp.with(getContext())
+                    .load(Base64.decode(base64Img, Base64.DEFAULT))
                     .override(1000, 406)
                     .centerInside()
                     .into(imageView);

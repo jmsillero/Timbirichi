@@ -13,16 +13,18 @@
         android:id="@+id/fab_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center|top"
+        android:gravity="center|top"
         app:fabSize="normal"
         android:src="@drawable/ic_call"
-        android:tint="@color/textColor"/>
+        android:tint="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/tv_text"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Categoria"
+        android:text="Categoria asignada"
         android:textColor="@color/panel_color"/>
 </LinearLayout>

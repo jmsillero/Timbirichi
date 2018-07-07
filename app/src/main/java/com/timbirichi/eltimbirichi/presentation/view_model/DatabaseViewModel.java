@@ -93,6 +93,8 @@ public class DatabaseViewModel extends ViewModel {
             public void onNext(Boolean aBoolean) {
                 if(!aBoolean){
                     copyDatabasePreferences();
+                } else{
+                    getDbPath();
                 }
             }
 
@@ -108,7 +110,8 @@ public class DatabaseViewModel extends ViewModel {
         copyDatabaseUseCase.execute(new UseCaseObserver<Boolean>() {
             @Override
             public void onNext(Boolean aBoolean) {
-                super.onNext(aBoolean);
+               // super.onNext(aBoolean);
+                getDbPath();
             }
 
             @Override

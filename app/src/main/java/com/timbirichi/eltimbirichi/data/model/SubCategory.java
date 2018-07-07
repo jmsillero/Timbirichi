@@ -19,6 +19,8 @@ public class SubCategory implements Parcelable{
     // imagen del banner para mostrar en la portada...
     byte [] image;
 
+    String base64Img;
+
     public SubCategory(long id, String name) {
         this.id = id;
         this.name = name;
@@ -31,6 +33,7 @@ public class SubCategory implements Parcelable{
         id = parcel.readLong();
         name = parcel.readString();
         parcel.readByteArray(image);
+        base64Img = parcel.readString();
     }
 
 
@@ -44,6 +47,7 @@ public class SubCategory implements Parcelable{
         dest.writeLong(id);
         dest.writeString(name);
         dest.writeByteArray(image);
+        dest.writeString(base64Img);
     }
 
     public static final Parcelable.Creator<SubCategory> CREATOR = new Parcelable.Creator<SubCategory>(){
@@ -82,5 +86,13 @@ public class SubCategory implements Parcelable{
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getBase64Img() {
+        return base64Img;
+    }
+
+    public void setBase64Img(String base64Img) {
+        this.base64Img = base64Img;
     }
 }

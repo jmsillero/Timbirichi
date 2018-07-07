@@ -14,6 +14,7 @@ import javax.inject.Named;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
 
 import static com.timbirichi.eltimbirichi.utils.Utils.PREFERENCES_DATABASE_NAMED;
 
@@ -68,6 +69,12 @@ public class DbPreferencesDataStore {
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
                 e.onNext(preferencesDataBase.checkDataBase());
                 e.onComplete();
+            }
+        }).doOnError(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                throwable.printStackTrace();
+                throw  new Exception(throwable);
             }
         });
     }

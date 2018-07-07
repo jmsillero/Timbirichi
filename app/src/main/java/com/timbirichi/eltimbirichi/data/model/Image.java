@@ -13,11 +13,13 @@ public class Image implements Parcelable{
     long id;
     long productId;
     byte [] image;
+    String base64Img;
 
-    public Image(long id, long productId, byte[] image) {
+    public Image(long id, long productId, byte[] image, String base64Img) {
         this.id = id;
         this.productId = productId;
         this.image = image;
+        this.base64Img = base64Img;
     }
 
     public Image() {
@@ -27,6 +29,7 @@ public class Image implements Parcelable{
         id = parcel.readLong();
         productId = parcel.readLong();
         parcel.readByteArray(image);
+        base64Img = parcel.readString();
     }
 
     public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>(){
@@ -52,9 +55,17 @@ public class Image implements Parcelable{
         dest.writeLong(id);
         dest.writeLong(productId);
         dest.writeByteArray(image);
+        dest.writeString(base64Img);
     }
 
 
+    public String getBase64Img() {
+        return base64Img;
+    }
+
+    public void setBase64Img(String base64Img) {
+        this.base64Img = base64Img;
+    }
 
     public long getId() {
         return id;

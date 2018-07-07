@@ -26,7 +26,7 @@ import javax.inject.Inject;
 public class PreferencesDataBase extends SQLiteOpenHelper {
 
     public static final  String  DB_NAME = "cache.db";
-    public static String DB_PATH = "";
+    public static String DB_PATH = "/data/data/com.timbirichi.eltimbirichi/databases/";
     Context context;
     private SQLiteDatabase db;
 
@@ -203,7 +203,7 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
                         do {
                             image = new Image();
                             image.setProductId(cursor.getLong(cursor.getColumnIndex(Image.IMAGE_COL_PRODUCT_ID)));
-                            image.setImage(cursor.getBlob(cursor.getColumnIndex(Image.IMAGE_COL_IMAGE)));
+                            image.setBase64Img(cursor.getString(cursor.getColumnIndex(Image.IMAGE_COL_IMAGE)));
                             images.add(image);
                         }
                         while (cursor.moveToNext());
@@ -285,14 +285,12 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
         fields.put(Product.PRODUCT_COL_TIME, productBo.getTime());
         fields.put(Product.PRODUCT_COL_VIEWS, productBo.getViews());
         fields.put(Product.PRODUCT_COL_IS_NEW, productBo.isNewProduct());
-        fields.put(Product.PRODUCT_COL_ULTRA, productBo.isUltra());
-        fields.put(Product.PRODUCT_COL_COVER_PAGE, productBo.isMain());
         fields.put(Product.PRODUCT_COL_PHOTO_COUNT, productBo.getPhotosCount());
 
         if(productBo.getPhotosCount() > 0){
             ContentValues imagesFields = new ContentValues();
             imagesFields.put(Image.IMAGE_COL_PRODUCT_ID, productBo.getId());
-            imagesFields.put(Image.IMAGE_COL_IMAGE, productBo.getImages().get(0).getImage());
+            imagesFields.put(Image.IMAGE_COL_IMAGE, productBo.getImages().get(0).getBase64Img());
             db.insert(Image.IMAGE_TABLE, null ,imagesFields);
         }
 

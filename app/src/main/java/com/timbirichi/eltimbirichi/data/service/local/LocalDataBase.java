@@ -193,9 +193,9 @@ public class LocalDataBase extends SQLiteOpenHelper {
                     category.setName(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_NAME)));
 
                     List<Banner> banners =  getBannersByCategoryId(category.getId());
-                    if(banners != null && banners.get(0).getImage() != null){
-                        byte [] image = banners.get(0).getImage();
-                        category.setImage(image);
+                    if(banners != null && banners.get(0).getBase64Img() != null){
+                        String base64Img = banners.get(0).getBase64Img();
+                        category.setBase64Img(base64Img);
                     }
 
                     categories.add(category);
@@ -695,18 +695,12 @@ public class LocalDataBase extends SQLiteOpenHelper {
         product.setName(cursor.getString(cursor.getColumnIndex(Product.PRODUCT_COL_NAME)));
         product.setPhotosCount(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_PHOTO_COUNT)));
         product.setNewProduct(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_IS_NEW)) == 1);
+        product.setUltra(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_ULTRA)) == 1);
+        product.setMain(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_COVER_PAGE)) == 1);
         product.setProvince(getProvinceForProduct(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_PROVINCE)), db));
-
-        //product.setDate(cursor.getString(cursor.getColumnIndex(Product.COL_DATE)));
-
-       // product.setPriority(cursor.getInt(cursor.getColumnIndex(Product.COL_PRIORITY)));
-
-
-      //  product.setDateFormated(cursor.getString(cursor.getColumnIndex(Product.COL_DATE_FORMATED)));
-
-
+        product.setTime(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_TIME)));
         product.setImages(loadImageForProduct(product.getId(), db));
-
+        product.setViews(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_VIEWS)));
         return product;
     }
 
@@ -735,7 +729,8 @@ public class LocalDataBase extends SQLiteOpenHelper {
                     do {
                         image = new Image();
                         image.setProductId(cursor.getLong(cursor.getColumnIndex(Image.IMAGE_COL_PRODUCT_ID)));
-                        image.setImage(cursor.getBlob(cursor.getColumnIndex(Image.IMAGE_COL_IMAGE)));
+                      //  image.setImage(cursor.getBlob(cursor.getColumnIndex(Image.IMAGE_COL_IMAGE)));
+                        image.setBase64Img(cursor.getString(cursor.getColumnIndex(Image.IMAGE_COL_IMAGE)));
                         images.add(image);
                     }
                     while (cursor.moveToNext());
@@ -810,7 +805,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
                     do {
                         banner = new Banner();
                         banner.setId(cursor.getLong(cursor.getColumnIndex(Banner.BANNER_COL_ID)));
-                        banner.setImage(cursor.getBlob(cursor.getColumnIndex(Banner.BANNER_COL_IMAGE)));
+                        banner.setBase64Img(cursor.getString(cursor.getColumnIndex(Banner.BANNER_COL_IMAGE)));
                         banners.add(banner);
                     }
                     while (cursor.moveToNext());

@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.presentation.adapter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,13 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
     Context context;
     List<Category> categories;
 
+    TypedArray menuIcons;
+
     public SubCategoryAdapter(Context context, List<Category> categories) {
         this.context = context;
         this.categories = categories;
+
+        menuIcons = context.getResources().obtainTypedArray(R.array.dynamic_categories_menu);
     }
 
     @Override
@@ -74,17 +79,13 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
 
     ImageView ivCat = convertView.findViewById(R.id.iv_cat);
     ivCat.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_categories_prod));
-//
-//        GlideApp.with(context)
-//                .load(context.getResources().getDrawable(R.drawable.ic_home))
-//                .override(200, 200)
-//                .circleCrop()
-//                .into(ivCat);
+
+    ivCat.setImageDrawable(menuIcons.getDrawable((int) categories.get(groupPosition).getId() - 1));
 
 
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(listTitle);
-        return convertView;
+    listTitleTextView.setTypeface(null, Typeface.BOLD);
+    listTitleTextView.setText(listTitle);
+    return convertView;
     }
 
     @Override

@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         app:background_color="@color/cyan"
         app:main_text="El lanzamiento de timbirichi sera pronto"
-        app:main_image="@drawable/s2"
+
         app:rotate="false"
         app:elevation="2dp"/>
 
@@ -26,7 +26,7 @@
         android:layout_weight="1"
         android:layout_gravity="center"
         app:background_color="@color/pink"
-        app:main_image="@drawable/s3"
+
         app:elevation="2dp"
         app:main_text="Timbirichi ya tiene mas de 1 millnon de usuarios registrados"/>
 </LinearLayout>

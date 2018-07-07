@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
@@ -125,7 +126,7 @@ public class NewsView extends ConstraintLayout {
 
         if(prod.getImages() != null && prod.getImages().get(0) != null){
             GlideApp.with(getContext())
-                    .load(prod.getImages().get(0).getImage())
+                    .load(Base64.decode(prod.getImages().get(0).getBase64Img(), Base64.DEFAULT))
                     .override(200, 200)
                     .circleCrop()
                     .thumbnail(.5f)

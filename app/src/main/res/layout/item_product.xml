@@ -85,20 +85,20 @@
             android:layout_marginRight="8dp"
             android:text="Nuevo"
             android:textColor="@color/colorAccent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_views"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_province"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@android:color/transparent"
-            android:tint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_product"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_favorites_empty" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/btn_favorite"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:tint="@color/colorAccent"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/iv_product"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:srcCompat="@drawable/ic_favorites_empty" />-->
 
         <TextView
             android:id="@+id/tv_province"

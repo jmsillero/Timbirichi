@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.presentation.adapter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     List<Category> categories;
     Context context;
 
+    TypedArray menuIcons;
+
     public CategoryAdapter(List<Category> categories, Context context) {
         this.categories = categories;
         this.context = context;
@@ -27,6 +30,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View  v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_category, parent, false);
+
+        menuIcons = context.getResources().obtainTypedArray(R.array.dynamic_categories_menu);
 
         return new CategoryViewHolder(v);
     }

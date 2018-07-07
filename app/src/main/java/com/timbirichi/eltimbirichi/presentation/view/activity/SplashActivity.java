@@ -21,6 +21,7 @@ import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
+import com.timbirichi.eltimbirichi.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -50,14 +51,14 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
             @Override
             public void run() {
                 databaseViewModel.checkPreferences();
-                databaseViewModel.getDbPath();
+               // databaseViewModel.getDbPath();
             }
         };
 
         if( Build.VERSION.SDK_INT >= 23) {
             checkPerissions();
         } else {
-            handler.post(task);
+            databaseViewModel.checkPreferences();
         }
     }
 
@@ -179,7 +180,7 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, TELEPHONY);
         } else{
-            handler.post(task);
+            databaseViewModel.checkPreferences();
         }
     }
 
@@ -193,7 +194,7 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
                 }
             }
 
-            handler.post(task);
+            databaseViewModel.checkPreferences();
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

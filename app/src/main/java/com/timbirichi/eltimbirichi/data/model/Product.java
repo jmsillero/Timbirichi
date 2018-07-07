@@ -31,6 +31,8 @@ public class Product implements Parcelable{
 
     boolean favorite;
 
+    boolean showInCoverPage;
+
     // destacado
     boolean main;
 
@@ -53,6 +55,7 @@ public class Product implements Parcelable{
     public static String PRODUCT_COL_ULTRA = "ultra";
     public static String PRODUCT_COL_COVER_PAGE = "destacado";
     public static String PRODUCT_COL_PHOTO_COUNT = "photos_count";
+    public static String PRODUCT_COL_SHOW_IN_COVER_PAGE = "cover_page";
 
     public static final String ORDER_ASC = " ASC ";
     public static final String ORDER_DESC = " DESC ";
@@ -65,7 +68,8 @@ public class Product implements Parcelable{
                    float priceDown, String title, String description,
                    byte[] bannerImage, Province province, List<Image> images, String name,
                    String email, String phone, long time, int views,
-                   boolean newProduct, boolean ultra, boolean main) {
+                   boolean newProduct, boolean ultra, boolean main,
+                   boolean showInCoverPage) {
         this.category = category;
         this.subCategory = subCategory;
         this.price = price;
@@ -84,6 +88,7 @@ public class Product implements Parcelable{
         this.ultra = ultra;
         this.main = main;
         this.favorite = false;
+        this.showInCoverPage = showInCoverPage;
     }
 
     public Product() {
@@ -109,6 +114,7 @@ public class Product implements Parcelable{
        photosCount = parcel.readInt();
        favorite = parcel.readInt() == 1;
        main = parcel.readInt() == 1;
+       showInCoverPage = parcel.readInt() == 1;
     }
 
     @Override
@@ -139,6 +145,8 @@ public class Product implements Parcelable{
         dest.writeInt(photosCount);
         dest.writeInt(favorite ? 1 : 0);
         dest.writeInt(main ? 1 : 0);
+        dest.writeInt(showInCoverPage ? 1 : 0);
+
     }
 
     public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
@@ -315,5 +323,13 @@ public class Product implements Parcelable{
 
     public void setPhotosCount(int photosCount) {
         this.photosCount = photosCount;
+    }
+
+    public boolean isShowInCoverPage() {
+        return showInCoverPage;
+    }
+
+    public void setShowInCoverPage(boolean showInCoverPage) {
+        this.showInCoverPage = showInCoverPage;
     }
 }

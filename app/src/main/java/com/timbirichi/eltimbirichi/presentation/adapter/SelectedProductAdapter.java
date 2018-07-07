@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,9 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
         final Product product = products.get(position);
 
-        byte [] image = null;
+        String image = null;
         if(product.getImages() != null && product.getImages().get(0) != null){
-            image = product.getImages().get(0).getImage();
+            image = product.getImages().get(0).getBase64Img();
         }
         holder.setValues(image, product.getPrice(), product.getTitle());
 
@@ -94,11 +95,11 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
         }
 
 
-        public void setValues(byte [] image, double price, String description){
+        public void setValues(String base64Img, double price, String description){
 
-            if(image != null){
+            if(base64Img != null){
                 GlideApp.with(context)
-                        .load(image)
+                        .load( Base64.decode(base64Img, Base64.DEFAULT))
                         .centerCrop()
                         .override(300, 300)
                         .into(ivImage);

@@ -145,7 +145,7 @@ public class ProductFragment extends BaseProductFragment {
     private void fillSlider(List<Banner> banners){
         for(Banner banner : banners){
             ImageSliderView imageSliderView = new ImageSliderView(getActivity());
-            imageSliderView.setImageByteArray(banner.getImage());
+            imageSliderView.setImageBase64(banner.getBase64Img());
             mDemoSlider.addSlider(imageSliderView);
         }
     }

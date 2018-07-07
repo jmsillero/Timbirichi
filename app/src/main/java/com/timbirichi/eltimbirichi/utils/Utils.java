@@ -3,6 +3,8 @@ package com.timbirichi.eltimbirichi.utils;
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.model.Product;
 
+import io.reactivex.internal.operators.flowable.FlowableAll;
+
 public class Utils {
     public static final String LOCAL_DATABASE_NAMED = "com.timbirichi.eltimbirichi.local_database";
     public static final String PREFERENCES_DATABASE_NAMED = "com.timbirichi.eltimbirichi.pref_database";
@@ -22,5 +24,23 @@ public class Utils {
 
     public static  String removeLastDirectory(String path){
         return path.substring(0, path.lastIndexOf('/'));
+    }
+
+    //+53 53
+    //5353
+    //53
+    //+5353
+    public static boolean isMobileNumber(String number){
+        int index = 0;
+        int i;
+        for (i = number.length() - 1; i > 0 && index < 7; i--){
+            if(!Character.toString(number.charAt(i)).equals(" ")){
+                index ++;
+            }
+        }
+        if(Character.toString(number.charAt(i)).equals("5")){
+            return true;
+        }
+        return false;
     }
 }

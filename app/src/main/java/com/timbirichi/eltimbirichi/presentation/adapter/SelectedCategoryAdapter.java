@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
     @Override
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
         final SubCategory category = categories.get(position);
-        holder.setValues(category.getImage(), category.getName());
+        holder.setValues(category.getBase64Img(), category.getName());
 
         holder.cvMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +88,11 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
         }
 
 
-        public void setValues(byte [] image, String description){
+        public void setValues(String base64Img, String description){
 
-            if(image != null){
+            if(base64Img != null){
                 GlideApp.with(context)
-                        .load(image)
+                        .load(Base64.decode(base64Img, Base64.DEFAULT))
                         .override(300, 300)
                         .centerCrop()
                         .into(ivImage);

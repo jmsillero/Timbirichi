@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
     }
 
     public void removeAllProducts(){
+        loadMore = false;
         this.products.clear();
         notifyDataSetChanged();
     }
@@ -82,7 +84,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
             final Product prod = products.get(position);
           //  setAnimation(holder.itemView, position);
 
-            ((ProductHolder)holder).setValues(prod.getImages() != null ? prod.getImages().get(0).getImage() : null,
+            ((ProductHolder)holder).setValues(prod.getImages() != null ? prod.getImages().get(0).getBase64Img() : null,
                     prod.getTitle(),
                     prod.getPrice(),
                     prod.getViews(),
@@ -153,8 +155,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
         @BindView(R.id.tv_province)
         TextView tvProvince;
 
-        @BindView(R.id.btn_favorite)
-        ImageButton btnFavorite;
+//        @BindView(R.id.btn_favorite)
+//        ImageButton btnFavorite;
 
         @BindView(R.id.main_card)
         public CardView cvMain;
@@ -166,14 +168,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
             ButterKnife.bind(this, itemView);
         }
 
-        public void setValues(byte [] image, String title, double price,
+        public void setValues(String base64Img, String title, double price,
                               int views, ProductState state, String province, boolean favorite){
 
-                if (image == null){
+                if (base64Img == null){
                     ivProduct.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
                 } else{
                     GlideApp.with(context)
-                            .load(image)
+                            .load(Base64.decode(base64Img, Base64.DEFAULT))
                             .override(60, 60)
                             .centerInside()
                             .into(ivProduct);
@@ -184,9 +186,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
                 tvViews.setText(Integer.toString(views));
                 tvState.setText(state == ProductState.NEW ? context.getString(R.string.new_product) : context.getString(R.string.used_product)   );
                 tvProvince.setText(province);
-                btnFavorite.setImageDrawable(favorite ? context.getResources().getDrawable(R.drawable.ic_favorites_full) : context.getResources().getDrawable(R.drawable.ic_favorites_empty));
-
-
         }
     }
 
