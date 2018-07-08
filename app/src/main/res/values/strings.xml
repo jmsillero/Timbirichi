@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">El Timbirichi</string>
+    <string name="app_name">Timbirichi</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -19,6 +19,7 @@
 
     <string name="product_title">Anuncio: </string>
     <string name="details_mail_subject">Sobre su anuncio de Timbirichi</string>
+    <string name="contact_subjecct">Sugerencia</string>
 
     <string name="categories">Categoría</string>
     <string name="publish">Publicar</string>
@@ -72,6 +73,44 @@
     <string name="clear_favorites_error">Error eliminando los anuncios guardados.</string>
     <string name="find_favorites_error">Error buscando el auncio en los anuncios guardados.</string>
 
+    <string name="publish_title">Titulo del anuncio</string>
+    <string name="publish_category">Categoria</string>
+    <string name="publish_province">Provincia</string>
+    <string name="publish_price">Precio</string>
+    <string name="publish_name">Su nombre</string>
+    <string name="publish_phone">Su telefono</string>
+    <string name="publish_email">Su correo electronico</string>
+    <string name="publish_new">Nuevo</string>
+    <string name="publish_description">Descripcion</string>
+    <string name="publish_image">Adicionar imagen</string>
+
+    <string name="select_image_source">Origen de la imagen</string>
+    <string name="camera">Camara</string>
+    <string name="gallery">Galeria de imagenes</string>
+    <string name="select_an_image">Seleccione una imagen</string>
+
+
+    <string name="insert_title">Debe insertar un título.</string>
+    <string name="insert_category">Debe seleccionar una categoría.</string>
+    <string name="insert_province">Debe seleccionar una provincia.</string>
+    <string name="insert_phone">Debe insertar un número telefónico.</string>
+    <string name="insert_email">Debe insertar un correo.</string>
+    <string name="incorrect_email">Correo incorrecto.</string>
+    <string name="incorrect_phone">Teléfono incorrecto.</string>
+    <string name="insert_description">Debe insertar una descripción.</string>
+    <string name="send_email">Enviar correo...</string>
+
+    <string name="api_email">contacto@timbirichi.com</string>
+
+    <string name="p_email_title"><u>Titulo del anuncio: </u></string>
+    <string name="p_email_category"><b>Categoria: </b></string>
+    <string name="p_email_province"><b>Provincia: </b></string>
+    <string name="p_email_name"><b>Nombre: </b></string>
+    <string name="p_email_email"><b>Correo: </b></string>
+    <string name="p_email_description"><b>Descripcion: </b></string>
+    <string name="p_email_price"><b>Precio: </b></string>
+    <string name="p_email_phone"><b>Telefono: </b></string>
+    <string name="p_email_isnew"><b>Nuevo: o</b></string>
 
 
     <string name="min">Mínimo</string>
@@ -85,7 +124,49 @@
     <string name="internal_sd">Almacenamiento interno</string>
     <string name="go_back">Atrás</string>
 
+    <string name="contact_phone">Telefono</string>
+    <string name="contact_call">Llamar</string>
+    <string name="contact_sms">Enviar sms</string>
+    <string name="contact_email">Correo</string>
+    <string name="contact_facebook">Facebook</string>
+    <string name="contact_twitter">Twitter</string>
+    <string name="contact_timbirichi">Web</string>
+
+    <string name="timbirichi_phone">8725682345</string>
+    <string name="timbirichi_email">contacto@timbirichi.com</string>
+    <string name="timbirichi_facebook">http://facebook.com/timbirichi</string>
+    <string name="timbirichi_twitter">http://twitter.com/timbirichi</string>
+    <string name="timbirichi_web">http://timbirichi.com</string>
+
     <string name="no_products">Su búsqueda no arrojó resultado, intente buscar nuevamente</string>
+    <string name="no_favorites">Usted no tiene anuncios guardados</string>
+
+    <string name="contact_text">  "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+    </string>
 
 
     <string name="large_text">
@@ -178,5 +259,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_update">UpdateActivity</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="title_activity_contact">ContactActivity</string>
 
 </resources>

@@ -186,6 +186,9 @@ public class ProductViewModel extends ViewModel {
         @Override
         public void onNext(Boolean aBoolean) {
             favorites.setValue(new Response<Boolean>(Status.SUCCESS, true, null));
+            if(aBoolean){
+                products.setValue(new Response<List<Product>>(Status.SUCCESS, null, null));
+            }
         }
 
         @Override

@@ -5,9 +5,11 @@ import android.app.Activity;
 import com.timbirichi.eltimbirichi.dagger.module.FragmentModule;
 import com.timbirichi.eltimbirichi.dagger.scope.FragmentScope;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CategoryFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.ContactFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CoverPageFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.FavoriteFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.ProductFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.PublishFragment;
 
 import dagger.Component;
 
@@ -25,5 +27,7 @@ public interface FragmentComponent {
     void inject(CategoryFragment fragment);
     void inject(ProductFragment fragment);
     void inject(FavoriteFragment fragment);
+    void inject(ContactFragment fragment);
+    void inject(PublishFragment fragment);
 
 }

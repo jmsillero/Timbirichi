@@ -163,7 +163,7 @@ public class CoverPageFragment extends BaseFragment {
                         break;
 
                     case PUBLISH:
-                        // todo: abrir publicar
+                        coverPageCallback.openPublish();
                         break;
 
                     case FAVORITES:
@@ -323,5 +323,6 @@ public class CoverPageFragment extends BaseFragment {
         void openCategorySelected(SubCategory cat);
         void openLastNewProductFragment();
         void openFavorites();
+        void openPublish();
     }
 }

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -97,10 +98,15 @@ public class DetailActivity extends BaseActivity {
     }
 
     private void fillGuiWithProduct(){
-        GlideApp.with(this)
-                .load(product.getImages() != null ? Base64.decode(product.getImages().get(0).getBase64Img(), Base64.DEFAULT)  : null)
-                .override(400, 400)
-                .into(ivProduct);
+
+        if(product.getPhotosCount() == 0){
+            ivProduct.setImageDrawable(getResources().getDrawable(R.drawable.no_imagen));
+        } else{
+            GlideApp.with(this)
+                    .load(product.getImages() != null ? Base64.decode(product.getImages().get(0).getBase64Img(), Base64.DEFAULT)  : null)
+                    .override(400, 400)
+                    .into(ivProduct);
+        }
 
         tvTitle.setText(product.getTitle());
         tvPrice.setText(Double.toString(product.getPrice()));

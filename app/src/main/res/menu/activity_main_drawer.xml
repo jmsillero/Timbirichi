@@ -14,7 +14,7 @@
         <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_saved"
-            android:title="Favoritos" />
+            android:title="Anuncios guardados" />
 
         <item
             android:id="@+id/nav_category"
@@ -32,11 +32,9 @@
             android:title="Publicar" />
 
         <item
-            android:id="@+id/nav_timbirichi"
-            android:icon="@drawable/ic_web"
-            android:title="Timbirichi" />
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_contact"
+            android:title="Contactar" />
     </group>
-
-
 
 </menu>

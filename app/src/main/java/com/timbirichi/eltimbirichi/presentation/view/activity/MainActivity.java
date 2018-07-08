@@ -22,14 +22,17 @@ import android.view.View;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Category;
 import com.timbirichi.eltimbirichi.data.model.Product;
+import com.timbirichi.eltimbirichi.data.model.Province;
 import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.model.Status;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CategoryFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.ContactFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CoverPageFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.FavoriteFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.ProductFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.PublishFragment;
 import com.timbirichi.eltimbirichi.presentation.view_model.CategoryViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewModelFactory;
@@ -154,11 +157,17 @@ public class MainActivity extends BaseActivity
                 catSelected = category;
             }
 
+
+
             @Override
             public void openFavorites() {
                 openFavoriteFragment(null);
             }
 
+            @Override
+            public void openPublish() {
+                openPublishFragment();
+            }
         });
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, coverPageFragment, CoverPageFragment.TAG);
@@ -199,12 +208,13 @@ public class MainActivity extends BaseActivity
 
     private void openFavoriteFragment(String findText){
 
-        toolbar.getMenu().add(getString(R.string.clear))
-                .setIcon(R.drawable.ic_clear)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
         favoriteFragment = FavoriteFragment.newInstance(findText);
         openFragment(favoriteFragment, R.id.fragment_container, true);
+    }
+
+    private void openPublishFragment(){
+        PublishFragment publishFragment = PublishFragment.newInstance(new ArrayList<SubCategory>(), new ArrayList<Province>());
+        openFragment(publishFragment, R.id.fragment_container, true);
     }
 
     @Override
@@ -235,7 +245,13 @@ public class MainActivity extends BaseActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                openProductsFragment(catSelected, query);
+                if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
+                    openFavoriteFragment(query);
+                }
+                else{
+                    openProductsFragment(catSelected, query);
+                }
+
                 findText = query;
                 return false;
             }
@@ -243,7 +259,11 @@ public class MainActivity extends BaseActivity
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(findText != null && !findText.isEmpty() && newText.isEmpty()){
-                    openProductsFragment(catSelected, null);
+                    if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
+                        openFavoriteFragment(null);
+                    } else{
+                        openProductsFragment(catSelected, null);
+                    }
                     findText = null;
                 }
 
@@ -278,9 +298,9 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -323,16 +343,34 @@ public class MainActivity extends BaseActivity
                 } else{
                     showErrorDialog(getString(R.string.loading_category_error));
                 }
-
                 break;
+
+            case R.id.nav_favorites:
+                openFavoriteFragment(null);
+                break;
+
 
             case R.id.nav_update:
                 openUpdateActivity();
                 break;
 
+            case R.id.nav_contact:
+                openContactFragment();
+                break;
+
+            case R.id.nav_publish:
+                openPublishFragment();
+                break;
+
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void openContactFragment(){
+        ContactFragment contactFragment = ContactFragment.newInstance();
+        openFragment(contactFragment, R.id.fragment_container, true);
     }
 
     @Override

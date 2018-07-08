@@ -3,5 +3,6 @@
         <attr name="text" format="string" />
         <attr name="color" format="color" />
         <attr name="icon" format="reference" />
+        <attr name="small" format="boolean" />
     </declare-styleable>
 </resources>

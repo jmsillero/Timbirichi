@@ -39,6 +39,8 @@ public class CustomFabView extends LinearLayout {
     @BindView(R.id.tv_text)
     TextView tvText;
 
+    boolean small = false;
+
     @NonNull
     CustomFabCallback customFabCallback;
 
@@ -72,6 +74,10 @@ public class CustomFabView extends LinearLayout {
                 R.styleable.CustomFabView_color,
                 color);
 
+        small = a.getBoolean(
+                R.styleable.CustomFabView_small,
+                false);
+
 
         if (a.hasValue(R.styleable.CustomFabView_icon)) {
             icon = a.getDrawable(
@@ -97,6 +103,10 @@ public class CustomFabView extends LinearLayout {
         tvText.setText(text);
         fabButton.setImageDrawable(icon);
         fabButton.setBackgroundTintList( ColorStateList.valueOf(color));
+
+        if(small){
+          fabButton.setSize(FloatingActionButton.SIZE_MINI);
+        }
     }
 
     public interface CustomFabCallback{
