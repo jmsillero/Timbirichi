@@ -213,7 +213,7 @@ public class MainActivity extends BaseActivity
     }
 
     private void openPublishFragment(){
-        PublishFragment publishFragment = PublishFragment.newInstance(new ArrayList<SubCategory>(), new ArrayList<Province>());
+        PublishFragment publishFragment = PublishFragment.newInstance();
         openFragment(publishFragment, R.id.fragment_container, true);
     }
 

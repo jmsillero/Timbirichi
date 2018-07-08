@@ -110,7 +110,7 @@
     <string name="p_email_description"><b>Descripcion: </b></string>
     <string name="p_email_price"><b>Precio: </b></string>
     <string name="p_email_phone"><b>Telefono: </b></string>
-    <string name="p_email_isnew"><b>Nuevo: o</b></string>
+    <string name="p_email_isnew"><b>Nuevo: </b></string>
 
 
     <string name="min">Mínimo</string>

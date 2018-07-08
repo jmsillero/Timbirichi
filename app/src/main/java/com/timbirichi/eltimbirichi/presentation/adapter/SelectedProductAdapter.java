@@ -104,7 +104,7 @@ public class SelectedProductAdapter  extends RecyclerView.Adapter<SelectedProduc
                         .override(300, 300)
                         .into(ivImage);
             } else{
-                ivImage.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_launcher_round));
+                ivImage.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
             }
 
 

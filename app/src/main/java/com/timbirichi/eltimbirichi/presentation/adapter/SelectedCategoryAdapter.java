@@ -97,7 +97,7 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
                         .centerCrop()
                         .into(ivImage);
             } else {
-                ivImage.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_launcher_round));
+                ivImage.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
             }
 
 

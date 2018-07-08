@@ -132,7 +132,7 @@ public class NewsView extends ConstraintLayout {
                     .thumbnail(.5f)
                     .into(ivMainImage);
         } else{
-            ivMainImage.setImageDrawable(getContext().getResources().getDrawable(R.mipmap.ic_launcher_round));
+            ivMainImage.setImageDrawable(getContext().getResources().getDrawable(R.drawable.no_imagen));
         }
 
         cvMain.setOnClickListener(new OnClickListener() {
