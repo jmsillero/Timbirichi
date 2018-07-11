@@ -42,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".9"
-                custom:auto_cycle="true" />
+                custom:auto_cycle="true"
+                app:pager_animation="ZoomOut"/>
 
             <com.glide.slider.library.Indicators.PagerIndicator
                 android:id="@+id/custom_indicator"
@@ -52,7 +53,7 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                custom:selected_color="@color/colorAccent"
+                custom:selected_color="@color/panel_color"
                 custom:selected_height="7dp"
                 custom:selected_width="7dp"
                 custom:unselected_color="@color/gray"
