@@ -109,10 +109,15 @@ public class ProductFragment extends BaseProductFragment {
         setupBannerProductViewModel();
 
         if(category.getId() == SubCategory.CATEGORY_LASTED){
-            bannerViewModel.getBannerByCatId(COVER_PAGE_ID);
+           // bannerViewModel.getBannerByCatId(COVER_PAGE_ID);
+            bannerContainer.setVisibility(View.GONE);
+            navigation.setVisibility(View.GONE);
 
         } else{
             bannerViewModel.getBannerByCatId(category.getId());
+
+            bannerContainer.setVisibility(View.VISIBLE);
+            navigation.setVisibility(View.VISIBLE);
         }
         return v;
     }
@@ -164,9 +169,6 @@ public class ProductFragment extends BaseProductFragment {
         getFragementComponent().inject(this);
     }
 
-    public void setProductFragmentCallback(@NonNull ProductFragmentCallback productFragmentCallback) {
-        this.productFragmentCallback = productFragmentCallback;
-    }
 
     @Override
     protected void loadModeProducts(String text, int start, int end,
@@ -184,7 +186,5 @@ public class ProductFragment extends BaseProductFragment {
 
     }
 
-    public interface ProductFragmentCallback{
-        void onProductClick(Product prod);
-    }
+
 }

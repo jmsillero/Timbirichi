@@ -209,6 +209,12 @@ public class MainActivity extends BaseActivity
     private void openFavoriteFragment(String findText){
 
         favoriteFragment = FavoriteFragment.newInstance(findText);
+        favoriteFragment.setProductFragmentCallback(new FavoriteFragment.ProductFragmentCallback() {
+            @Override
+            public void onProductClick(Product prod) {
+                openDetailActivity(prod);
+            }
+        });
         openFragment(favoriteFragment, R.id.fragment_container, true);
     }
 

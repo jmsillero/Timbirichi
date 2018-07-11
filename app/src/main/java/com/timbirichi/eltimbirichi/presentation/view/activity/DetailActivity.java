@@ -92,14 +92,11 @@ public class DetailActivity extends BaseActivity {
         productViewModel.findFavorite(product.getId());
 
         fillGuiWithProduct();
-
-
-
     }
 
     private void fillGuiWithProduct(){
 
-        if(product.getPhotosCount() == 0){
+        if(product.getImages() == null){
             ivProduct.setImageDrawable(getResources().getDrawable(R.drawable.no_imagen));
         } else{
             GlideApp.with(this)

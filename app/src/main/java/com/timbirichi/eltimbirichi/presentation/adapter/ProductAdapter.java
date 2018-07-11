@@ -176,7 +176,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
                 } else{
                     GlideApp.with(context)
                             .load(Base64.decode(base64Img, Base64.DEFAULT))
-                            .override(60, 60)
+                            .override(100, 100)
                             .centerInside()
                             .into(ivProduct);
                 }
