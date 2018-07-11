@@ -10,6 +10,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class ProductFragment extends BaseProductFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
         mDemoSlider.setCustomIndicator(pageIndicator);
         mDemoSlider.setDuration(4000);
 
@@ -109,13 +110,14 @@ public class ProductFragment extends BaseProductFragment {
         setupBannerProductViewModel();
 
         if(category.getId() == SubCategory.CATEGORY_LASTED){
-           // bannerViewModel.getBannerByCatId(COVER_PAGE_ID);
+            shimmerBanner.setVisibility(View.GONE);
             bannerContainer.setVisibility(View.GONE);
             navigation.setVisibility(View.GONE);
 
+            ((ViewGroup.MarginLayoutParams)mainScroll.getLayoutParams()).bottomMargin = 0;
+
         } else{
             bannerViewModel.getBannerByCatId(category.getId());
-
             bannerContainer.setVisibility(View.VISIBLE);
             navigation.setVisibility(View.VISIBLE);
         }

@@ -60,7 +60,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight=".1"
                     android:gravity="center"
-                    custom:selected_color="@color/colorAccent"
+                    custom:selected_color="@color/panel_color"
                     custom:selected_height="7dp"
                     custom:selected_width="7dp"
                     custom:shape="oval"

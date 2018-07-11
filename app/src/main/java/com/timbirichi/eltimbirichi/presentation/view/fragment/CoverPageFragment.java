@@ -125,7 +125,7 @@ public class CoverPageFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
         mDemoSlider.setCustomIndicator(pageIndicator);
         mDemoSlider.setDuration(4000);
         mDemoSlider.requestFocus();
