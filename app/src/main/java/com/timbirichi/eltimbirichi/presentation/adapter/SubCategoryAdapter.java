@@ -76,6 +76,14 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
         TextView listTitleTextView = convertView
                 .findViewById(R.id.listTitle);
 
+        if(isExpanded){
+            listTitleTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down , 0);
+        } else{
+            listTitleTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_right, 0);
+        }
+
+
+
 
     ImageView ivCat = convertView.findViewById(R.id.iv_cat);
     ivCat.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_categories_prod));

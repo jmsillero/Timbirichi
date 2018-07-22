@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9900</color>
-    <color name="colorPrimaryDark">#EF7E20</color>
+    <color name="colorPrimary">#2A323C</color>
+    <color name="colorPrimaryDark">#2A323C</color>
     <color name="colorAccent">#ff9100</color>
     <color name="textColor">#FFFFFF</color>
     <color name="panel_color">#2A323C</color>
@@ -26,7 +26,7 @@
 
     <color name="a_gray_600">#FF757575</color>
 
-    <color name="background">#ff9100</color>
-    <!--<color name="background">#dddddd</color>-->
+    <!--<color name="background">#ff9100</color>-->
+    <color name="background">#dddddd</color>
 
 </resources>

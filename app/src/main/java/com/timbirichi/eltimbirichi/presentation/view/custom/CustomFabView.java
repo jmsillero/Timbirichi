@@ -100,7 +100,13 @@ public class CustomFabView extends LinearLayout {
     }
 
     private void setupUi(){
-        tvText.setText(text);
+
+        if(text != null && !text.isEmpty()){
+            tvText.setText(text);
+        } else{
+            tvText.setVisibility(GONE);
+        }
+
         fabButton.setImageDrawable(icon);
         fabButton.setBackgroundTintList( ColorStateList.valueOf(color));
 

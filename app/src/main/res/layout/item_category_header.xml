@@ -4,23 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/panel_color">
 
     <TextView
         android:id="@+id/listTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
        android:drawableRight="@drawable/ic_arrow_right"
         android:paddingBottom="5dp"
+        android:drawableTint="@color/colorAccent"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:paddingTop="5dp"
         android:text="@string/action_settings"
-        android:textColor="@android:color/black"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/iv_cat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_cat"

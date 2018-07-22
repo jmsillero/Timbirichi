@@ -182,8 +182,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
                 }
 
                 tvTitle.setText(title);
-                tvPrice.setText(Double.toString(price));
-                tvViews.setText(Integer.toString(views));
+//                tvPrice.setText(Double.toString(price));
+
+            if(price == 0){
+                tvPrice.setVisibility(View.INVISIBLE);
+            } else{
+                tvPrice.setText("$" + Integer.toString((int)price) + ".00 CUC");
+            }
+
+
+            tvViews.setText(Integer.toString(views));
                 tvState.setText(state == ProductState.NEW ? context.getString(R.string.new_product) : context.getString(R.string.used_product)   );
                 tvProvince.setText(province);
         }

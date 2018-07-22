@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/iv_product"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
@@ -36,12 +36,19 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:text="TextView"
+            android:layout_marginTop="8dp"
+            android:autoText="false"
+            android:ellipsize="end"
+            android:enabled="false"
+            android:gravity="center|left"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="TextView asdfasdf a asdfasdfasdf asdfasdf  asdf asdf asdf asdf asdf"
             android:textColor="@color/panel_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/iv_product"
-            app:layout_constraintTop_toTopOf="@+id/iv_product" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -104,11 +111,13 @@
             android:id="@+id/tv_province"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/panel_color"
             android:text="La Habana"
+            android:textColor="@color/panel_color"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView4"

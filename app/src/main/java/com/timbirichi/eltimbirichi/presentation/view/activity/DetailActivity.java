@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -70,6 +71,9 @@ public class DetailActivity extends BaseActivity {
 
     Product product;
 
+    @BindView(R.id.toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
     @Inject
     ProductViewModelFactory productViewModelFactory;
     ProductViewModel productViewModel;
@@ -85,12 +89,13 @@ public class DetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.product_detail);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         fbFaborites.setEnabled(false);
         setupProductViewModel();
         product = Utils.productSelected;
         productViewModel.findFavorite(product.getId());
-
         fillGuiWithProduct();
     }
 
@@ -106,7 +111,16 @@ public class DetailActivity extends BaseActivity {
         }
 
         tvTitle.setText(product.getTitle());
-        tvPrice.setText(Double.toString(product.getPrice()));
+
+
+        if(product.getPrice() == 0){
+            tvPrice.setVisibility(View.INVISIBLE);
+        } else{
+            tvPrice.setText("$" + Integer.toString((int)product.getPrice()) + ".00 CUC");
+        }
+
+
+
         tvProvince.setText(product.getProvince().getName());
         tvViews.setText(Integer.toString(product.getViews()));
         tvNew.setText(product.isNewProduct() ? getString(R.string.new_product) : getString(R.string.used_product));

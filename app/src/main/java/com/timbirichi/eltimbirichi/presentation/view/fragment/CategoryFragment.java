@@ -71,6 +71,20 @@ public class CategoryFragment extends BaseFragment {
                 return true;
             }
         });
+
+        elCategories.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                // todo: Cambiar el icono...
+            }
+        });
+
+        elCategories.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                // todo: Cambiar el icono
+            }
+        });
         return v;
     }
 
