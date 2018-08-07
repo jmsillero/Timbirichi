@@ -23,6 +23,11 @@ import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
 import com.timbirichi.eltimbirichi.utils.Utils;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 public class SplashActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback{
@@ -42,6 +47,39 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         setContentView(R.layout.activity_splash);
 
         initButterNife();
+
+
+//                Locale[] locales = NumberFormat.getAvailableLocales();
+//                double myNumber = -1234.56;
+//                NumberFormat format1;
+//                for (int j=0; j<3; ++j) {
+//                    System.out.println("FORMAT");
+//                    for (int i = 0; i < locales.length; ++i) {
+//                        if (locales[i].getCountry().length() == 0) {
+//                            // Skip language-only locales
+//                            continue;
+//                        }
+//                        System.out.print(locales[i].getDisplayName());
+//                        switch (j) {
+//                            case 0:
+//                                format1 = NumberFormat.getInstance(locales[i]); break;
+//                            case 1:
+//                                format1 = NumberFormat.getCurrencyInstance(locales[i]); break;
+//                            default:
+//                                format1 = NumberFormat.getPercentInstance(locales[i]); break;
+//                        }
+//                        try {
+//                            // Assume format is a DecimalFormat
+//                            System.out.print(": " + ((DecimalFormat) format1).toPattern()
+//                                    + " -> " + format1.format(myNumber));
+//                        } catch (Exception e) {}
+////                        try {
+////                            System.out.println(" -> " + format1.parse(format1.format(myNumber)));
+////                        } catch (ParseException e) {}
+//                   }
+//                }
+
+
 
         setupDatabaseViewModel();
         setupCheckAndCopyDatabase();

@@ -118,7 +118,7 @@ public class ProductFragment extends BaseProductFragment {
 
         } else{
             bannerViewModel.getBannerByCatId(category.getId());
-            bannerContainer.setVisibility(View.VISIBLE);
+           // bannerContainer.setVisibility(View.VISIBLE);
             navigation.setVisibility(View.VISIBLE);
         }
         return v;
@@ -142,6 +142,9 @@ public class ProductFragment extends BaseProductFragment {
 
                     case ERROR:
                         showErrorDialog(getString(R.string.banner_error));
+                        bannerContainer.setVisibility(View.GONE);
+                        shimmerBanner.setVisibility(View.VISIBLE);
+                        shimmerBanner.startShimmer();
                         break;
                 }
             }
@@ -183,9 +186,6 @@ public class ProductFragment extends BaseProductFragment {
                 order, orderType,
                 image, min, max, prodState,
                 province);
-
-
-
     }
 
 

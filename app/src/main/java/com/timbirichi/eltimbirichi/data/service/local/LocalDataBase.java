@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.timbirichi.eltimbirichi.data.model.Banner;
 import com.timbirichi.eltimbirichi.data.model.Category;
@@ -787,12 +788,12 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
     }
 
-
-    public List<Banner> getBannersByCategoryId(long catId){
+    public List<Banner> getDefaultsBanners(){
         List<Banner> banners = null;
         String query = "SELECT * FROM " + Banner.BANNER_TABLE
-                + " WHERE " + Banner.BANNER_COL_SUBCATEGORY_ID + " = "
-                + Long.toString(catId);
+                + " WHERE " + "\"" +Banner.BANNER_COL_DEFAULT + "\"" + " = " + Integer.toString(Banner.DEFAULT) +
+                " AND " +  Banner.BANNER_COL_SUBCATEGORY_ID + " = 0";
+
 
         SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH , null, SQLiteDatabase.OPEN_READONLY);
         Cursor cursor = db.rawQuery(query, null);
@@ -820,6 +821,49 @@ public class LocalDataBase extends SQLiteOpenHelper {
         finally {
             cursor.close();
             close();
+        }
+
+        return banners;
+    }
+
+    public List<Banner> getBannersByCategoryId(long catId){
+        List<Banner> banners = null;
+        String query = "SELECT * FROM " + Banner.BANNER_TABLE
+                + " WHERE " + Banner.BANNER_COL_SUBCATEGORY_ID + " = "
+                + Long.toString(catId);
+
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH , null, SQLiteDatabase.OPEN_READONLY);
+        Cursor cursor = db.rawQuery(query, null);
+
+        Banner banner = null;
+        try{
+            if (cursor != null){
+                if (cursor.moveToFirst()) {
+                    Log.d(getClass().getSimpleName(), "Cursor size: " + cursor.getCount());
+                    banners = new ArrayList<>();
+                    do {
+                        banner = new Banner();
+                        banner.setId(cursor.getLong(cursor.getColumnIndex(Banner.BANNER_COL_ID)));
+                        banner.setBase64Img(cursor.getString(cursor.getColumnIndex(Banner.BANNER_COL_IMAGE)));
+                        banners.add(banner);
+                    }
+                    while (cursor.moveToNext());
+                }
+            }
+
+        }
+
+        catch (SQLiteException e){
+            e.printStackTrace();
+            throw new SQLiteException();
+        } finally {
+            cursor.close();
+            close();
+        }
+
+        if (banners == null){
+            banners = getDefaultsBanners();
         }
 
         return banners;

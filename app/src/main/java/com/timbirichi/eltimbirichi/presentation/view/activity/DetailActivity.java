@@ -30,6 +30,9 @@ import com.timbirichi.eltimbirichi.presentation.view_model.ProvinceViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.ProductViewModelFactory;
 import com.timbirichi.eltimbirichi.utils.Utils;
 
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -116,7 +119,15 @@ public class DetailActivity extends BaseActivity {
         if(product.getPrice() == 0){
             tvPrice.setVisibility(View.INVISIBLE);
         } else{
-            tvPrice.setText("$" + Integer.toString((int)product.getPrice()) + ".00 CUC");
+
+
+            DecimalFormat format = new DecimalFormat("#.00");
+            format.setDecimalSeparatorAlwaysShown(true);
+            Locale.setDefault(Locale.FRENCH);
+            format.setGroupingSize(3);
+            format.setGroupingUsed(true);
+            tvPrice.setText("$" + format.format(product.getPrice()) + " CUC");
+          //  tvPrice.setText("$" + Integer.toString((int)product.getPrice()) + ".00 CUC");
         }
 
 

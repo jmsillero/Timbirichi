@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Category;
 import com.timbirichi.eltimbirichi.data.model.Product;
@@ -73,6 +74,9 @@ public class MainActivity extends BaseActivity
     CategoryViewModelFactory categoryViewModelFactory;
     CategoryViewModel categoryViewModel;
 
+//    @BindView(R.id.floating_search_view)
+//    FloatingSearchView mSearchView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setResult(RESULT_OK);
@@ -83,6 +87,19 @@ public class MainActivity extends BaseActivity
         catSelected.setId(SubCategory.CATEGORY_LASTED);
 
         initButterNife();
+
+//        mSearchView.attachNavigationDrawerToMenuButton(drawer);
+//
+//        mSearchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
+//            @Override
+//            public void onHomeClicked() {
+//                onBackPressed();
+//            }
+//        });
+
+
+        setupCategoryViewModel();
+        categoryViewModel.getCategories();
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(getString(R.string.app_name));
@@ -91,10 +108,6 @@ public class MainActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        setupCategoryViewModel();
-        categoryViewModel.getCategories();
-
         navigationView.setNavigationItemSelectedListener(this);
 
         openCoverPageFragment();

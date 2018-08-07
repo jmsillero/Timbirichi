@@ -2,7 +2,10 @@ package com.timbirichi.eltimbirichi.presentation.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.icu.util.ULocale;
+import android.os.Build;
 import android.support.annotation.NonNull;
+
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -22,7 +25,11 @@ import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.presentation.model.constant.ProductState;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -168,16 +175,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
             ButterKnife.bind(this, itemView);
         }
 
+
         public void setValues(String base64Img, String title, double price,
                               int views, ProductState state, String province, boolean favorite){
 
                 if (base64Img == null){
-                    ivProduct.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
+                    GlideApp.with(context)
+                            .load(context.getResources().getDrawable(R.drawable.no_imagen))
+                            .override(120, 120)
+                            .centerInside()
+                            .centerCrop()
+
+                            .into(ivProduct);
+                    //ivProduct.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
                 } else{
                     GlideApp.with(context)
                             .load(Base64.decode(base64Img, Base64.DEFAULT))
-                            .override(100, 100)
+                            .override(120, 120)
                             .centerInside()
+                            .centerCrop()
+
                             .into(ivProduct);
                 }
 
@@ -187,7 +204,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
             if(price == 0){
                 tvPrice.setVisibility(View.INVISIBLE);
             } else{
-                tvPrice.setText("$" + Integer.toString((int)price) + ".00 CUC");
+
+               // @RequiresApi(api = Build.VERSION_CODES.N)
+               // Locale locale = new Locale("pt_AO");
+                DecimalFormat format = new DecimalFormat("#.00");
+                format.setDecimalSeparatorAlwaysShown(true);
+                Locale.setDefault(Locale.FRENCH);
+                format.setGroupingSize(3);
+                format.setGroupingUsed(true);
+
+
+
+                tvPrice.setText("$" + format.format(price) + " CUC");
             }
 
 
