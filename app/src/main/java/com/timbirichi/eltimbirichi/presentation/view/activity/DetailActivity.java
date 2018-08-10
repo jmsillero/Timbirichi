@@ -31,6 +31,8 @@ import com.timbirichi.eltimbirichi.presentation.view_model.factory.ProductViewMo
 import com.timbirichi.eltimbirichi.utils.Utils;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -69,6 +71,9 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.fb_favorites)
     FloatingActionButton fbFaborites;
 
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+
     @BindView(R.id.btn_sms)
     Button btnSms;
 
@@ -104,12 +109,16 @@ public class DetailActivity extends BaseActivity {
 
     private void fillGuiWithProduct(){
 
+        String formatD = "EEEE dd MMMM yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatD, new Locale("ES", "es"));
+        tvDate.setText(dateFormat.format(new Date(product.getTime())));
+
         if(product.getImages() == null){
             ivProduct.setImageDrawable(getResources().getDrawable(R.drawable.no_imagen));
         } else{
             GlideApp.with(this)
                     .load(product.getImages() != null ? Base64.decode(product.getImages().get(0).getBase64Img(), Base64.DEFAULT)  : null)
-                    .override(400, 400)
+                    .override(800, 800)
                     .into(ivProduct);
         }
 

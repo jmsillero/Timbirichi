@@ -93,7 +93,8 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
             if(base64Img != null){
                 GlideApp.with(context)
                         .load(Base64.decode(base64Img, Base64.DEFAULT))
-                        .override(300, 300)
+                        .override(1000, 406)
+                        .fitCenter()
                         .centerCrop()
                         .into(ivImage);
             } else {

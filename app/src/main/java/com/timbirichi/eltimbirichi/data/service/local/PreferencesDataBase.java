@@ -165,7 +165,7 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
             product.setProvince(getProvinceForProduct(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_PROVINCE))));
             product.setSubCategory(cursor.getString(cursor.getColumnIndex(Product.PRODUCT_COL_SUBCATEGORY)));
 
-            //product.setDate(cursor.getString(cursor.getColumnIndex(Product.COL_DATE)));
+            product.setTime(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_TIME)) * 1000);
 
             // product.setPriority(cursor.getInt(cursor.getColumnIndex(Product.COL_PRIORITY)));
 

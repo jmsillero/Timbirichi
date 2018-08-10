@@ -768,7 +768,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
         product.setUltra(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_ULTRA)) == 1);
         product.setMain(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_COVER_PAGE)) == 1);
         product.setProvince(getProvinceForProduct(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_PROVINCE)), db));
-        product.setTime(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_TIME)));
+        product.setTime(cursor.getLong(cursor.getColumnIndex(Product.PRODUCT_COL_TIME)) * 1000);
         product.setImages(loadImageForProduct(product.getId(), db));
         product.setViews(cursor.getInt(cursor.getColumnIndex(Product.PRODUCT_COL_VIEWS)));
         return product;

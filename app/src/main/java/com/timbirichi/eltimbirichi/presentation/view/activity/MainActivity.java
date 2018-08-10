@@ -98,8 +98,11 @@ public class MainActivity extends BaseActivity
 //        });
 
 
+
         setupCategoryViewModel();
         categoryViewModel.getCategories();
+
+
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(getString(R.string.app_name));
@@ -143,7 +146,10 @@ public class MainActivity extends BaseActivity
         coverPageFragment.setCoverPageCallback(new CoverPageFragment.CoverPageCallback() {
             @Override
             public void onOpenCategories() {
-                openCategoryFragment(categoryViewModel.categories.getValue().data);
+                if(categoryViewModel.categories.getValue() != null){
+                    openCategoryFragment(categoryViewModel.categories.getValue().data);
+                }
+
             }
 
             @Override

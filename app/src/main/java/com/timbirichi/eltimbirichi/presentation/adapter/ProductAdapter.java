@@ -180,14 +180,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
                               int views, ProductState state, String province, boolean favorite){
 
                 if (base64Img == null){
-                    GlideApp.with(context)
-                            .load(context.getResources().getDrawable(R.drawable.no_imagen))
-                            .override(120, 120)
-                            .centerInside()
-                            .centerCrop()
-
-                            .into(ivProduct);
-                    //ivProduct.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
+//                    GlideApp.with(context)
+//                            .load(context.getResources().getDrawable(R.drawable.no_imagen))
+//                            .override(120, 120)
+//                            .centerInside()
+//                            .centerCrop()
+//
+//                            .into(ivProduct);
+                    ivProduct.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
                 } else{
                     GlideApp.with(context)
                             .load(Base64.decode(base64Img, Base64.DEFAULT))
