@@ -57,6 +57,27 @@ public class MetaDataStore {
         });
     }
 
+    /**
+     * Devuelve la fecha de una base de datos en cso de que sea
+     * valida para timbirichi app.
+     * @param path
+     * @return
+     */
+    public Observable<String> getDatabaseDate(final String path){
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext(localDataBase.getDatabaseDate(path));
+                e.onComplete();
+            }
+        }).doOnError(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                throwable.printStackTrace();
+            }
+        });
+    }
+
 
 
 }

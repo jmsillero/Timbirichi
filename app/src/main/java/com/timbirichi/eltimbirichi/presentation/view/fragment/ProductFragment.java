@@ -100,6 +100,12 @@ public class ProductFragment extends BaseProductFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        if(category.getId() == SubCategory.CATEGORY_LASTED){
+            orderBy = Product.PRODUCT_COL_ID;
+            order = Product.ORDER_DESC;
+        }
+
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);

@@ -8,6 +8,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.database.CheckDatabaseUseCase
 import com.timbirichi.eltimbirichi.domain.use_case.database.CheckPreferencesDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.ClearDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.CopyDatabaseUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.database.GetDatabaseDateUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetMetaInformationUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.SaveDbPathUseCase;
@@ -26,6 +27,7 @@ public class DatabaseViewModelFactory implements ViewModelProvider.Factory {
     GetDbPathUseCase getDbPathUseCase;
     GetMetaInformationUseCase getMetaInformationUseCase;
     SaveDbPathUseCase saveDbPathUseCase;
+    GetDatabaseDateUseCase getDatabaseDateUseCase;
 
     @Inject
     public DatabaseViewModelFactory(CheckDatabaseUseCase checkDatabaseUseCase,
@@ -34,7 +36,8 @@ public class DatabaseViewModelFactory implements ViewModelProvider.Factory {
                                     CopyDatabaseUseCase copyDatabaseUseCase,
                                     GetDbPathUseCase getDbPathUseCase,
                                     GetMetaInformationUseCase getMetaInformationUseCase,
-                                    SaveDbPathUseCase saveDbPathUseCase) {
+                                    SaveDbPathUseCase saveDbPathUseCase,
+                                    GetDatabaseDateUseCase getDatabaseDateUseCase) {
 
         this.checkDatabaseUseCase = checkDatabaseUseCase;
         this.checkPreferencesDatabaseUseCase = checkPreferencesDatabaseUseCase;
@@ -43,6 +46,7 @@ public class DatabaseViewModelFactory implements ViewModelProvider.Factory {
         this.getDbPathUseCase = getDbPathUseCase;
         this.getMetaInformationUseCase = getMetaInformationUseCase;
         this.saveDbPathUseCase = saveDbPathUseCase;
+        this.getDatabaseDateUseCase = getDatabaseDateUseCase;
     }
 
 
@@ -58,7 +62,8 @@ public class DatabaseViewModelFactory implements ViewModelProvider.Factory {
                     copyDatabaseUseCase,
                     getDbPathUseCase,
                     getMetaInformationUseCase,
-                    saveDbPathUseCase);
+                    saveDbPathUseCase,
+                    getDatabaseDateUseCase);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

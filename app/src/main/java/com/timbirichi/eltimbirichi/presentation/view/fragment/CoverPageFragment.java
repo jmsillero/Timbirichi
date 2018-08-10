@@ -84,6 +84,8 @@ public class CoverPageFragment extends BaseFragment {
     @BindView(R.id.container_banner)
     LinearLayout containerBanner;
 
+
+
     @NonNull
     CoverPageCallback coverPageCallback;
 

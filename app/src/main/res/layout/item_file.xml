@@ -22,10 +22,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_file_name"
         android:layout_marginLeft="5dp"
-        android:gravity="center"
+        android:gravity="left"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:layout_gravity="center"
+        android:layout_gravity="left|center"
         android:text="asdfasdf"
         android:textSize="18sp"/>
 

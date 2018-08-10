@@ -215,7 +215,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
 
 
 
-                tvPrice.setText("$" + format.format(price) + " CUC");
+                tvPrice.setText("$" + format.format(price).replace(",", ".") + " CUC");
             }
 
 

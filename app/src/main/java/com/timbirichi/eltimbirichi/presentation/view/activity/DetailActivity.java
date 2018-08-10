@@ -126,7 +126,7 @@ public class DetailActivity extends BaseActivity {
             Locale.setDefault(Locale.FRENCH);
             format.setGroupingSize(3);
             format.setGroupingUsed(true);
-            tvPrice.setText("$" + format.format(product.getPrice()) + " CUC");
+            tvPrice.setText("$" + format.format(product.getPrice()).replace(",", ".") + " CUC");
           //  tvPrice.setText("$" + Integer.toString((int)product.getPrice()) + ".00 CUC");
         }
 

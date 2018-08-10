@@ -2,6 +2,7 @@ package com.timbirichi.eltimbirichi.presentation.view_model;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Pair;
 
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
@@ -10,6 +11,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.database.CheckDatabaseUseCase
 import com.timbirichi.eltimbirichi.domain.use_case.database.CheckPreferencesDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.ClearDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.CopyDatabaseUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.database.GetDatabaseDateUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetMetaInformationUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.SaveDbPathUseCase;
@@ -25,6 +27,7 @@ public class DatabaseViewModel extends ViewModel {
     GetDbPathUseCase getDbPathUseCase;
     GetMetaInformationUseCase getMetaInformationUseCase;
     SaveDbPathUseCase saveDbPathUseCase;
+    GetDatabaseDateUseCase getDatabaseDateUseCase;
 
 
     public final MutableLiveData<Response<Meta>> metaInformation = new MutableLiveData<>();
@@ -35,6 +38,8 @@ public class DatabaseViewModel extends ViewModel {
     public final MutableLiveData<Response<Boolean>> checkPreferences = new MutableLiveData<>();
     public final MutableLiveData<Response<Boolean>> copyDatabase = new MutableLiveData<>();
 
+    public final MutableLiveData<Response<Pair<String, Integer>>> databaseDate = new MutableLiveData<>();
+
 
     public DatabaseViewModel(CheckDatabaseUseCase checkDatabaseUseCase,
                              CheckPreferencesDatabaseUseCase checkPreferencesDatabaseUseCase,
@@ -42,7 +47,8 @@ public class DatabaseViewModel extends ViewModel {
                              CopyDatabaseUseCase copyDatabaseUseCase,
                              GetDbPathUseCase getDbPathUseCase,
                              GetMetaInformationUseCase getMetaInformationUseCase,
-                             SaveDbPathUseCase saveDbPathUseCase) {
+                             SaveDbPathUseCase saveDbPathUseCase,
+                             GetDatabaseDateUseCase getDatabaseDateUseCase) {
 
         this.checkDatabaseUseCase = checkDatabaseUseCase;
         this.checkPreferencesDatabaseUseCase = checkPreferencesDatabaseUseCase;
@@ -51,6 +57,7 @@ public class DatabaseViewModel extends ViewModel {
         this.getDbPathUseCase = getDbPathUseCase;
         this.getMetaInformationUseCase = getMetaInformationUseCase;
         this.saveDbPathUseCase = saveDbPathUseCase;
+        this.getDatabaseDateUseCase = getDatabaseDateUseCase;
     }
 
     /**
@@ -85,6 +92,16 @@ public class DatabaseViewModel extends ViewModel {
         LocalDataBase.DB_PATH = path;
         saveDbPathUseCase.setPath(path);
         saveDbPathUseCase.execute(new SaveDbPathObserver());
+    }
+
+    /**
+     * Obtiene la fecha de actualizacin de la base de datos
+     * que este dentro de un path
+     * @param path
+     */
+    public void getDatabaseDate(String path, int pos){
+        getDatabaseDateUseCase.setParams(path);
+        getDatabaseDateUseCase.execute(new GetDatabaseDateObserver(pos));
     }
 
     public void checkPreferences(){
@@ -201,6 +218,26 @@ public class DatabaseViewModel extends ViewModel {
         @Override
         public void onError(Throwable throwable) {
             databaseSaved.setValue(new Response<Boolean>(Status.ERROR, null, throwable));
+        }
+    }
+
+    public final class GetDatabaseDateObserver extends UseCaseObserver<String>{
+        int pos;
+        public GetDatabaseDateObserver(int pos) {
+            this.pos = pos;
+        }
+
+        @Override
+        public void onNext(String s) {
+            super.onNext(s);
+            Pair<String, Integer> pair = Pair.create(s, pos);
+            databaseDate.setValue(new Response< Pair<String, Integer>>(Status.SUCCESS, pair, null));
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            super.onError(throwable);
+            databaseDate.setValue(new Response< Pair<String, Integer>>(Status.ERROR, null, throwable));
         }
     }
 

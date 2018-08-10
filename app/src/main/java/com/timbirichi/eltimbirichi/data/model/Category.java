@@ -17,6 +17,7 @@ public class Category implements Parcelable {
     long id;
     String name;
     List<SubCategory> subCategories;
+    int productsCount;
 
 
 
@@ -35,6 +36,7 @@ public class Category implements Parcelable {
         id = parcel.readLong();
         name = parcel.readString();
         parcel.readList(subCategories, SubCategory.class.getClassLoader());
+        productsCount = parcel.readInt();
     }
 
 
@@ -48,6 +50,7 @@ public class Category implements Parcelable {
         dest.writeLong(id);
         dest.writeString(name);
         dest.writeList(subCategories);
+        dest.writeInt(productsCount);
     }
 
     public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>(){
@@ -76,6 +79,14 @@ public class Category implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getProductsCount() {
+        return productsCount;
+    }
+
+    public void setProductsCount(int productsCount) {
+        this.productsCount = productsCount;
     }
 
     public List<SubCategory> getSubCategories() {

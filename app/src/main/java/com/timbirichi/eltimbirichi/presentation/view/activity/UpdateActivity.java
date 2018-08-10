@@ -4,8 +4,10 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.storage.StorageManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Meta;
@@ -31,16 +36,20 @@ import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewM
 import com.timbirichi.eltimbirichi.utils.Utils;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class UpdateActivity extends BaseActivity {
 
@@ -76,6 +85,9 @@ public class UpdateActivity extends BaseActivity {
     boolean existDatabase;
     String path;
 
+    boolean search;
+
+
     @Inject
     DatabaseViewModelFactory databaseViewModelFactory;
     DatabaseViewModel databaseViewModel;
@@ -86,6 +98,7 @@ public class UpdateActivity extends BaseActivity {
         setContentView(R.layout.activity_update);
         initButterNife();
         setSupportActionBar(toolbar);
+        search = false;
 
         existDatabase = getIntent().getBooleanExtra(EXTRA_EXIST_DATABASE, false);
 
@@ -100,6 +113,8 @@ public class UpdateActivity extends BaseActivity {
         setupDatabaseViewModel();
         setupUi();
     }
+
+
 
 
     private void setupDatabaseViewModel(){
@@ -164,6 +179,47 @@ public class UpdateActivity extends BaseActivity {
 
                     case ERROR:
                         showErrorDialog(getString(R.string.database_incompatible));
+                        break;
+                }
+            }
+        });
+
+        databaseViewModel.databaseDate.observe(this, new Observer<Response<Pair<String, Integer>>>() {
+            @Override
+            public void onChanged(@Nullable Response< Pair<String, Integer>> stringResponse) {
+                switch (stringResponse.status){
+                    case LOADING:
+                        break;
+
+                    case SUCCESS:
+                       // databases.get(stringResponse.data.second).setUpdateDate(stringResponse.data.first);
+                        fileAdapter.setFileAt(stringResponse.data.first, stringResponse.data.second);
+//                        if(stringResponse.data.second == databases.size()){
+//                            List<FileItem> datas = new ArrayList<>();
+//                            for(int i = 0; i < databases.size(); i++){
+//                                if(databases.get(i).getUpdateDate() != null && !databases.get(i).getUpdateDate().isEmpty()){
+//                                    datas.add(databases.get(i));
+//                                }
+//                            }
+//                            if(datas.size() > 0){
+//                                fileAdapter.setFiles(datas);
+//                                hideProgressDialog();
+//                            } else{
+//                                hideProgressDialog();
+//                                showErrorDialog(getString(R.string.not_databases));
+//                                fileAdapter.setFiles(getAllsds());
+//                            }
+//
+//                        }
+                        break;
+
+                    case ERROR:
+                        showErrorDialog("Error");
+                        count ++;
+                        if(count == databases.size()){
+                            showErrorDialog(getString(R.string.not_databases));
+                            fileAdapter.setFiles(getAllsds());
+                        }
                         break;
                 }
             }
@@ -369,6 +425,118 @@ public class UpdateActivity extends BaseActivity {
             }
         }
         return list;
+    }
+
+
+    @BindView(R.id.btn_search_database)
+    Button btnSearchDatabase;
+    int count;
+    List<FileItem> databases = new ArrayList<>();
+
+
+    @OnClick(R.id.btn_search_database)
+    public void onBtnSearchDatabaseClick(){
+        search = true;
+        count = 0;
+        final List<FileItem> sds = getAllsds();
+        databases = new ArrayList<>();
+
+
+        final class ListAync extends AsyncTask<Void,Void,Void>
+        {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                showLoadingDialog(getString(R.string.serching_databases));
+
+               // btnSearchDatabase.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                for(FileItem fi : sds){
+                    databases.addAll(searchDatabase(fi.getPath()));
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                hideProgressDialog();
+
+                if(databases.isEmpty()){
+                   // hideProgressDialog();
+                    showErrorDialog(getString(R.string.not_databases));
+                    fileAdapter.setFiles(getAllsds());
+                } else{
+                    // Buscar las fechas...
+                    fileAdapter.setFiles(databases);
+                    int index = 0;
+                    for(FileItem database : databases){
+                        // chequear las bases de datos...
+                        databaseViewModel.getDatabaseDate(database.getPath(),index++);
+                    }
+                }
+
+            }
+        }
+
+        new ListAync().execute();
+
+
+
+
+
+    }
+
+    // hacerlo dinamico, ir gardando e una lista los folders q valla encontrando
+    // a medida q voy recorriendo la lista, hasta q no encuentre mas ninguna,...
+
+    public List<FileItem> searchDatabase(String directory){
+        File files = new File(directory);
+
+        int cursor = 0;
+        List<File> process = new ArrayList<>();
+        List<FileItem> databases = new ArrayList<>();
+
+
+
+        FileFilter filter = new FileFilter() {
+            String extension = "db";
+            String databaseName = "timbirichi";
+
+            @Override
+            public boolean accept(File pathname) {
+                if (pathname.isDirectory()){
+                    return true;
+                }
+                String ext;
+                String name;
+                String path = pathname.getPath();
+                ext = path.substring(path.lastIndexOf(".") + 1);
+                name = path.substring(path.lastIndexOf("/")).toUpperCase();
+                return (ext.equals(extension) && name.contains(databaseName.toUpperCase()) );
+            }
+        };
+
+        List<File> filesArr = Arrays.asList(files.listFiles(filter));
+        process.addAll(filesArr);
+
+
+        for(int i = 0; i < process.size(); i++){
+            files = new File(process.get(i).getPath());
+            if(files.isFile()){
+                FileItem item = new FileItem(files.getName(), files.getPath(), FILE, 0);
+                databases.add(item);
+            } else{
+                process.addAll(Arrays.asList(files.listFiles(filter)));
+            }
+        }
+
+        Log.d(getClass().getSimpleName(), "Process Count: " + Integer.toString(process.size()));
+        return databases;
     }
 
 }

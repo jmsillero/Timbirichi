@@ -9,12 +9,14 @@ public class FileItem {
     String path;
     int type;
     int level;
+    String updateDate;
 
     public FileItem(String filename, String path, int type, int level) {
         this.filename = filename;
         this.path = path;
         this.type = type;
         this.level = level;
+        this.updateDate = "No compatible";
     }
 
     public FileItem() {
@@ -50,5 +52,13 @@ public class FileItem {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 }

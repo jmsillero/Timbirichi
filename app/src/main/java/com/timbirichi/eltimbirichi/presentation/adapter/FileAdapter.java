@@ -39,6 +39,10 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
         files = new ArrayList<>();
     }
 
+    public void setFileAt(String date, int pos){
+        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nActualizacion: " + date);
+        notifyDataSetChanged();
+    }
 
     public void setFiles(List<FileItem> files) {
         this.files = files;
@@ -68,7 +72,11 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
     @Override
     public void onBindViewHolder(FilesViewHolder holder, final int position) {
         final int type = files.get(position).getType();
-        final String filename = files.get(position).getFilename();
+
+        final String filename;
+
+       // if(type == UpdateActivity.FILE)
+        filename = files.get(position).getFilename();// + "\n" + files.get(position).getUpdateDate();
         final String path = files.get(position).getPath();
 
 

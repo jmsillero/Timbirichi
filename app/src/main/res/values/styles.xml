@@ -20,6 +20,34 @@
     </style>
 
 
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="actionMenuTextColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/black</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+        <item name="titleTextColor">@android:color/black</item>
+
+    </style>
+
+    <style name="ToolBarWhite" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@android:color/white</item>
+
+        <!--<item name="android:actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>-->
+        <!--<item name="android:actionOverflowButtonStyle">@style/AppTheme.Widget.ActionButton</item>-->
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+
+
+
+
+
     <!--<style name="FullscreenTheme" parent="AppTheme">-->
     <!--<item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>-->
     <!--<item name="android:windowActionBarOverlay">true</item>-->

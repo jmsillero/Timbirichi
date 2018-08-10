@@ -9,6 +9,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.database.CheckDatabaseUseCase
 import com.timbirichi.eltimbirichi.domain.use_case.database.CheckPreferencesDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.ClearDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.CopyDatabaseUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.database.GetDatabaseDateUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetDbPathUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.GetMetaInformationUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.SaveDbPathUseCase;
@@ -94,7 +95,8 @@ public class ActivityModule {
                                                              CopyDatabaseUseCase copyDatabaseUseCase,
                                                              GetDbPathUseCase getDbPathUseCase,
                                                              GetMetaInformationUseCase getMetaInformationUseCase,
-                                                             SaveDbPathUseCase saveDbPathUseCase){
+                                                             SaveDbPathUseCase saveDbPathUseCase,
+                                                             GetDatabaseDateUseCase getDatabaseDateUseCase){
 
         return new DatabaseViewModelFactory(checkDatabaseUseCase,
                 checkPreferencesDatabaseUseCase,
@@ -102,7 +104,8 @@ public class ActivityModule {
                 copyDatabaseUseCase,
                 getDbPathUseCase,
                 getMetaInformationUseCase,
-                saveDbPathUseCase);
+                saveDbPathUseCase,
+                getDatabaseDateUseCase);
     }
 
 

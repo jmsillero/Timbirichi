@@ -37,6 +37,39 @@ public class LocalDataBase extends SQLiteOpenHelper {
     }
 
 
+    public String getDatabaseDate(String data){
+        try {
+            SQLiteDatabase db = SQLiteDatabase.openDatabase(data, null, SQLiteDatabase.OPEN_READONLY);
+            String q = " SELECT *"
+                    + " FROM " + Meta.TABLE_META
+                    + " WHERE " + Meta.COL_META_CODE + " = '" + META_CODE + "'"
+                    + " LIMIT 1";
+
+
+            Cursor cursor = db.rawQuery(q, null);
+
+//            String selection = Meta.COL_META_CODE + " = '" + META_CODE + "'";
+//            Cursor cursor = db.query(true, Meta.TABLE_META,
+//                    null,selection,
+//                    null,
+//                    null,
+//                    null,
+//                    null,
+//                    "1");
+
+            if(cursor.moveToFirst()){
+                return cursor.getString(cursor.getColumnIndex(Meta.COL_META_DATE));
+            } else{
+                throw new SQLiteException();
+            }
+        } catch(SQLiteException sqle) {
+            sqle.printStackTrace();
+            db = null;
+            throw new SQLiteException();
+        }
+    }
+
+
     public boolean open(){
         try {
             db = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
@@ -124,6 +157,40 @@ public class LocalDataBase extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Nota: Lo divido en dos metodos para evitar el join...
+     * @return Devuelve la cantidad de productos para una categoria...
+     */
+    public int getProductCountBySubCat(long catId){
+
+        int count = 0;
+
+        String query = "SELECT count() FROM " + Product.PRODUCT_TABLE
+                + " WHERE  " + Product.PRODUCT_COL_SUBCATEGORY + " = " + Long.toString(catId);
+
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH , null, SQLiteDatabase.OPEN_READONLY);
+        Cursor cursor = db.rawQuery(query,null);
+
+        try{
+            if(cursor.moveToFirst())
+            {
+                count =   cursor.getInt(0);
+
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new SQLiteException();
+        }
+        finally {
+            cursor.close();
+            db.close();
+        }
+        close();
+        return  count;
+    }
 
 
     /**
@@ -150,6 +217,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
                       category.setName(cursor.getString(cursor.getColumnIndex(Category.CATEGORY_COL_NAME)));
 
                       category.setSubCategories(getSubCategories(db, category.getId()));
+
 
                       categories.add(category);
                 }
@@ -241,6 +309,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
                     SubCategory subCategory = new SubCategory();
                     subCategory.setId(Long.parseLong(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_ID))));
                     subCategory.setName(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_NAME)));
+                    subCategory.setProductCount(getProductCountBySubCat(subCategory.getId()));
                     subcategories.add(subCategory);
                 }
                 while (cursor.moveToNext());

@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.presentation.view.base;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -62,6 +63,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    ProgressDialog mProgressDialog;
+
+    protected void showLoadingDialog(String message){
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setTitle(R.string.app_name);
+        mProgressDialog.setMessage(message);
+        mProgressDialog.show();
+    }
+
+    protected void hideProgressDialog(){
+        mProgressDialog.dismiss();
+    }
+
 
 
     protected void initButterNife(){

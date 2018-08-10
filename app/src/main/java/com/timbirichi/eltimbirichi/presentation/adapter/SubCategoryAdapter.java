@@ -88,7 +88,7 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
     ImageView ivCat = convertView.findViewById(R.id.iv_cat);
     ivCat.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_categories_prod));
 
-    ivCat.setImageDrawable(menuIcons.getDrawable((int) categories.get(groupPosition).getId() - 1));
+    ivCat.setImageDrawable(menuIcons.getDrawable(groupPosition));
 
 
     listTitleTextView.setTypeface(null, Typeface.BOLD);
@@ -99,6 +99,7 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = ((SubCategory) getChild(groupPosition, childPosition)).getName();
+        final int productCount = ((SubCategory)getChild(groupPosition, childPosition)).getProductCount();
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -107,6 +108,9 @@ public class SubCategoryAdapter extends BaseExpandableListAdapter {
 
         TextView expandedListTextView =  convertView.findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
+
+        TextView tvProductCount =  convertView.findViewById(R.id.tv_product_count);
+        tvProductCount.setText(Integer.toString(productCount));
 
         return convertView;
     }

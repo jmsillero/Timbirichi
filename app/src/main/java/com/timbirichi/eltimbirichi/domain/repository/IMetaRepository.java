@@ -18,4 +18,5 @@ public interface IMetaRepository {
     Observable<String> getDatabasePath();
     Observable<Meta> getMetaInformation();
     Observable<Boolean> checkDatabse();
+    Observable<String>getDatabaseDate(String path);
 }

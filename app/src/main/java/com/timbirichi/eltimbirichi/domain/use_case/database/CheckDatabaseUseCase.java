@@ -22,6 +22,12 @@ public class CheckDatabaseUseCase extends UseCase<Boolean> {
         this.metaRepository = metaRepository;
     }
 
+    String path;
+
+    public void setParams(String path){
+        this.path = path;
+    }
+
     @Override
     protected Observable<Boolean> createObservableCaseUse() {
         return metaRepository.checkDatabse();
