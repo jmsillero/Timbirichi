@@ -40,7 +40,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
     }
 
     public void setFileAt(String date, int pos){
-        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nActualizacion: " + date);
+        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nActualización: " + date);
         notifyDataSetChanged();
     }
 

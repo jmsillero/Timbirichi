@@ -113,6 +113,10 @@
     <string name="p_email_phone"><b>Telefono: </b></string>
     <string name="p_email_isnew"><b>Nuevo: </b></string>
 
+    <string name="find_in_timbirichi">Buscar en timbirichi...</string>
+    <string name="find_in_favorites">Buscar en guardados...</string>
+    <string name="find_in_category">Buscar en </string>
+
 
     <string name="min">Mínimo</string>
     <string name="max">Máximo</string>
@@ -128,7 +132,7 @@
     <string name="find_database">Buscar</string>
     <string name="not_databases">No se encontraron bases de datos compatibles</string>
     <string name="serching_databases">Buscando bases de datos compatibles con timbirichi en el dispositivo...</string>
-    <string name="find_database_in_device">Si no recuerda la ubicacion de la base de datos, puede encontrarla haciendo clic aqui</string>
+    <string name="find_database_in_device">Si no recuerda la ubicación de la base de datos, puede encontrarla haciendo clic aquí</string>
 
     <string name="contact_phone">Telefono</string>
     <string name="contact_call">Llamar</string>
@@ -139,7 +143,7 @@
     <string name="contact_timbirichi">Web</string>
 
     <string name="timbirichi_phone">8725682345</string>
-    <string name="timbirichi_email">contacto@timbirichi.com</string>
+    <string name="timbirichi_email">anuncio@timbirichi.com</string>
     <string name="timbirichi_facebook">http://facebook.com/timbirichi</string>
     <string name="timbirichi_twitter">http://twitter.com/timbirichi</string>
     <string name="timbirichi_web">http://timbirichi.com</string>

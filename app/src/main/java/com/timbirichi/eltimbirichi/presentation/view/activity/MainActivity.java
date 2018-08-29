@@ -28,6 +28,7 @@ import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.model.Status;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
+import com.timbirichi.eltimbirichi.presentation.view.base.BaseFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CategoryFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.ContactFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.CoverPageFragment;
@@ -46,6 +47,7 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.reactivex.internal.subscriptions.SubscriptionArbiter;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,11 +55,11 @@ public class MainActivity extends BaseActivity
     CoverPageFragment coverPageFragment;
     FavoriteFragment favoriteFragment;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
+    public DrawerLayout drawer;
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
@@ -66,7 +68,7 @@ public class MainActivity extends BaseActivity
 
     ProductFragment productFragment;
 
-    String findText = null;
+    String findText = "";
 
     public static final int CODE_DATABASE_UPDATE = 2003;
 
@@ -103,14 +105,14 @@ public class MainActivity extends BaseActivity
         categoryViewModel.getCategories();
 
 
-        setSupportActionBar(toolbar);
+      //  setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle(getString(R.string.app_name));
+//        getSupportActionBar().setTitle(getString(R.string.app_name));
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
         openCoverPageFragment();
@@ -143,6 +145,19 @@ public class MainActivity extends BaseActivity
 
     private void openCoverPageFragment(){
         coverPageFragment = CoverPageFragment.newInstance();
+        catSelected.setId(SubCategory.CATEGORY_COVER_PAGE);
+        coverPageFragment.setFragmentCallback(new BaseFragment.FragmentCallback() {
+            @Override
+            public void onFragmentStart(int fragmentType) {
+
+            }
+
+            @Override
+            public void onFindProducts(String text) {
+                findProducts(text);
+            }
+        });
+
         coverPageFragment.setCoverPageCallback(new CoverPageFragment.CoverPageCallback() {
             @Override
             public void onOpenCategories() {
@@ -199,7 +214,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onCategorySelected(SubCategory category) {
                 openProductsFragment(category, null);
-                MainActivity.this.catSelected = catSelected;
+                MainActivity.this.catSelected = category;
             }
         });
 
@@ -209,6 +224,17 @@ public class MainActivity extends BaseActivity
 
     private void openProductsFragment(SubCategory category, String findText){
         productFragment = ProductFragment.newInstance(category, findText);
+        productFragment.setFragmentCallback(new BaseFragment.FragmentCallback() {
+            @Override
+            public void onFragmentStart(int fragmentType) {
+
+            }
+
+            @Override
+            public void onFindProducts(String text) {
+                findProducts(text);
+            }
+        });
         productFragment.setProductFragmentCallback(new ProductFragment.ProductFragmentCallback() {
             @Override
             public void onProductClick(Product prod) {
@@ -234,6 +260,18 @@ public class MainActivity extends BaseActivity
                 openDetailActivity(prod);
             }
         });
+
+        favoriteFragment.setFragmentCallback(new BaseFragment.FragmentCallback() {
+            @Override
+            public void onFragmentStart(int fragmentType) {
+
+            }
+
+            @Override
+            public void onFindProducts(String text) {
+                findProducts(text);
+            }
+        });
         openFragment(favoriteFragment, R.id.fragment_container, true);
     }
 
@@ -252,68 +290,86 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+    public void findProducts(String text){
 
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
-                    openFavoriteFragment(query);
-                }
-                else{
-                    openProductsFragment(catSelected, query);
-                }
-
-                findText = query;
-                return false;
+        if(catSelected.getId() == SubCategory.CATEGORY_COVER_PAGE && text.isEmpty() && !findText.isEmpty()){
+            openCoverPageFragment();
+        } else if(!text.equals(findText)){
+            if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
+                openFavoriteFragment(text);
             }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(findText != null && !findText.isEmpty() && newText.isEmpty()){
-                    if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
-                        openFavoriteFragment(null);
-                    } else{
-                        openProductsFragment(catSelected, null);
-                    }
-                    findText = null;
-                }
-
-                return false;
+            else{
+                openProductsFragment(catSelected, text);
             }
-        });
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                if(findText == null || findText.isEmpty()){
-                    openProductsFragment(catSelected, null);
-                    findText = null;
-                }
-                return false;
-            }
-        });
+        }
 
 
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
 
-
-        return true;
+        findText = text;
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getMenuInflater().inflate(R.menu.main, menu);
+//
+//
+//        SearchManager searchManager =
+//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//
+//        SearchView searchView =
+//                (SearchView) menu.findItem(R.id.search).getActionView();
+//
+//        searchView.setSearchableInfo(
+//                searchManager.getSearchableInfo(getComponentName()));
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
+//                    openFavoriteFragment(query);
+//                }
+//                else{
+//                    openProductsFragment(catSelected, query);
+//                }
+//
+//                findText = query;
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                if(findText != null && !findText.isEmpty() && newText.isEmpty()){
+//                    if(catSelected.getId() == SubCategory.CATEGORY_FAVORITES){
+//                        openFavoriteFragment(null);
+//                    } else{
+//                        openProductsFragment(catSelected, null);
+//                    }
+//                    findText = null;
+//                }
+//
+//                return false;
+//            }
+//        });
+//
+//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                if(findText == null || findText.isEmpty()){
+//                    openProductsFragment(catSelected, null);
+//                    findText = null;
+//                }
+//                return false;
+//            }
+//        });
+//
+//
+//
+//
+//
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

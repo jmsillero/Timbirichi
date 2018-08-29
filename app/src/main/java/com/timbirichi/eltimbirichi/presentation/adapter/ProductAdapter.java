@@ -147,6 +147,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
         @BindView(R.id.iv_product)
         ImageView ivProduct;
 
+        @BindView(R.id.iv_product1)
+        ImageView ivProduct1;
+
         @BindView(R.id.tv_title)
         TextView tvTitle;
 
@@ -187,8 +190,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
 //                            .centerCrop()
 //
 //                            .into(ivProduct);
-                    ivProduct.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
+                   // ivProduct1.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
+                    ivProduct.setVisibility(View.INVISIBLE);
+                    ivProduct1.setVisibility(View.VISIBLE);
                 } else{
+                    ivProduct.setVisibility(View.VISIBLE);
+                    ivProduct1.setVisibility(View.INVISIBLE);
+
+
                     GlideApp.with(context)
                             .load(Base64.decode(base64Img, Base64.DEFAULT))
                             .override(120, 120)

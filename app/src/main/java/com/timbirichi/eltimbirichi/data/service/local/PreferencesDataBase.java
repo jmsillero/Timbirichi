@@ -274,7 +274,7 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
         ContentValues fields = new ContentValues();
         fields.put(Product.PRODUCT_COL_ID, productBo.getId());
         fields.put(Product.PRODUCT_COL_NAME, productBo.getName());
-        fields.put(Product.PRODUCT_COL_SUBCATEGORY, productBo.getSubCategory());
+        fields.put(Product.PRODUCT_COL_SUBCATEGORY, productBo.getSubCategory() != null ? productBo.getSubCategory() : "");
         fields.put(Product.PRODUCT_COL_PRICE, productBo.getPrice());
         fields.put(Product.PRODUCT_COL_DOWN_PRICE, productBo.getPriceDown());
         fields.put(Product.PRODUCT_COL_TITLE, productBo.getTitle());
@@ -286,6 +286,7 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
         fields.put(Product.PRODUCT_COL_VIEWS, productBo.getViews());
         fields.put(Product.PRODUCT_COL_IS_NEW, productBo.isNewProduct());
         fields.put(Product.PRODUCT_COL_PHOTO_COUNT, productBo.getPhotosCount());
+
 
         if(productBo.getPhotosCount() > 0){
             ContentValues imagesFields = new ContentValues();

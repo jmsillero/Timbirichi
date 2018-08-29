@@ -87,5 +87,6 @@ public abstract class BaseFragment extends Fragment {
 
     public interface FragmentCallback{
         void onFragmentStart(int fragmentType);
+        void onFindProducts(String text);
     }
 }

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.bumptech.glide.manager.DefaultConnectivityMonitorFactory;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.glide.slider.library.Indicators.PagerIndicator;
@@ -25,6 +27,7 @@ import com.timbirichi.eltimbirichi.presentation.adapter.SelectedCategoryAdapter;
 import com.timbirichi.eltimbirichi.presentation.adapter.SelectedProductAdapter;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.model.constant.ShorcutType;
+import com.timbirichi.eltimbirichi.presentation.view.activity.MainActivity;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseFragment;
 import com.timbirichi.eltimbirichi.presentation.view.custom.ImageSliderView;
 import com.timbirichi.eltimbirichi.presentation.view.custom.NewsPanelView;
@@ -101,6 +104,9 @@ public class CoverPageFragment extends BaseFragment {
     CategoryViewModelFactory categoryViewModelFactory;
     CategoryViewModel categoryViewModel;
 
+    @BindView(R.id.floating_search_view)
+    FloatingSearchView floatingSearchView;
+
     public CoverPageFragment() {
         // Required empty public constructor
     }
@@ -134,6 +140,19 @@ public class CoverPageFragment extends BaseFragment {
 
         shimmerFrameLayout.startShimmer();
         shimmerSelectedProduct.startShimmer();
+
+        floatingSearchView.attachNavigationDrawerToMenuButton(((MainActivity)getActivity()).drawer);
+        floatingSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+            }
+
+            @Override
+            public void onSearchAction(String currentQuery) {
+                fragmentCallback.onFindProducts(currentQuery);
+            }
+        });
 
         setupBannerProductViewModel();
         setupProductViewModel();

@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.glide.slider.library.Indicators.PagerIndicator;
 import com.glide.slider.library.SliderLayout;
@@ -28,6 +30,7 @@ import com.timbirichi.eltimbirichi.data.model.SubCategory;
 import com.timbirichi.eltimbirichi.presentation.adapter.ProductAdapter;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.model.constant.ProductState;
+import com.timbirichi.eltimbirichi.presentation.view.activity.MainActivity;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseFragment;
 import com.timbirichi.eltimbirichi.presentation.view.custom.BottonBarBtnView;
 import com.timbirichi.eltimbirichi.presentation.view.custom.ImageSliderView;
@@ -73,6 +76,9 @@ public class ProductFragment extends BaseProductFragment {
     BannerViewModelFactory bannerViewModelFactory;
     BannerViewModel bannerViewModel;
 
+    @BindView(R.id.floating_search_view)
+    FloatingSearchView floatingSearchView;
+
 
     public ProductFragment() {
         // Required empty public constructor
@@ -115,16 +121,38 @@ public class ProductFragment extends BaseProductFragment {
         shimmerBanner.startShimmer();
         setupBannerProductViewModel();
 
+        if(findText != null && !findText.isEmpty()){
+            floatingSearchView.setSearchText(findText);
+        }
+        floatingSearchView.attachNavigationDrawerToMenuButton(((MainActivity)getActivity()).drawer);
+        floatingSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+            }
+
+            @Override
+            public void onSearchAction(String currentQuery) {
+                fragmentCallback.onFindProducts(currentQuery);
+            }
+        });
+
+
         if(category.getId() == SubCategory.CATEGORY_LASTED){
             shimmerBanner.setVisibility(View.GONE);
             bannerContainer.setVisibility(View.GONE);
             navigation.setVisibility(View.GONE);
-
+            floatingSearchView.setVisibility(View.INVISIBLE);
             ((ViewGroup.MarginLayoutParams)mainScroll.getLayoutParams()).bottomMargin = 0;
+            floatingSearchView.setSearchHint(getString(R.string.find_in_timbirichi));
 
         } else{
+            if(category.getId() == SubCategory.CATEGORY_COVER_PAGE){
+                floatingSearchView.setSearchHint(getString(R.string.find_in_timbirichi));
+            } else{
+                floatingSearchView.setSearchHint(getString(R.string.find_in_category) + " " + category.getName());
+            }
             bannerViewModel.getBannerByCatId(category.getId());
-           // bannerContainer.setVisibility(View.VISIBLE);
             navigation.setVisibility(View.VISIBLE);
         }
         return v;

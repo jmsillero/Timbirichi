@@ -10,6 +10,8 @@
     tools:context=".presentation.view.fragment.ProductFragment">
 
 
+
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,10 +23,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_banner"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
+                android:layout_marginTop="60dp"
                 app:shimmer_duration="1000">
 
                 <View
@@ -39,7 +44,8 @@
                 android:id="@+id/container_banner"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="60dp"
+
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -126,6 +132,31 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/floating_search_view"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true"
+        app:floatingSearch_backgroundColor="@android:color/background_light"
+        app:floatingSearch_leftActionColor="@color/colorPrimary"
+        app:floatingSearch_dimBackground="false"
+        app:floatingSearch_dismissOnOutsideTouch="true"
+        app:floatingSearch_leftActionMode="showHamburger"
+        app:floatingSearch_searchBarMarginLeft="10dp"
+        app:floatingSearch_searchBarMarginRight="10dp"
+        app:floatingSearch_searchBarMarginTop="4dp"
+        app:floatingSearch_searchHint="Search..."
+        app:floatingSearch_showSearchKey="true"
+        app:floatingSearch_suggestionsListAnimDuration="250"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

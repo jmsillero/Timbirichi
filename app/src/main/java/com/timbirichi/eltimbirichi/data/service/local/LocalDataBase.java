@@ -564,7 +564,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
         String limit = " LIMIT " + Integer.toString(start) + ", " + Integer.toString(end);
 
-        String cat = category.getId() != SubCategory.CATEGORY_LASTED ? Product.PRODUCT_COL_SUBCATEGORY + " = " + Long.toString(category.getId()) : Product.PRODUCT_COL_SUBCATEGORY + " <> " + Long.toString(category.getId());
+        String cat = (category.getId() != SubCategory.CATEGORY_LASTED && category.getId() != SubCategory.CATEGORY_COVER_PAGE) ? Product.PRODUCT_COL_SUBCATEGORY + " = " + Long.toString(category.getId()) : Product.PRODUCT_COL_SUBCATEGORY + " <> " + Long.toString(category.getId());
 
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
                 + " WHERE " + cat

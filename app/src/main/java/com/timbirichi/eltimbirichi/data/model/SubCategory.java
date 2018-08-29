@@ -12,6 +12,7 @@ public class SubCategory implements Parcelable{
 
     public static long CATEGORY_LASTED = -12;
     public static long CATEGORY_FAVORITES = -15;
+    public static long CATEGORY_COVER_PAGE = -18;
 
     long id;
     String name;

@@ -59,7 +59,9 @@
         <activity
             android:name=".presentation.view.activity.UpdateActivity"
             android:label="@string/title_activity_update"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.timbirichi.eltimbirichi.fileprovider"

@@ -18,7 +18,7 @@ public class Utils {
     public static Meta meta;
 
     public static int PRODUCT_OFFSET = 0;
-    public static int PRODUCT_COUNT = 20;
+    public static int PRODUCT_COUNT = 30;
 
     public static Product productSelected;
 
