@@ -53,6 +53,9 @@
     <string name="product_detail">Detalles</string>
     <string name="clear">Limpiar</string>
 
+    <string name="cancel">Cancelar</string>
+    <string name="delete_confirm">Desea borrar los anuncios guardados?</string>
+
     <string name="update_database">Actualizar Base de datos</string>
     <string name="new_database">Adicionar base de datos</string>
 

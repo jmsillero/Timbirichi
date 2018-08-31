@@ -29,7 +29,7 @@
                 android:id="@+id/shimmer_banner"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/search_button_margin_bottom"
                 app:shimmer_duration="1000">
 
                 <View
@@ -44,7 +44,7 @@
                 android:id="@+id/container_banner"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/search_button_margin_bottom"
 
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -145,6 +145,7 @@
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
         app:floatingSearch_backgroundColor="@android:color/background_light"
         app:floatingSearch_leftActionColor="@color/colorPrimary"
+        app:floatingSearch_dividerColor="@color/colorPrimary"
         app:floatingSearch_dimBackground="false"
         app:floatingSearch_dismissOnOutsideTouch="true"
         app:floatingSearch_leftActionMode="showHamburger"

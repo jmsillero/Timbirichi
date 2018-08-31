@@ -105,12 +105,12 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
         String limit = " LIMIT " + Integer.toString(start) + ", " + Integer.toString(end);
 
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
-                + where + like + withImage + min + max + " GROUP BY " + Product.PRODUCT_COL_ID
+                + where + like + withImage + min + max
                 + orderBy + limit;
 
         if(!into){
             query = "SELECT * FROM " + Product.PRODUCT_TABLE
-            + " GROUP BY " + Product.PRODUCT_COL_ID
+
                     + orderBy + limit;
         }
 
@@ -121,11 +121,11 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
 
                 do {
 
-                    if (!order.equals(Product.PRODUCT_COL_PRICE)) {
+                   // if (!order.equals(Product.PRODUCT_COL_PRICE)) {
 
                         Product product = createOrdinaryProduct(cursor, db);
                         products.add(product);
-                    }
+                  //  }
                 }
                 while (cursor.moveToNext());
             }

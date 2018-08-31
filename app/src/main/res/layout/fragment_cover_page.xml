@@ -29,7 +29,7 @@
                 android:id="@+id/shimmer_view_container"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/search_button_margin_bottom"
                 app:shimmer_duration="800">
 
                 <View
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
                 android:orientation="vertical"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="@dimen/search_button_margin_bottom"
 
                 android:visibility="gone">
                 <com.glide.slider.library.SliderLayout

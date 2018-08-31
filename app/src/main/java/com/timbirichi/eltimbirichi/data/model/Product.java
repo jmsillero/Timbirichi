@@ -60,7 +60,7 @@ public class Product implements Parcelable{
     public static final String ORDER_ASC = " ASC ";
     public static final String ORDER_DESC = " DESC ";
 
-    public static final int COVER_PAGE = 0;
+    public static final int COVER_PAGE = 1;
 
 
 

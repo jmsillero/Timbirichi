@@ -59,8 +59,6 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.tv_province)
     TextView tvProvince;
 
-    @BindView(R.id.tv_views)
-    TextView tvViews;
 
     @BindView(R.id.tv_new)
     TextView tvNew;
@@ -142,7 +140,7 @@ public class DetailActivity extends BaseActivity {
 
 
         tvProvince.setText(product.getProvince().getName());
-        tvViews.setText(Integer.toString(product.getViews()));
+
         tvNew.setText(product.isNewProduct() ? getString(R.string.new_product) : getString(R.string.used_product));
         tvDescription.setText(product.getDescription());
 

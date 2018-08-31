@@ -56,9 +56,9 @@
             android:ellipsize="end"
             android:enabled="false"
             android:gravity="center|left"
-            android:lines="2"
-            android:maxLines="2"
-            android:text="TextView asdfasdf a asdfasdfasdf asdfasdf  asdf asdf asdf asdf asdf"
+            android:lines="3"
+            android:maxLines="3"
+            android:text="TextView asdfasdf a asdfasdfasdf asdfasdf  \n asdf asdf asdf asdf asdf"
             android:textColor="@color/panel_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -71,33 +71,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="$100 cuc"
-            android:textColor="@color/panel_color"
+            android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/panel_color"
-            android:text="@string/views"
-
-            app:layout_constraintStart_toStartOf="@+id/tv_price"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
-        <TextView
-            android:id="@+id/tv_views"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/colorAccent"
-            android:text="23"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/tv_state"
@@ -135,8 +113,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintStart_toStartOf="@+id/tv_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
 
     </android.support.constraint.ConstraintLayout>
 

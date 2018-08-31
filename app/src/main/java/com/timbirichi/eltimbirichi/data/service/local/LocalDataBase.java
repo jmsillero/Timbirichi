@@ -463,9 +463,10 @@ public class LocalDataBase extends SQLiteOpenHelper {
     public List<Product> loadCoverPageProducts(){
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
-                     + " WHERE " + Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
-                     + " ORDER BY " + Product.PRODUCT_COL_ULTRA + ", " + Product.PRODUCT_COL_COVER_PAGE + ", " + Product.PRODUCT_COL_ID + Product.ORDER_DESC
-                     + " LIMIT " + Integer.toString(6);
+                     + " WHERE " + Product.PRODUCT_COL_ULTRA + " = " + Integer.toString(Product.COVER_PAGE)
+                     + " OR " +  Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
+                     + " ORDER BY " + Product.PRODUCT_COL_ULTRA + Product.ORDER_DESC+ ", " + Product.PRODUCT_COL_COVER_PAGE + Product.ORDER_DESC + ", " + Product.PRODUCT_COL_ID + Product.ORDER_DESC;
+                   //  + " LIMIT " + Integer.toString(6);
 
         // todo: Cambiar el limite de productos de la portada...
 
@@ -473,14 +474,17 @@ public class LocalDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
         Cursor cursor = db.rawQuery(query,null);
 
+        int index = 0;
+
         try{
             if(cursor.moveToFirst())
             {
                 do{
                     Product product = createOrdinaryProduct(cursor, db);
                     products.add(product);
+                    index ++;
                 }
-                while (cursor.moveToNext());
+                while (cursor.moveToNext() && index < 6);
             }
         }
         catch (SQLiteException e)
@@ -546,7 +550,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
         String like = (text != null && !text.isEmpty()) ? " AND " + Product.PRODUCT_COL_TITLE  + " LIKE '%" + text + "%' " : " ";
 
-        String orderBy = (order != null && !order.isEmpty()) ? " ORDER BY " + order + orderType : " ";
+        String orderBy = (order != null && !order.isEmpty()) ? " ORDER BY " + Product.PRODUCT_COL_ULTRA + Product.ORDER_DESC + ", " + Product.PRODUCT_COL_COVER_PAGE + Product.ORDER_DESC +   ", "+ order + orderType : " ";
 
         String withImage = image ? " AND " + Product.PRODUCT_COL_PHOTO_COUNT + " > 0" : " ";
 
@@ -569,8 +573,8 @@ public class LocalDataBase extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
                 + " WHERE " + cat
                 + newProd + prov
-                + like + withImage + min + max + " GROUP BY " + Product.PRODUCT_COL_ID
-                + orderBy + ", " + Product.PRODUCT_COL_ULTRA + Product.ORDER_DESC + ", " + Product.PRODUCT_COL_COVER_PAGE + Product.ORDER_DESC
+                + like + withImage + min + max
+                + orderBy
                 + limit;
 
 

@@ -156,8 +156,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
         @BindView(R.id.tv_price)
         TextView tvPrice;
 
-        @BindView(R.id.tv_views)
-        TextView tvViews;
+
 
         @BindView(R.id.tv_state)
         TextView tvState;
@@ -228,7 +227,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
             }
 
 
-            tvViews.setText(Integer.toString(views));
+
                 tvState.setText(state == ProductState.NEW ? context.getString(R.string.new_product) : context.getString(R.string.used_product)   );
                 tvProvince.setText(province);
         }
