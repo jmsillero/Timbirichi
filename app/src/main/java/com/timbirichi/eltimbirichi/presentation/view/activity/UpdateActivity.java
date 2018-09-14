@@ -58,6 +58,8 @@ public class UpdateActivity extends BaseActivity {
     public final static int EXTERNAL_STORAGE = 2;
     public final static int INTERNAL_STORAGE = 3;
     public final static int GO_BACK = 4;
+    public final static int AUTOMATIC_SEARCH = 5;
+    public final static int DOWNLOAD = 6;
 
     public final static String EXTRA_EXIST_DATABASE = "com.timbirichi.eltimbirichi.exist_database";
     public final static String EXTRA_META_INFORMATION = "com.timbirichi.eltimbirichi.meta_information";
@@ -125,6 +127,7 @@ public class UpdateActivity extends BaseActivity {
             public void onChanged(@Nullable Response<Boolean> booleanResponse) {
                 switch (booleanResponse.status){
                     case LOADING:
+                        showLoadingDialog(getString(R.string.loading_cover_page));
                         break;
 
                     case SUCCESS:
@@ -135,6 +138,7 @@ public class UpdateActivity extends BaseActivity {
 
                     case ERROR:
                         showErrorDialog(getString(R.string.database_incompatible));
+                        hideProgressDialog();
                         break;
                 }
             }
@@ -150,6 +154,7 @@ public class UpdateActivity extends BaseActivity {
                     case SUCCESS:
                         if(booleanResponse.data){
                             databaseViewModel.saveDatabasePath(UpdateActivity.this.path);
+
                         }else{
                             showErrorDialog(getString(R.string.database_incompatible));
                         }
@@ -175,6 +180,7 @@ public class UpdateActivity extends BaseActivity {
                         } else{
                             openMainActivity(metaResponse.data);
                         }
+                        hideProgressDialog();
                         break;
 
                     case ERROR:
@@ -252,7 +258,9 @@ public class UpdateActivity extends BaseActivity {
         fileAdapter.setOnFileItemClickListener(new FileAdapter.OnFileItemClickListener() {
             @Override
             public void onItemClick(int fileType, int pos, String filename, String path) {
-                if (fileType != FILE){
+                if(fileType == AUTOMATIC_SEARCH){
+                    onBtnSearchDatabaseClick();
+                } else if (fileType != FILE){
                     if (fileType != GO_BACK){
                         currentLevel ++;
 
@@ -262,7 +270,6 @@ public class UpdateActivity extends BaseActivity {
                         return;
                     } else{
                         currentLevel --;
-
                     }
                     fileAdapter.setFiles(loadFileList(path));
 
@@ -272,7 +279,6 @@ public class UpdateActivity extends BaseActivity {
                     LocalDataBase.DB_NAME = filename;
                     LocalDataBase.DB_PATH = path;
                     databaseViewModel.checkDatabase();
-
                 }
             }
         });
@@ -424,21 +430,27 @@ public class UpdateActivity extends BaseActivity {
                 list.add(new FileItem(getResources().getString(R.string.internal_sd), internalSd, INTERNAL_STORAGE, currentLevel));
             }
         }
+
+        list.add(new FileItem(getString(R.string.find_database), null, AUTOMATIC_SEARCH, currentLevel));
+        list.add(new FileItem(getString(R.string.download_database), null, DOWNLOAD, currentLevel));
         return list;
     }
 
 
-    @BindView(R.id.btn_search_database)
-    Button btnSearchDatabase;
+
     int count;
     List<FileItem> databases = new ArrayList<>();
 
 
-    @OnClick(R.id.btn_search_database)
+    //@OnClick(R.id.btn_search_database)
     public void onBtnSearchDatabaseClick(){
         search = true;
         count = 0;
         final List<FileItem> sds = getAllsds();
+
+        //eliminar los dos ultimos items para no buscar en ellos...
+        sds.remove(sds.size() - 1);
+        sds.remove(sds.size() - 1);
         databases = new ArrayList<>();
 
 

@@ -51,7 +51,9 @@
     <string name="filter">Filtro</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="product_detail">Detalles</string>
+    <string name="contact_activity">Acerca de...</string>
     <string name="clear">Limpiar</string>
+    <string name="loading_cover_page">Cargando portada</string>
 
     <string name="cancel">Cancelar</string>
     <string name="delete_confirm">Desea borrar los anuncios guardados?</string>
@@ -102,9 +104,9 @@
     <string name="incorrect_email">Correo incorrecto.</string>
     <string name="incorrect_phone">Teléfono incorrecto.</string>
     <string name="insert_description">Debe insertar una descripción.</string>
-    <string name="send_email">Enviar correo...</string>
+    <string name="send_email">Enviar correo</string>
 
-    <string name="api_email">contacto@timbirichi.com</string>
+    <string name="api_email">anuncio@timbirichi.com</string>
 
     <string name="p_email_title"><u>Titulo del anuncio: </u></string>
     <string name="p_email_category"><b>Categoria: </b></string>
@@ -132,7 +134,8 @@
     <string name="internal_sd">Almacenamiento interno</string>
     <string name="go_back">Atrás</string>
 
-    <string name="find_database">Buscar</string>
+    <string name="find_database">Buscar en el dispositivo</string>
+    <string name="download_database">Descargar base de datos</string>
     <string name="not_databases">No se encontraron bases de datos compatibles</string>
     <string name="serching_databases">Buscando bases de datos compatibles con timbirichi en el dispositivo...</string>
     <string name="find_database_in_device">Si no recuerda la ubicación de la base de datos, puede encontrarla haciendo clic aquí</string>
@@ -145,41 +148,27 @@
     <string name="contact_twitter">Twitter</string>
     <string name="contact_timbirichi">Web</string>
 
-    <string name="timbirichi_phone">8725682345</string>
+    <string name="timbirichi_phone">+5352459058</string>
     <string name="timbirichi_email">anuncio@timbirichi.com</string>
-    <string name="timbirichi_facebook">http://facebook.com/timbirichi</string>
+    <string name="timbirichi_email_contact">soporte@timbirichi.com</string>
+    <string name="timbirichi_facebook">https://www.facebook.com/timbirichi.clasificados</string>
     <string name="timbirichi_twitter">http://twitter.com/timbirichi</string>
-    <string name="timbirichi_web">http://timbirichi.com</string>
+    <string name="timbirichi_web">https://www.timbirichi.com/</string>
 
     <string name="no_products">Su búsqueda no arrojó resultado, intente buscar nuevamente</string>
     <string name="no_favorites">Usted no tiene anuncios guardados</string>
 
-    <string name="contact_text">  "Material is the metaphor.\n\n"
-
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts.\n\n"
-
-        "Bold, graphic, intentional.\n\n"
-
-
-        "The foundational elements of print based design typography, grids, space, scale, color, "
-        "and use of imagery guide visual treatments. These elements do far more than please the "
-        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
-        "imagery, large scale typography, and intentional white space create a bold and graphic "
-        "interface that immerse the user in the experience.\n"
-        "An emphasis on user actions makes core functionality immediately apparent and provides "
-        "waypoints for the user.\n\n"
-
-        "Motion provides meaning.\n\n"
+    <string name="contact_text">   <b>Timbirichi</b>, proyecto de clasificados con el objetivo de hacer la compra venta en Cuba fácil y sencilla. Nos caracterizamos por hacer lo posible en mantener un sitio limpio, sin contenidos inadecuados o repetidos.
+            Estamos en constante desarrollo para nuestros usuarios, así que, si quiere aportar alguna idea nueva, sugerencia u opinión para la aplicación o web sin duda será bienvenida. \n\n
+        Nuestros contactos:
     </string>
+
+    <string name="contact_text_2"> Si desea una promoción de más alcance y efectiva contáctenos por las siguientes vías:
+
+    </string>
+
+    <string name="enter">Entrar</string>
+    <string name="call_by_phone">Llamar por teléfono</string>
 
 
     <string name="large_text">

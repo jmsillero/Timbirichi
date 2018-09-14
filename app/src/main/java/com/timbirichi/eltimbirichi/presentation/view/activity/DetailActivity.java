@@ -175,10 +175,10 @@ public class DetailActivity extends BaseActivity {
                     case SUCCESS:
                         fbFaborites.setEnabled(true);
                         if(booleanResponse.data){
-                            fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorites_full));
+                            fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_saved));
                             fbFaborites.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.a_pink_400)));
                         }else{
-                            fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorites_empty));
+                            fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_saved));
                             fbFaborites.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
                         }
                         break;

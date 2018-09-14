@@ -16,7 +16,7 @@
         android:layout_gravity="center|top"
         android:gravity="center|top"
         app:fabSize="normal"
-        app:borderWidth="2dp"
+
         app:useCompatPadding="true"
         app:srcCompat="@drawable/ic_call"
         android:tint="@color/colorAccent"/>

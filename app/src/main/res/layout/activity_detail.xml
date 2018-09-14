@@ -65,7 +65,7 @@
         app:fabSize="normal"
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="right|bottom"
-        app:srcCompat="@drawable/ic_favorites_empty" />
+        app:srcCompat="@drawable/ic_saved" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -89,7 +89,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_call_phone"
+                android:drawableTop="@drawable/ic_call2"
                 android:text="@string/call"
                 android:textAllCaps="false"
                 android:drawableTint="@color/a_gray_600"
@@ -115,7 +115,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_email"
+                android:drawableTop="@drawable/ic_icon_mail_test_new"
                 android:text="@string/email"
                 android:textAllCaps="false"
                 android:drawableTint="@color/a_gray_600"

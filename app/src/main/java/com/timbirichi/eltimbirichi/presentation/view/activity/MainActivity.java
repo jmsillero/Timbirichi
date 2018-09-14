@@ -430,13 +430,12 @@ public class MainActivity extends BaseActivity
                 openFavoriteFragment(null);
                 break;
 
-
             case R.id.nav_update:
                 openUpdateActivity();
                 break;
 
             case R.id.nav_contact:
-                openContactFragment();
+                openContactActivity();
                 break;
 
             case R.id.nav_publish:
@@ -447,6 +446,11 @@ public class MainActivity extends BaseActivity
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openContactActivity(){
+        Intent intent = new Intent(this, ContactActivity.class);
+        startActivity(intent);
     }
 
     public void openContactFragment(){
@@ -466,9 +470,11 @@ public class MainActivity extends BaseActivity
     }
 
     private void openUpdateActivity(){
+
         Intent intent = new Intent(this, UpdateActivity.class);
         intent.putExtra(UpdateActivity.EXTRA_EXIST_DATABASE, true);
         startActivityForResult(intent, CODE_DATABASE_UPDATE);
+
     }
 
 

@@ -137,6 +137,14 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
                  case UpdateActivity.EXTERNAL_STORAGE:
                      mFileImg.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_sd_storage));
                      break;
+
+                 case UpdateActivity.AUTOMATIC_SEARCH:
+                     mFileImg.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_find_in_page));
+                     break;
+
+                 case UpdateActivity.DOWNLOAD:
+                     mFileImg.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_file_download));
+                     break;
              }
 
         }

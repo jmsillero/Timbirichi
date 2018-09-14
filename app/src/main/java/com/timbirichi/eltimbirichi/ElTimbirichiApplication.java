@@ -15,7 +15,6 @@ public class ElTimbirichiApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-
     }
 
 

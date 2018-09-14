@@ -880,6 +880,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
                         banner = new Banner();
                         banner.setId(cursor.getLong(cursor.getColumnIndex(Banner.BANNER_COL_ID)));
                         banner.setBase64Img(cursor.getString(cursor.getColumnIndex(Banner.BANNER_COL_IMAGE)));
+                        banner.setBnDefault(cursor.getInt(cursor.getColumnIndex(Banner.BANNER_COL_DEFAULT)) == 1);
                         banners.add(banner);
                     }
                     while (cursor.moveToNext());
@@ -896,7 +897,24 @@ public class LocalDataBase extends SQLiteOpenHelper {
             close();
         }
 
-        return banners;
+       return banners;
+    }
+
+    // limpiar los banners en caso de que tenga alguno q no sea default, quitar los defaults..
+    private List<Banner> cleaDefaultBanners(List<Banner> banners){
+        List<Banner> bnrs = new ArrayList<>();
+        if (banners.size() > 1){
+           for (Banner bn : banners){
+               if (!bn.isBnDefault()){
+                   bnrs.add(bn);
+               }
+           }
+        }
+
+        if (bnrs.size() > 0){
+            return bnrs;
+        }
+        return null;
     }
 
     public List<Banner> getBannersByCategoryId(long catId){
@@ -919,6 +937,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
                         banner = new Banner();
                         banner.setId(cursor.getLong(cursor.getColumnIndex(Banner.BANNER_COL_ID)));
                         banner.setBase64Img(cursor.getString(cursor.getColumnIndex(Banner.BANNER_COL_IMAGE)));
+                        banner.setBnDefault(cursor.getInt(cursor.getColumnIndex(Banner.BANNER_COL_DEFAULT)) == 1);
                         banners.add(banner);
                     }
                     while (cursor.moveToNext());
@@ -938,8 +957,9 @@ public class LocalDataBase extends SQLiteOpenHelper {
         if (banners == null){
             banners = getDefaultsBanners();
         }
+        List<Banner> bnList = cleaDefaultBanners(banners);
+        return bnList != null ? bnList : banners;
 
-        return banners;
     }
 
     @Override
