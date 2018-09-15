@@ -74,6 +74,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
+    protected void setProgressDialogMessage(String message){
+        mProgressDialog.setMessage(message);
+    }
+
+
+
     protected void hideProgressDialog(){
         mProgressDialog.dismiss();
     }

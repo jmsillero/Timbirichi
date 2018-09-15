@@ -23,6 +23,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.downloader.Error;
+import com.downloader.OnCancelListener;
+import com.downloader.OnDownloadListener;
+import com.downloader.OnPauseListener;
+import com.downloader.OnProgressListener;
+import com.downloader.OnStartOrResumeListener;
+import com.downloader.PRDownloader;
+import com.downloader.Progress;
+import com.hzy.lib7z.ExtractCallback;
+import com.hzy.lib7z.Z7Extractor;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
@@ -42,14 +52,23 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class UpdateActivity extends BaseActivity {
 
@@ -63,6 +82,24 @@ public class UpdateActivity extends BaseActivity {
 
     public final static String EXTRA_EXIST_DATABASE = "com.timbirichi.eltimbirichi.exist_database";
     public final static String EXTRA_META_INFORMATION = "com.timbirichi.eltimbirichi.meta_information";
+
+    public final static String DB_PATH = "/timbirichidb/";
+
+
+    // for download database
+    public final static String DB_URL = "http://localhost/test/";
+    public final static String WEB_DB_NAME = "timbirichi.db";
+
+    public final static int DOWNLOAD_COMPLETED = 0;
+    public final static int DOWNLOAD_FAILED = 1;
+    public final static int FILE_CORRUPTED = 2;
+    public final static int DOWNLOAD_CANCELLED = 3;
+    public final static int DOWNLOAD_INITED = 4;
+    public final static int DOWNLOAD_PAUSED = 5;
+    private int downloadStatus;
+    private int downloadId;
+
+
 
     private String externalSd;
     private String internalSd;
@@ -198,25 +235,7 @@ public class UpdateActivity extends BaseActivity {
                         break;
 
                     case SUCCESS:
-                       // databases.get(stringResponse.data.second).setUpdateDate(stringResponse.data.first);
                         fileAdapter.setFileAt(stringResponse.data.first, stringResponse.data.second);
-//                        if(stringResponse.data.second == databases.size()){
-//                            List<FileItem> datas = new ArrayList<>();
-//                            for(int i = 0; i < databases.size(); i++){
-//                                if(databases.get(i).getUpdateDate() != null && !databases.get(i).getUpdateDate().isEmpty()){
-//                                    datas.add(databases.get(i));
-//                                }
-//                            }
-//                            if(datas.size() > 0){
-//                                fileAdapter.setFiles(datas);
-//                                hideProgressDialog();
-//                            } else{
-//                                hideProgressDialog();
-//                                showErrorDialog(getString(R.string.not_databases));
-//                                fileAdapter.setFiles(getAllsds());
-//                            }
-//
-//                        }
                         break;
 
                     case ERROR:
@@ -260,10 +279,11 @@ public class UpdateActivity extends BaseActivity {
             public void onItemClick(int fileType, int pos, String filename, String path) {
                 if(fileType == AUTOMATIC_SEARCH){
                     onBtnSearchDatabaseClick();
-                } else if (fileType != FILE){
+                }else if (fileType == DOWNLOAD){
+                    downloadDatabase(DB_URL, WEB_DB_NAME);
+                }else if (fileType != FILE){
                     if (fileType != GO_BACK){
                         currentLevel ++;
-
                     } else if (currentLevel == 1){
                         fileAdapter.setFiles(getAllsds());
                         currentLevel --;
@@ -479,7 +499,7 @@ public class UpdateActivity extends BaseActivity {
                 hideProgressDialog();
 
                 if(databases.isEmpty()){
-                   // hideProgressDialog();
+
                     showErrorDialog(getString(R.string.not_databases));
                     fileAdapter.setFiles(getAllsds());
                 } else{
@@ -549,6 +569,81 @@ public class UpdateActivity extends BaseActivity {
 
         Log.d(getClass().getSimpleName(), "Process Count: " + Integer.toString(process.size()));
         return databases;
+    }
+
+
+    // download database rom timbirichi web site
+    public void downloadDatabase(String url, final String fileName){
+
+        Calendar cal = Calendar.getInstance();
+        String currentDate = Integer.toString(cal.get(Calendar.DAY_OF_MONTH))
+                + Integer.toString(cal.get(Calendar.MONTH))
+                + Integer.toString(cal.get(Calendar.YEAR));
+
+
+        // crear fichero y carpeta...
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH + "/" + currentDate);
+        file.mkdirs();
+
+        final String dirPath = file.getPath();
+
+        this.downloadId = PRDownloader.download(url, dirPath, fileName)
+                .build()
+                .setOnStartOrResumeListener(new OnStartOrResumeListener() {
+                    @Override
+                    public void onStartOrResume() {
+                        downloadStatus = DOWNLOAD_INITED;
+                    }
+                })
+                .setOnPauseListener(new OnPauseListener() {
+                    @Override
+                    public void onPause() {
+                        downloadStatus = DOWNLOAD_PAUSED;
+                    }
+                })
+                .setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+                        downloadStatus = DOWNLOAD_CANCELLED;
+                    }
+                })
+                .setOnProgressListener(new OnProgressListener() {
+                    @Override
+                    public void onProgress(Progress progress) {
+                        String message = "Descargando base de datos... \n\n";
+                        showLoadingDialog(message);
+                        long totalBytes = progress.totalBytes;
+                        long currentBytes = progress.currentBytes;
+                        long percent = (currentBytes * 100) / totalBytes;
+
+                     // Mostrar progreso en el dialogo de progreso de descarga...
+                        message += Long.toString(percent ) + "%";
+                        setProgressDialogMessage(message);
+                    }
+                })
+                .start(new OnDownloadListener() {
+                    @Override
+                    public void onDownloadComplete() {
+                        isDbSelected = true;
+                        UpdateActivity.this.path = dirPath;
+                        LocalDataBase.DB_NAME = fileName;
+                        LocalDataBase.DB_PATH = dirPath;
+                        databaseViewModel.checkDatabase();
+                        hideProgressDialog();
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+
+                        if (error.isConnectionError()){
+                            showErrorDialog("Error de conexion");
+                        }
+
+                        if (error.isServerError()){
+                            showErrorDialog("Error de servidor");
+                        }
+                    }
+                });
     }
 
 }
