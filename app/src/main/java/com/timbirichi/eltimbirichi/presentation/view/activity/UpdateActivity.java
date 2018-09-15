@@ -636,11 +636,11 @@ public class UpdateActivity extends BaseActivity {
                     public void onError(Error error) {
 
                         if (error.isConnectionError()){
-                            showErrorDialog("Error de conexion");
+                            showErrorDialog(getString(R.string.connexion_error));
                         }
 
                         if (error.isServerError()){
-                            showErrorDialog("Error de servidor");
+                            showErrorDialog(getString(R.string.server_error));
                         }
                     }
                 });

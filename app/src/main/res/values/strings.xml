@@ -32,6 +32,9 @@
     <string name="views">Vistas: </string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <string name="connexion_error">Error al conectarse con el servidor.</string>
+    <string name="server_error">Error en el servidor</string>
+
 
     <string name="call">Llamar</string>
     <string name="sms">Mensaje</string>
@@ -52,6 +55,7 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="product_detail">Detalles</string>
     <string name="contact_activity">Acerca de...</string>
+    <string name="publish_activity">Publicar anuncio</string>
     <string name="clear">Limpiar</string>
     <string name="loading_cover_page">Cargando portada</string>
 
@@ -107,6 +111,11 @@
     <string name="send_email">Enviar correo</string>
 
     <string name="api_email">anuncio@timbirichi.com</string>
+
+    <string name="device"><b>Dispositivo:</b></string>
+    <string name="app"><b>App:</b></string>
+    <string name="app_version"><b>Versión App:</b></string>
+    <string name="android_version"><b>Versión Android:</b></string>
 
     <string name="p_email_title"><u>Titulo del anuncio: </u></string>
     <string name="p_email_category"><b>Categoria: </b></string>
@@ -166,6 +175,13 @@
     <string name="contact_text_2"> Si desea una promoción de más alcance y efectiva contáctenos por las siguientes vías:
 
     </string>
+
+    <string name="publish_text">Si quiere que sus anuncios aparezcan en la aplicación, debe hacerlo directamente desde el sitio
+        web <b>www.timbirichi.com</b>. Puede tener una sección con sus anuncios e incuso automatizarlos para que siempre sean visibles.\n\n
+¿Qué esperas? ¡Únete a nuestra red!
+</string>
+
+    <string name="publish_text_2">Si desea una promoción de más alcance y efectiva contáctenos por las siguientes vías:</string>
 
     <string name="enter">Entrar</string>
     <string name="call_by_phone">Llamar por teléfono</string>
@@ -263,5 +279,6 @@
     <string name="title_activity_update">UpdateActivity</string>
     <string name="title_activity_main3">Main3Activity</string>
     <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_publish">PublishActivity</string>
 
 </resources>

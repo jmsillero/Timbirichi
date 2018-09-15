@@ -35,6 +35,7 @@ import com.timbirichi.eltimbirichi.presentation.view.fragment.CoverPageFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.FavoriteFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.ProductFragment;
 import com.timbirichi.eltimbirichi.presentation.view.fragment.PublishFragment;
+import com.timbirichi.eltimbirichi.presentation.view.fragment.PublishHubFragment;
 import com.timbirichi.eltimbirichi.presentation.view_model.CategoryViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewModelFactory;
@@ -200,7 +201,8 @@ public class MainActivity extends BaseActivity
 
             @Override
             public void openPublish() {
-                openPublishFragment();
+                //openPublishFragment();
+                openPublishActivity();
             }
         });
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -275,8 +277,14 @@ public class MainActivity extends BaseActivity
         openFragment(favoriteFragment, R.id.fragment_container, true);
     }
 
+    private void openPublishActivity(){
+        Intent intent = new Intent(this, PublishActivity.class);
+        startActivity(intent);
+    }
+
     private void openPublishFragment(){
         PublishFragment publishFragment = PublishFragment.newInstance();
+       // PublishHubFragment publishFragment = PublishHubFragment.newInstance();
         openFragment(publishFragment, R.id.fragment_container, true);
     }
 
@@ -439,7 +447,8 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.nav_publish:
-                openPublishFragment();
+                //openPublishFragment();
+                openPublishActivity();
                 break;
 
 
