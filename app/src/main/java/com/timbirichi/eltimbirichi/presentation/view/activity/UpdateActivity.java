@@ -87,7 +87,7 @@ public class UpdateActivity extends BaseActivity {
 
 
     // for download database
-    public final static String DB_URL = "http://localhost/test/";
+    public final static String DB_URL = "https://www.timbirichi.com/apk/";
     public final static String WEB_DB_NAME = "timbirichi.db";
 
     public final static int DOWNLOAD_COMPLETED = 0;
