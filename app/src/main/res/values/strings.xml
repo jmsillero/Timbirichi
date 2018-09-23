@@ -59,6 +59,8 @@
     <string name="publish_activity">Publicar anuncio</string>
     <string name="clear">Limpiar</string>
     <string name="loading_cover_page">Cargando portada</string>
+    <string name="cover_page">Portada</string>
+    <string name="loading">Cargando...</string>
 
     <string name="cancel">Cancelar</string>
     <string name="delete_confirm">Desea borrar los anuncios guardados?</string>

@@ -12,6 +12,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.product.ClearFavoritesUseCase
 import com.timbirichi.eltimbirichi.domain.use_case.product.FindProductByIdUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetFavoritesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetLastedNewProductsUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.GetProductByIdUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.RemoveProductFromFavoriteUseCase;
@@ -31,6 +32,7 @@ public class ProductViewModel extends ViewModel {
     RemoveProductFromFavoriteUseCase removeProductFromFavoriteUseCase;
     ClearFavoritesUseCase clearFavoritesUseCase;
     FindProductByIdUseCase findProductByIdUseCase;
+    GetProductByIdUseCase getProductByIdUseCase;
 
     public static final String SAVE_ERROR = "save_error";
     public static final String REMOVE_ERROR = "remove_error";
@@ -43,6 +45,11 @@ public class ProductViewModel extends ViewModel {
     public final MutableLiveData<Response<Boolean>> favorites = new MutableLiveData<>();
     public final MutableLiveData<Response<Boolean>> findFavorite = new MutableLiveData<>();
 
+
+    public final MutableLiveData<Response<Product>> product = new MutableLiveData<>();
+
+
+
     public ProductViewModel(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
                             LoadCoverPageProductUseCase loadCoverPageProductUseCase,
                             GetLastedNewProductsUseCase getLastedNewProductsUseCase,
@@ -50,7 +57,8 @@ public class ProductViewModel extends ViewModel {
                             SaveToFavoritesUseCase saveToFavoritesUseCase,
                             RemoveProductFromFavoriteUseCase removeProductFromFavoriteUseCase,
                             ClearFavoritesUseCase clearFavoritesUseCase,
-                            FindProductByIdUseCase findProductByIdUseCase) {
+                            FindProductByIdUseCase findProductByIdUseCase,
+                            GetProductByIdUseCase getProductByIdUseCase) {
         this.loadCategoryProductsUseCase = loadCategoryProductsUseCase;
         this.loadCoverPageProductUseCase = loadCoverPageProductUseCase;
         this.getLastedNewProductsUseCase = getLastedNewProductsUseCase;
@@ -59,6 +67,8 @@ public class ProductViewModel extends ViewModel {
         this.removeProductFromFavoriteUseCase = removeProductFromFavoriteUseCase;
         this.clearFavoritesUseCase = clearFavoritesUseCase;
         this.findProductByIdUseCase = findProductByIdUseCase;
+        this.getProductByIdUseCase = getProductByIdUseCase;
+
     }
 
 
@@ -116,6 +126,12 @@ public class ProductViewModel extends ViewModel {
         findProductByIdUseCase.execute(new FindFavoriteObserver());
     }
 
+
+    public void getProductById(long productId, SubCategory category){
+        product.setValue(new Response<Product>(Status.LOADING, null, null));
+        getProductByIdUseCase.setParams(productId, category);
+        getProductByIdUseCase.execute(new GetProductByIdObserver());
+    }
 
     /*Observers*/
     public final class LoadProductObserver extends UseCaseObserver<List<Product>>{
@@ -178,7 +194,6 @@ public class ProductViewModel extends ViewModel {
         }
     }
 
-
     public final class ClearFavoriteObserver extends UseCaseObserver<Boolean>{
         public ClearFavoriteObserver() {
         }
@@ -197,7 +212,6 @@ public class ProductViewModel extends ViewModel {
         }
     }
 
-
     public final class FindFavoriteObserver extends UseCaseObserver<Boolean>{
         public FindFavoriteObserver() {
         }
@@ -210,6 +224,18 @@ public class ProductViewModel extends ViewModel {
         @Override
         public void onError(Throwable throwable) {
             findFavorite.setValue(new Response<Boolean>(Status.ERROR, null, new Throwable(FIND_ERROR)));
+        }
+    }
+
+    public final class GetProductByIdObserver extends UseCaseObserver<Product>{
+        @Override
+        public void onNext(Product prod) {
+            product.setValue(new Response<Product>(Status.SUCCESS, prod, null));
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            product.setValue(new Response<Product>(Status.ERROR, null, throwable));
         }
     }
 

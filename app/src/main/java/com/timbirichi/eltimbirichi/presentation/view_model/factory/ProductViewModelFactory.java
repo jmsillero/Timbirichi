@@ -8,6 +8,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.product.ClearFavoritesUseCase
 import com.timbirichi.eltimbirichi.domain.use_case.product.FindProductByIdUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetFavoritesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetLastedNewProductsUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.GetProductByIdUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.RemoveProductFromFavoriteUseCase;
@@ -28,6 +29,7 @@ public class ProductViewModelFactory implements ViewModelProvider.Factory {
     RemoveProductFromFavoriteUseCase removeProductFromFavoriteUseCase;
     ClearFavoritesUseCase clearFavoritesUseCase;
     FindProductByIdUseCase findProductByIdUseCase;
+    GetProductByIdUseCase getProductByIdUseCase;
 
     @Inject
     public ProductViewModelFactory(LoadCategoryProductsUseCase loadCategoryProductsUseCase,
@@ -37,7 +39,8 @@ public class ProductViewModelFactory implements ViewModelProvider.Factory {
                                    SaveToFavoritesUseCase saveToFavoritesUseCase,
                                    RemoveProductFromFavoriteUseCase removeProductFromFavoriteUseCase,
                                    ClearFavoritesUseCase clearFavoritesUseCase,
-                                   FindProductByIdUseCase findProductByIdUseCase) {
+                                   FindProductByIdUseCase findProductByIdUseCase,
+                                   GetProductByIdUseCase getProductByIdUseCase) {
         this.loadCategoryProductsUseCase = loadCategoryProductsUseCase;
         this.loadCoverPageProductUseCase = loadCoverPageProductUseCase;
         this.getLastedNewProductsUseCase = getLastedNewProductsUseCase;
@@ -46,6 +49,7 @@ public class ProductViewModelFactory implements ViewModelProvider.Factory {
         this.removeProductFromFavoriteUseCase = removeProductFromFavoriteUseCase;
         this.clearFavoritesUseCase = clearFavoritesUseCase;
         this.findProductByIdUseCase = findProductByIdUseCase;
+        this.getProductByIdUseCase = getProductByIdUseCase;
     }
 
     @NonNull
@@ -59,7 +63,8 @@ public class ProductViewModelFactory implements ViewModelProvider.Factory {
                     saveToFavoritesUseCase,
                     removeProductFromFavoriteUseCase,
                     clearFavoritesUseCase,
-                    findProductByIdUseCase);
+                    findProductByIdUseCase,
+                    getProductByIdUseCase);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

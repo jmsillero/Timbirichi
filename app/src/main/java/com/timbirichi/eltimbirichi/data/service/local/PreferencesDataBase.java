@@ -288,7 +288,7 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
         fields.put(Product.PRODUCT_COL_PHOTO_COUNT, productBo.getPhotosCount());
 
 
-        if(productBo.getPhotosCount() > 0){
+        if(productBo.getImages() != null && productBo.getImages().size() > 0){
             ContentValues imagesFields = new ContentValues();
             imagesFields.put(Image.IMAGE_COL_PRODUCT_ID, productBo.getId());
             imagesFields.put(Image.IMAGE_COL_IMAGE, productBo.getImages().get(0).getBase64Img());

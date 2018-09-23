@@ -120,11 +120,11 @@ public class ProductsDataStore {
         });
     }
 
-    public Observable<Product> getProductById(final long productId){
+    public Observable<Product> getProductById(final long productId, final SubCategory category){
         return Observable.create(new ObservableOnSubscribe<Product>() {
             @Override
             public void subscribe(ObservableEmitter<Product> e) throws Exception {
-             //   e.onNext(localDataBase.getProductById(productId));
+                e.onNext(localDataBase.selectProductById(productId, category));
                 e.onComplete();
             }
         }).doOnError(new Consumer<Throwable>() {
@@ -134,4 +134,14 @@ public class ProductsDataStore {
             }
         });
     }
+
+
+//    public Observable<Product> selectProductById(long id, SubCategory category){
+//        return Observable.create(new ObservableOnSubscribe<Product>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<Product> e) throws Exception {
+//
+//            }
+//        });
+//    }
 }

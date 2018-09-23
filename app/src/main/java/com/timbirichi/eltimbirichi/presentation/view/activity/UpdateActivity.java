@@ -87,8 +87,9 @@ public class UpdateActivity extends BaseActivity {
 
 
     // for download database
-    public final static String DB_URL = "https://www.timbirichi.com/apk/";
-    public final static String WEB_DB_NAME = "timbirichi.db";
+    public final static String DB_URL = "http://10.0.2.2/test/";
+   // public final static String DB_URL = "https://www.timbirichi.com/apk/";
+   // public final static String WEB_DB_NAME = "timbirichi.db";
 
     public final static int DOWNLOAD_COMPLETED = 0;
     public final static int DOWNLOAD_FAILED = 1;
@@ -280,7 +281,7 @@ public class UpdateActivity extends BaseActivity {
                 if(fileType == AUTOMATIC_SEARCH){
                     onBtnSearchDatabaseClick();
                 }else if (fileType == DOWNLOAD){
-                    downloadDatabase(DB_URL, WEB_DB_NAME);
+                    downloadDatabase(DB_URL, LocalDataBase.DB_NAME);
                 }else if (fileType != FILE){
                     if (fileType != GO_BACK){
                         currentLevel ++;
@@ -298,6 +299,8 @@ public class UpdateActivity extends BaseActivity {
                     UpdateActivity.this.path = path;
                     LocalDataBase.DB_NAME = filename;
                     LocalDataBase.DB_PATH = path;
+
+                    Log.d("UpdateActivity", "DB_PATH" + LocalDataBase.DB_PATH);
                     databaseViewModel.checkDatabase();
                 }
             }
@@ -586,13 +589,19 @@ public class UpdateActivity extends BaseActivity {
         file.mkdirs();
 
         final String dirPath = file.getPath();
+        //LocalDataBase.DB_PATH = dirPath + "/" + LocalDataBase.DB_NAME;
 
-        this.downloadId = PRDownloader.download(url, dirPath, fileName)
+        Log.d("UpdateActivity", "direccion base de datos: " + dirPath);
+        Log.d("UpdateActivity", "url base de datos: " + url + fileName);
+
+        this.downloadId = PRDownloader.download(url + fileName, dirPath, fileName)
                 .build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                     @Override
                     public void onStartOrResume() {
                         downloadStatus = DOWNLOAD_INITED;
+                        String message = "Descargando base de datos... \n\n";
+                        showLoadingDialog(message);
                     }
                 })
                 .setOnPauseListener(new OnPauseListener() {
@@ -611,7 +620,7 @@ public class UpdateActivity extends BaseActivity {
                     @Override
                     public void onProgress(Progress progress) {
                         String message = "Descargando base de datos... \n\n";
-                        showLoadingDialog(message);
+
                         long totalBytes = progress.totalBytes;
                         long currentBytes = progress.currentBytes;
                         long percent = (currentBytes * 100) / totalBytes;
@@ -625,16 +634,31 @@ public class UpdateActivity extends BaseActivity {
                     @Override
                     public void onDownloadComplete() {
                         isDbSelected = true;
-                        UpdateActivity.this.path = dirPath;
+                        UpdateActivity.this.path = dirPath + "/" + LocalDataBase.DB_NAME;
                         LocalDataBase.DB_NAME = fileName;
-                        LocalDataBase.DB_PATH = dirPath;
+                        LocalDataBase.DB_PATH = dirPath + "/" + LocalDataBase.DB_NAME;
+                        Log.d("UpdateActivity", "DB_PATH " + LocalDataBase.DB_PATH);
+
+                        setProgressDialogMessage("Comprobando base de datos");
                         databaseViewModel.checkDatabase();
-                        hideProgressDialog();
+
+//                        Runnable task = new Runnable() {
+//                            @Override
+//                            public void run() {
+//                               // hideProgressDialog();
+//                                databaseViewModel.checkDatabase();
+//                            }
+//                        };
+//
+//                        Handler handler = new Handler();
+//                        handler.postDelayed(task, 1000);
+
+
                     }
 
                     @Override
                     public void onError(Error error) {
-
+                        hideProgressDialog();
                         if (error.isConnectionError()){
                             showErrorDialog(getString(R.string.connexion_error));
                         }

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.bumptech.glide.manager.DefaultConnectivityMonitorFactory;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.glide.slider.library.Indicators.PagerIndicator;
 import com.glide.slider.library.SliderLayout;
+import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Banner;
 import com.timbirichi.eltimbirichi.data.model.Category;
@@ -277,13 +279,46 @@ public class CoverPageFragment extends BaseFragment {
                 }
             }
         });
+
+        productViewModel.product.observe(this, new Observer<Response<Product>>() {
+            @Override
+            public void onChanged(@Nullable Response<Product> productResponse) {
+                switch (productResponse.status){
+                    case LOADING:
+                        showLoadingDialog(getString(R.string.loading));
+                        break;
+
+                    case SUCCESS:
+                        if(productResponse.data != null){
+                            coverPageCallback.openDetailActivity(productResponse.data);
+                        }
+                        hideProgressDialog();
+                        break;
+
+                    case ERROR:
+                        hideProgressDialog();
+                        showErrorDialog(getString(R.string.loading_product_error));
+                        break;
+                }
+            }
+        });
     }
 
     private void fillSlider(List<Banner> banners){
         mDemoSlider.removeAllSliders();
-        for(Banner banner : banners){
+        for(final Banner banner : banners){
             ImageSliderView imageSliderView = new ImageSliderView(getActivity());
+            imageSliderView.setProductId(banner.getProductId());
             imageSliderView.setImageBase64(banner.getBase64Img());
+            imageSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView baseSliderView) {
+                    SubCategory subCategory = new SubCategory();
+                    subCategory.setName(getString(R.string.cover_page));
+                    productViewModel.getProductById(banner.getProductId(), subCategory);
+                    Log.d(TAG, "Product click: "  + banner.getProductId());
+                }
+            });
             mDemoSlider.addSlider(imageSliderView);
         }
     }

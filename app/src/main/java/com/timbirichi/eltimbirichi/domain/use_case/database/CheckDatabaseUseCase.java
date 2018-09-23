@@ -1,5 +1,7 @@
 package com.timbirichi.eltimbirichi.domain.use_case.database;
 
+import android.util.Log;
+
 import com.timbirichi.eltimbirichi.domain.repository.IMetaRepository;
 import com.timbirichi.eltimbirichi.domain.use_case.base.UseCase;
 
@@ -8,6 +10,7 @@ import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.functions.Consumer;
 
 import static com.timbirichi.eltimbirichi.utils.Utils.EXCECUTOR_THREAD_NAMED;
 import static com.timbirichi.eltimbirichi.utils.Utils.UI_THREAD_NAMED;
@@ -30,7 +33,13 @@ public class CheckDatabaseUseCase extends UseCase<Boolean> {
 
     @Override
     protected Observable<Boolean> createObservableCaseUse() {
-        return metaRepository.checkDatabse();
+        return metaRepository.checkDatabse().doOnError(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.d("CheckDatabaseUseCase", "Error chequeando base de datos");
+                throwable.printStackTrace();
+            }
+        });
     }
 
 

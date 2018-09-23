@@ -156,6 +156,10 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onChanged(@Nullable Response<Boolean> booleanResponse) {
                 switch (booleanResponse.status){
+                    case SUCCESS:
+                        productViewModel.findFavorite(product.getId());
+                        break;
+
                     case ERROR:
                         if(booleanResponse.error.getMessage().equals(ProductViewModel.SAVE_ERROR)){
                             showErrorDialog(getString(R.string.save_favorites_error));
@@ -238,17 +242,21 @@ public class DetailActivity extends BaseActivity {
     }
 
 
+
     @OnClick(R.id.fb_favorites)
     public void onFbFavoritesClick(){
         if(productViewModel.findFavorite.getValue().data){
             productViewModel.removeFavorite(product.getId());
-            fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorites_empty));
-            fbFaborites.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+           // fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_saved));
+           // fbFaborites.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
         } else{
             productViewModel.saveFatorite(product);
-            fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorites_full));
-            fbFaborites.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.a_pink_400)));
+           // fbFaborites.setImageDrawable(getResources().getDrawable(R.drawable.ic_saved));
+           // fbFaborites.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.a_pink_400)));
         }
+
+
+
     }
 
     @Override

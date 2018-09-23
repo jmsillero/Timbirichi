@@ -11,6 +11,7 @@ import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.glide.slider.library.Indicators.PagerIndicator;
 import com.glide.slider.library.SliderLayout;
+import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Banner;
 import com.timbirichi.eltimbirichi.data.model.Category;
@@ -187,9 +189,17 @@ public class ProductFragment extends BaseProductFragment {
 
 
     private void fillSlider(List<Banner> banners){
-        for(Banner banner : banners){
+        for(final Banner banner : banners){
             ImageSliderView imageSliderView = new ImageSliderView(getActivity());
             imageSliderView.setImageBase64(banner.getBase64Img());
+            imageSliderView.setProductId(banner.getProductId());
+            imageSliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView baseSliderView) {
+                    productViewModel.getProductById(banner.getProductId(), category);
+                    Log.d(TAG, "Product click: "  + banner.getProductId());
+                }
+            });
             mDemoSlider.addSlider(imageSliderView);
         }
     }

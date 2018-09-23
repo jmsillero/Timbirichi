@@ -17,6 +17,7 @@ import com.timbirichi.eltimbirichi.domain.use_case.product.ClearFavoritesUseCase
 import com.timbirichi.eltimbirichi.domain.use_case.product.FindProductByIdUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetFavoritesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.GetLastedNewProductsUseCase;
+import com.timbirichi.eltimbirichi.domain.use_case.product.GetProductByIdUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCategoryProductsUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadCoverPageProductUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadRandomSubCategoriesUseCase;
@@ -117,7 +118,8 @@ public class ActivityModule {
                                                             SaveToFavoritesUseCase saveToFavoritesUseCase,
                                                             RemoveProductFromFavoriteUseCase removeProductFromFavoriteUseCase,
                                                             ClearFavoritesUseCase clearFavoritesUseCase,
-                                                            FindProductByIdUseCase findProductByIdUseCase){
+                                                            FindProductByIdUseCase findProductByIdUseCase,
+                                                            GetProductByIdUseCase getProductByIdUseCase){
         return new ProductViewModelFactory(loadCategoryProductsUseCase,
                 loadCoverPageProductUseCase,
                 getLastedNewProductsUseCase,
@@ -125,7 +127,8 @@ public class ActivityModule {
                 saveToFavoritesUseCase,
                 removeProductFromFavoriteUseCase,
                 clearFavoritesUseCase,
-                findProductByIdUseCase);
+                findProductByIdUseCase,
+                getProductByIdUseCase);
     }
 
 

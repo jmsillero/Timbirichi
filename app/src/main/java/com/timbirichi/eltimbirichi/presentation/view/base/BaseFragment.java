@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.presentation.view.base;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -78,6 +79,24 @@ public abstract class BaseFragment extends Fragment {
 
     public void setFragmentCallback(FragmentCallback fragmentCallback) {
         this.fragmentCallback = fragmentCallback;
+    }
+
+    ProgressDialog mProgressDialog;
+
+    protected void showLoadingDialog(String message){
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setTitle(R.string.app_name);
+        mProgressDialog.setMessage(message);
+        mProgressDialog.show();
+    }
+
+
+    protected void hideProgressDialog(){
+        if(mProgressDialog != null){
+            mProgressDialog.dismiss();
+        }
+
     }
 
 

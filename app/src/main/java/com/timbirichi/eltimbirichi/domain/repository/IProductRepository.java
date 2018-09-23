@@ -72,7 +72,7 @@ public interface IProductRepository {
      * @param productId
      * @return
      */
-    Observable<Product> getProductById(long productId);
+    Observable<Product> getProductById(long productId, SubCategory category);
 
 
     /*

@@ -80,8 +80,8 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Observable<Product> getProductById(long productId) {
-        return productsDataStore.getProductById(productId);
+    public Observable<Product> getProductById(long productId, SubCategory subCategory) {
+        return productsDataStore.getProductById(productId, subCategory);
     }
 
     @Override

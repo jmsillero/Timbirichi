@@ -20,6 +20,8 @@ public class ImageSliderView extends BaseSliderView {
     Drawable drawable;
     byte [] image;
     String base64Img;
+    long productId;
+
     public ImageSliderView(Context context) {
         super(context);
     }
@@ -34,6 +36,14 @@ public class ImageSliderView extends BaseSliderView {
         return this;
     }
 
+    public long getProductId() {
+        return productId;
+    }
+
+    public BaseSliderView setProductId(long productId) {
+        this.productId = productId;
+        return this;
+    }
 
     public BaseSliderView setImageByteArray(byte [] image){
         this.image = image;
@@ -48,6 +58,9 @@ public class ImageSliderView extends BaseSliderView {
     @Override
     public View getView() {
         ImageView imageView = new ImageView(getContext());
+
+
+
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.gravity = Gravity.CENTER;
@@ -77,6 +90,13 @@ public class ImageSliderView extends BaseSliderView {
         }
 
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnSliderClickListener.onSliderClick(ImageSliderView.this);
+            }
+        });
+
         return imageView;
     }
 }
