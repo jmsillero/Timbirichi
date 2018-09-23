@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -206,7 +207,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.BaseProd
                             .into(ivProduct);
                 }
 
-                tvTitle.setText(title);
+                tvTitle.setText(Html.fromHtml(title));
 //                tvPrice.setText(Double.toString(price));
 
             if(price == 0){

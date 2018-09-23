@@ -120,7 +120,9 @@ public class DetailActivity extends BaseActivity {
                     .into(ivProduct);
         }
 
-        tvTitle.setText(product.getTitle());
+        //tvTitle.setText(product.getTitle());
+
+        tvTitle.setText(Html.fromHtml(product.getTitle()));
 
 
         if(product.getPrice() == 0){
@@ -142,7 +144,8 @@ public class DetailActivity extends BaseActivity {
         tvProvince.setText(product.getProvince().getName());
 
         tvNew.setText(product.isNewProduct() ? getString(R.string.new_product) : getString(R.string.used_product));
-        tvDescription.setText(product.getDescription());
+      //  tvDescription.setText(product.getDescription());
+        tvDescription.setText(Html.fromHtml(product.getDescription()));
 
         boolean isMobile = Utils.isMobileNumber(product.getPhone());
         btnSms.setEnabled(isMobile);

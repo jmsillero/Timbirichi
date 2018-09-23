@@ -297,7 +297,7 @@ public class CoverPageFragment extends BaseFragment {
 
                     case ERROR:
                         hideProgressDialog();
-                        showErrorDialog(getString(R.string.loading_product_error));
+                        //showErrorDialog(getString(R.string.loading_product_error));
                         break;
                 }
             }
