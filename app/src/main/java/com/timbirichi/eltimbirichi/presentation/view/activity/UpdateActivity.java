@@ -37,6 +37,8 @@ import com.downloader.PRDownloaderConfig;
 import com.downloader.Progress;
 import com.hzy.lib7z.ExtractCallback;
 import com.hzy.lib7z.Z7Extractor;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
@@ -305,7 +307,7 @@ public class UpdateActivity extends BaseActivity {
                     onBtnSearchDatabaseClick();
                 }else if (fileType == DOWNLOAD){
 
-                    downloadDatabase(DB_URL, LocalDataBase.DB_NAME);
+
                 }else if (fileType != FILE){
                     if (fileType != GO_BACK){
                         currentLevel ++;
@@ -603,98 +605,9 @@ public class UpdateActivity extends BaseActivity {
     }
 
 
-    // download database rom timbirichi web site
-    public void downloadDatabase(String url, final String fileName){
-
-        showLoadingDialog("Iniciando descarga");
-        Calendar cal = Calendar.getInstance();
-        String currentDate = Integer.toString(cal.get(Calendar.DAY_OF_MONTH))
-                + Integer.toString(cal.get(Calendar.MONTH))
-                + Integer.toString(cal.get(Calendar.YEAR));
 
 
-        // crear fichero y carpeta...
-        File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH + "/" + currentDate);
-        file.mkdirs();
-
-        final String dirPath = file.getPath();
-        //LocalDataBase.DB_PATH = dirPath + "/" + LocalDataBase.DB_NAME;
-
-        Log.d("UpdateActivity", "direccion base de datos: " + dirPath);
-        Log.d("UpdateActivity", "url base de datos: " + url + fileName);
-
-      //  PRDownloader.cancel(downloadId);
-
-        if ( PRDownloader.getStatus(downloadId) == com.downloader.Status.PAUSED){
-            PRDownloader.resume(downloadId);
-        } else{
-            this.downloadId = PRDownloader.download(url + fileName, dirPath, fileName)
-                    .build()
-                    .setOnStartOrResumeListener(new OnStartOrResumeListener() {
-                        @Override
-                        public void onStartOrResume() {
-                            hideProgressDialog();
-                            downloadStatus = DOWNLOAD_INITED;
-                            String message = "Descargando base de datos... \n\n";
-                            showDownloadDialog(message);
-                        }
-                    })
-                    .setOnPauseListener(new OnPauseListener() {
-                        @Override
-                        public void onPause() {
-                            downloadStatus = DOWNLOAD_PAUSED;
-                        }
-                    })
-                    .setOnCancelListener(new OnCancelListener() {
-                        @Override
-                        public void onCancel() {
-                            downloadStatus = DOWNLOAD_CANCELLED;
-                        }
-                    })
-                    .setOnProgressListener(new OnProgressListener() {
-                        @Override
-                        public void onProgress(Progress progress) {
-                            String message = "Descargando base de datos...";
-
-                            long totalBytes = progress.totalBytes;
-                            long currentBytes = progress.currentBytes;
-                            long percent = (currentBytes * 100) / totalBytes;
-                            getmProgressDialog().setProgress((int)percent);
-                        }
-                    })
-                    .start(new OnDownloadListener() {
-                        @Override
-                        public void onDownloadComplete() {
-                            isDbSelected = true;
-                            UpdateActivity.this.path = dirPath + "/" + LocalDataBase.DB_NAME;
-                            LocalDataBase.DB_NAME = fileName;
-                            LocalDataBase.DB_PATH = dirPath + "/" + LocalDataBase.DB_NAME;
-                            Log.d("UpdateActivity", "DB_PATH " + LocalDataBase.DB_PATH);
-
-                            setProgressDialogMessage("Comprobando base de datos");
-                            databaseViewModel.checkDatabase();
-                        }
-
-                        @Override
-                        public void onError(Error error) {
-                            hideProgressDialog();
-
-                            if (error.isConnectionError()){
-                                showDoenloadErrorDialog(getString(R.string.connexion_error));
-                            }
-
-                            if (error.isServerError()){
-                                showDoenloadErrorDialog(getString(R.string.server_error));
-                            }
-                        }
-                    });
-
-        }
-
-
-    }
-
-    public void showDoenloadErrorDialog(String message){
+    public void showDownloadErrorDialog(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
                 .setTitle(R.string.app_name);
@@ -703,13 +616,6 @@ public class UpdateActivity extends BaseActivity {
 
         builder.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if(PRDownloader.getStatus(downloadId) == com.downloader.Status.RUNNING || PRDownloader.getStatus(downloadId) == com.downloader.Status.QUEUED){
-                    PRDownloader.pause(downloadId);
-                    PRDownloader.resume(downloadId);
-                } else{
-                    downloadDatabase(DB_URL, LocalDataBase.DB_NAME);
-                }
-
                 dialog.dismiss();
             }
         });
@@ -723,6 +629,71 @@ public class UpdateActivity extends BaseActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+
+
+    /**
+     * Descarga de la base de datos
+     * **/
+    private BaseDownloadTask createDownloadTask(final int position) {
+
+        final String url;
+        boolean isDir = false;
+        String path;
+
+
+        return FileDownloader.getImpl().create(DB_URL + LocalDataBase.DB_NAME)
+                .setPath(path, isDir)
+
+                .setCallbackProgressTimes(300)
+                .setMinIntervalUpdateSpeed(400)
+                .setTag(tag)
+                .setListener(new FileDownloadSampleListener() {
+
+                    @Override
+                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        super.pending(task, soFarBytes, totalBytes);
+                        ((ViewHolder) task.getTag()).updatePending(task);
+                    }
+
+                    @Override
+                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        super.progress(task, soFarBytes, totalBytes);
+                        ((ViewHolder) task.getTag()).updateProgress(soFarBytes, totalBytes,
+                                task.getSpeed());
+                    }
+
+                    @Override
+                    protected void error(BaseDownloadTask task, Throwable e) {
+                        super.error(task, e);
+                        ((ViewHolder) task.getTag()).updateError(e, task.getSpeed());
+                    }
+
+                    @Override
+                    protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
+                        super.connected(task, etag, isContinue, soFarBytes, totalBytes);
+                        ((ViewHolder) task.getTag()).updateConnected(etag, task.getFilename());
+                    }
+
+                    @Override
+                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        super.paused(task, soFarBytes, totalBytes);
+                        ((ViewHolder) task.getTag()).updatePaused(task.getSpeed());
+                    }
+
+                    @Override
+                    protected void completed(BaseDownloadTask task) {
+                        super.completed(task);
+                        ((ViewHolder) task.getTag()).updateCompleted(task);
+                    }
+
+                    @Override
+                    protected void warn(BaseDownloadTask task) {
+                        super.warn(task);
+                        ((ViewHolder) task.getTag()).updateWarn();
+                    }
+                });
     }
 
 }
