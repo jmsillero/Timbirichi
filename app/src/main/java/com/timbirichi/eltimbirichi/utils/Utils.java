@@ -1,5 +1,7 @@
 package com.timbirichi.eltimbirichi.utils;
 
+import android.util.Log;
+
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.model.Product;
 
@@ -31,15 +33,19 @@ public class Utils {
     //53
     //+5353
     public static boolean isMobileNumber(String number){
-        int index = 0;
-        int i;
-        for (i = number.length() - 1; i > 0 && index < 7; i--){
-            if(!Character.toString(number.charAt(i)).equals(" ")){
-                index ++;
+        if (number != null && !number.isEmpty()){
+            Log.d("Utils", "Numero para chequear" + number);
+
+            int index = 0;
+            int i;
+            for (i = number.length() - 1; i > 0 && index < 7; i--){
+                if(!Character.toString(number.charAt(i)).equals(" ")){
+                    index ++;
+                }
             }
-        }
-        if(Character.toString(number.charAt(i)).equals("5")){
-            return true;
+            if(Character.toString(number.charAt(i)).equals("5")){
+                return true;
+            }
         }
         return false;
     }

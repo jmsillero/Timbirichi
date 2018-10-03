@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.view.View;
@@ -122,7 +123,7 @@ public class NewsView extends ConstraintLayout {
     public void setProduct(final Product prod){
         shimmerFrameLayout.stopShimmer();
         shimmerFrameLayout.setVisibility(GONE);
-        tvMainText.setText(prod.getTitle());
+        tvMainText.setText(Html.fromHtml(prod.getTitle()));
 
         if(prod.getImages() != null && prod.getImages().get(0) != null){
             GlideApp.with(getContext())
@@ -166,7 +167,7 @@ public class NewsView extends ConstraintLayout {
                     .into(ivSecondaryImage);
         }
 
-        tvMainText.setText(text);
+        tvMainText.setText(Html.fromHtml(text));
 
         cvMain.setCardBackgroundColor(backgroundColor);
 

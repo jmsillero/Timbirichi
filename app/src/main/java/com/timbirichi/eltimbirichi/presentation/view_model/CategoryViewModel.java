@@ -46,11 +46,13 @@ public class CategoryViewModel extends ViewModel {
         @Override
         public void onNext(List<Category> cats) {
             categories.setValue(new Response<List<Category>>(Status.SUCCESS, cats, null));
+            getCategoriesUseCase.dispose();
         }
 
         @Override
         public void onError(Throwable throwable) {
             categories.setValue(new Response<List<Category>>(Status.ERROR, null, throwable));
+            getCategoriesUseCase.dispose();
         }
     }
 

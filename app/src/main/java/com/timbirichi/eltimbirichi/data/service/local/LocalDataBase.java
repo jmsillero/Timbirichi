@@ -326,6 +326,53 @@ public class LocalDataBase extends SQLiteOpenHelper {
         return  subcategories;
     }
 
+    public List<Product> loadUltraProducts(){
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM " + Product.PRODUCT_TABLE
+                + " WHERE " + Product.PRODUCT_COL_ULTRA + " = " + Integer.toString(Product.COVER_PAGE)
+                + " ORDER BY "
+                + " RANDOM() "
+                + " LIMIT " + Integer.toString(2);
+
+
+//        String query = "SELECT * FROM " + Product.PRODUCT_TABLE
+//                + " WHERE " + Product.PRODUCT_COL_ULTRA + " = " + Integer.toString(Product.COVER_PAGE)
+//                + " ORDER BY " + Product.PRODUCT_COL_ULTRA + Product.ORDER_DESC+ ", " + Product.PRODUCT_COL_COVER_PAGE + Product.ORDER_DESC + ", " + Product.PRODUCT_COL_ID + Product.ORDER_DESC
+//                + ", RANDOM() "
+//                + " LIMIT " + Integer.toString(2);
+
+        // todo: Cambiar el limite de productos de la portada...
+
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
+        Cursor cursor = db.rawQuery(query,null);
+
+        int index = 0;
+
+        try{
+            if(cursor.moveToFirst())
+            {
+                do{
+                    Product product = createOrdinaryProduct(cursor, db);
+                    products.add(product);
+                    index ++;
+                }
+                while (cursor.moveToNext() && index < 6);
+            }
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+            throw new SQLiteException();
+        }
+        finally {
+            cursor.close();
+            db.close();
+        }
+        return products;
+    }
+
+
     /**
      *
      * Carga loa anuncios de la portada dentro de un limite de anuncios
@@ -333,10 +380,13 @@ public class LocalDataBase extends SQLiteOpenHelper {
      */
     public List<Product> loadCoverPageProducts(){
         List<Product> products = new ArrayList<>();
+
+        products.addAll(loadUltraProducts());
+
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
-                     + " WHERE " + Product.PRODUCT_COL_ULTRA + " = " + Integer.toString(Product.COVER_PAGE)
-                     + " OR " +  Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
-                     + " ORDER BY " + Product.PRODUCT_COL_ULTRA + Product.ORDER_DESC+ ", " + Product.PRODUCT_COL_COVER_PAGE + Product.ORDER_DESC + ", " + Product.PRODUCT_COL_ID + Product.ORDER_DESC;
+                     + " WHERE " +  Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
+                     + " ORDER BY "
+                     + " RANDOM() ";
                    //  + " LIMIT " + Integer.toString(6);
 
         // todo: Cambiar el limite de productos de la portada...

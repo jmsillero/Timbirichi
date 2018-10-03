@@ -75,6 +75,9 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.btn_sms)
     Button btnSms;
 
+    @BindView(R.id.btn_call)
+    Button btnCall;
+
     Product product;
 
     @BindView(R.id.toolbar_layout)
@@ -150,6 +153,13 @@ public class DetailActivity extends BaseActivity {
         boolean isMobile = Utils.isMobileNumber(product.getPhone());
         btnSms.setEnabled(isMobile);
         btnSms.setAlpha(isMobile ? 1f : .5f);
+
+        boolean hasPhone = false;
+        if(product.getPhone() != null && !product.getPhone().isEmpty()){
+            hasPhone = true;
+            btnCall.setEnabled(hasPhone);
+            btnCall.setAlpha(hasPhone ? 1f : .5f);
+        }
     }
 
     private void setupProductViewModel(){
@@ -221,11 +231,13 @@ public class DetailActivity extends BaseActivity {
 
     @OnClick(R.id.btn_call)
     public void onBtnCallClick(){
-        Intent phoneIntent = new Intent(Intent.ACTION_CALL);
-        phoneIntent.setData(Uri.parse("tel:" + product.getPhone()));
+        if (product.getPhone() != null && !product.getPhone().isEmpty()){
+            Intent phoneIntent = new Intent(Intent.ACTION_CALL);
+            phoneIntent.setData(Uri.parse("tel:" + product.getPhone()));
+            //todo: check permissions
+            startActivity(phoneIntent);
+        }
 
-        //todo: check permissions
-        startActivity(phoneIntent);
     }
 
     @OnClick(R.id.btn_email)
