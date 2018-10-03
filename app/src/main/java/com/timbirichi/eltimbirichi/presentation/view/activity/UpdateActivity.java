@@ -713,6 +713,13 @@ public class UpdateActivity extends BaseActivity {
                         mProgressDialog.setMax(task.getSmallFileTotalBytes());
                         mProgressDialog.setProgress(task.getSmallFileSoFarBytes());
                         hideProgressDialog();
+
+                        isDbSelected = true;
+                        UpdateActivity.this.path = dirPath + "/" + LocalDataBase.DB_NAME;
+                        LocalDataBase.DB_NAME = LocalDataBase.DB_NAME;
+                        LocalDataBase.DB_PATH = dirPath + "/" + LocalDataBase.DB_NAME;
+                        Log.d("UpdateActivity", "DB_PATH " + LocalDataBase.DB_PATH);
+                        databaseViewModel.checkDatabase();
                     }
 
                     @Override
@@ -729,7 +736,12 @@ public class UpdateActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FileDownloader.getImpl().pause(downloadId);
+
+        if(FileDownloader.getImpl().getSoFar(downloadId) != FileDownloader.getImpl().getTotal(downloadId)){
+            FileDownloader.getImpl().pause(downloadId);
+        } else{
+            FileDownloader.getImpl().clearAllTaskData();
+        }
     }
 
 

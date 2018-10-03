@@ -129,6 +129,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void setProgressDialogMessage(String message){
+        if(mProgressDialog == null) {
+            showDownloadDialog(message);
+        }
         mProgressDialog.setMessage(message);
     }
 
