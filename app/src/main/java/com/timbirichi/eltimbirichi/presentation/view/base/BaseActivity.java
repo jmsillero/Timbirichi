@@ -107,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    ProgressDialog mProgressDialog;
+    protected ProgressDialog mProgressDialog;
 
     protected void showLoadingDialog(String message){
         mProgressDialog = new ProgressDialog(this);

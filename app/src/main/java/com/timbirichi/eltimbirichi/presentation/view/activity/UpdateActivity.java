@@ -38,6 +38,7 @@ import com.downloader.Progress;
 import com.hzy.lib7z.ExtractCallback;
 import com.hzy.lib7z.Z7Extractor;
 import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Meta;
@@ -306,8 +307,7 @@ public class UpdateActivity extends BaseActivity {
                 if(fileType == AUTOMATIC_SEARCH){
                     onBtnSearchDatabaseClick();
                 }else if (fileType == DOWNLOAD){
-
-
+                  downloadId =  createDownloadTask().start();
                 }else if (fileType != FILE){
                     if (fileType != GO_BACK){
                         currentLevel ++;
@@ -510,8 +510,6 @@ public class UpdateActivity extends BaseActivity {
             protected void onPreExecute() {
                 super.onPreExecute();
                 showLoadingDialog(getString(R.string.serching_databases));
-
-               // btnSearchDatabase.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -604,9 +602,6 @@ public class UpdateActivity extends BaseActivity {
         return databases;
     }
 
-
-
-
     public void showDownloadErrorDialog(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
@@ -631,69 +626,104 @@ public class UpdateActivity extends BaseActivity {
         dialog.show();
     }
 
-
-
     /**
      * Descarga de la base de datos
      * **/
-    private BaseDownloadTask createDownloadTask(final int position) {
+    private BaseDownloadTask createDownloadTask() {
 
-        final String url;
         boolean isDir = false;
-        String path;
+        Calendar cal = Calendar.getInstance();
+        String currentDate = Integer.toString(cal.get(Calendar.DAY_OF_MONTH))
+                + Integer.toString(cal.get(Calendar.MONTH))
+                + Integer.toString(cal.get(Calendar.YEAR));
+
+
+        // crear fichero y carpeta...
+       // File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH + "/" + currentDate);
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH );
+        file.mkdirs();
+
+        final String dirPath = file.getPath();
 
 
         return FileDownloader.getImpl().create(DB_URL + LocalDataBase.DB_NAME)
-                .setPath(path, isDir)
+                .setPath(dirPath + "/" + LocalDataBase.DB_NAME, isDir)
 
                 .setCallbackProgressTimes(300)
                 .setMinIntervalUpdateSpeed(400)
-                .setTag(tag)
+                .setAutoRetryTimes(10)
+
+                .setTag(LocalDataBase.DB_NAME)
                 .setListener(new FileDownloadSampleListener() {
 
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                         super.pending(task, soFarBytes, totalBytes);
-                        ((ViewHolder) task.getTag()).updatePending(task);
+                        showDownloadDialog("Iniciando descarga " + task.getFilename());
                     }
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                         super.progress(task, soFarBytes, totalBytes);
-                        ((ViewHolder) task.getTag()).updateProgress(soFarBytes, totalBytes,
-                                task.getSpeed());
+
+                        if (totalBytes == -1){
+                            mProgressDialog.setIndeterminate(true);
+                        } else{
+                            mProgressDialog.setMax(totalBytes);
+                            mProgressDialog.setProgress(soFarBytes);
+                            mProgressDialog.setMessage(String.format("Descargando base de datos. Velocidad: %d KB/s", task.getSpeed()) );
+                        }
                     }
 
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
                         super.error(task, e);
-                        ((ViewHolder) task.getTag()).updateError(e, task.getSpeed());
+                        mProgressDialog.setIndeterminate(false);
+                        setProgressDialogMessage(String.format("Error al descargar base de datos, Velocidad de descarga: %d KB/s",
+                                 task.getSpeed()));
                     }
 
                     @Override
                     protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
                         super.connected(task, etag, isContinue, soFarBytes, totalBytes);
-                        ((ViewHolder) task.getTag()).updateConnected(etag, task.getFilename());
+                        hideProgressDialog();
+                        showDownloadDialog("Descargando base de datos timbirichi");
                     }
 
                     @Override
                     protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                         super.paused(task, soFarBytes, totalBytes);
-                        ((ViewHolder) task.getTag()).updatePaused(task.getSpeed());
+                        setProgressDialogMessage("Pausado");
                     }
 
                     @Override
                     protected void completed(BaseDownloadTask task) {
                         super.completed(task);
-                        ((ViewHolder) task.getTag()).updateCompleted(task);
+                        setProgressDialogMessage(String.format("Quedan por descargar: %d total: %d, Velocidad de descarga: %d KB/s",
+                                    task.getSmallFileSoFarBytes(), task.getSmallFileTotalBytes(), task.getSpeed()));
+
+                        mProgressDialog.setIndeterminate(false);
+                        mProgressDialog.setMax(task.getSmallFileTotalBytes());
+                        mProgressDialog.setProgress(task.getSmallFileSoFarBytes());
+                        hideProgressDialog();
                     }
 
                     @Override
                     protected void warn(BaseDownloadTask task) {
                         super.warn(task);
-                        ((ViewHolder) task.getTag()).updateWarn();
+
                     }
                 });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FileDownloader.getImpl().pause(downloadId);
+    }
+
+
+
+
 
 }
