@@ -259,6 +259,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
                 do{
                     SubCategory category = new SubCategory();
                     category.setId(Long.parseLong(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_ID))));
+                    category.setParentId(Long.parseLong(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_CATEGORY))));
                     category.setName(cursor.getString(cursor.getColumnIndex(SubCategory.SUBCATEGORY_COL_NAME)));
 
                     List<Banner> banners =  getBannersByCategoryId(category.getId());
@@ -329,7 +330,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
     public List<Product> loadUltraProducts(){
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
-                + " WHERE " + Product.PRODUCT_COL_ULTRA + " = " + Integer.toString(Product.COVER_PAGE)
+                + " WHERE " + Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
                 + " ORDER BY "
                 + " RANDOM() "
                 + " LIMIT " + Integer.toString(2);
@@ -384,7 +385,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
         products.addAll(loadUltraProducts());
 
         String query = "SELECT * FROM " + Product.PRODUCT_TABLE
-                     + " WHERE " +  Product.PRODUCT_COL_COVER_PAGE + " = " + Integer.toString(Product.COVER_PAGE)
+                     + " WHERE " +  Product.PRODUCT_COL_ULTRA + " = " + Integer.toString(Product.COVER_PAGE)
                      + " ORDER BY "
                      + " RANDOM() ";
                    //  + " LIMIT " + Integer.toString(6);
@@ -453,7 +454,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
         String max = maxPrice > 0 ? " AND " + Product.PRODUCT_COL_PRICE + " < " + Double.toString(maxPrice) : " ";
 
-        String limit = " LIMIT " + Integer.toString(start) + ", " + Integer.toString(end);
+        String limit = " LIMIT " + Integer.toString(start) + ", " + Integer.toString(end + 1 );
 
         String cat = (category.getId() != SubCategory.CATEGORY_LASTED && category.getId() != SubCategory.CATEGORY_COVER_PAGE) ? Product.PRODUCT_COL_SUBCATEGORY + " = " + Long.toString(category.getId()) : Product.PRODUCT_COL_SUBCATEGORY + " <> " + Long.toString(category.getId());
 

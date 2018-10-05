@@ -189,6 +189,10 @@ public class ProductFragment extends BaseProductFragment {
 
 
     private void fillSlider(List<Banner> banners){
+        if(banners.size() == 1){
+            mDemoSlider.stopAutoCycle();
+        }
+
         for(final Banner banner : banners){
             ImageSliderView imageSliderView = new ImageSliderView(getActivity());
             imageSliderView.setImageBase64(banner.getBase64Img());

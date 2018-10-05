@@ -89,14 +89,13 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
             @Override
             public void run() {
                 databaseViewModel.checkPreferences();
-               // databaseViewModel.getDbPath();
             }
         };
 
         if( Build.VERSION.SDK_INT >= 23) {
             checkPerissions();
         } else {
-            databaseViewModel.checkPreferences();
+            handler.postDelayed(task, 3000);
         }
     }
 
@@ -218,7 +217,8 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, TELEPHONY);
         } else{
-            databaseViewModel.checkPreferences();
+            //databaseViewModel.checkPreferences();
+            handler.postDelayed(task, 3000);
         }
     }
 
@@ -232,7 +232,8 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
                 }
             }
 
-            databaseViewModel.checkPreferences();
+           // databaseViewModel.checkPreferences();
+            handler.postDelayed(task, 3000);
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

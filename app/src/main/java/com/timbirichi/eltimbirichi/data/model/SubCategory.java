@@ -24,6 +24,8 @@ public class SubCategory implements Parcelable{
 
     int productCount;
 
+    long parentId;
+
     public SubCategory(long id, String name) {
         this.id = id;
         this.name = name;
@@ -38,6 +40,8 @@ public class SubCategory implements Parcelable{
         parcel.readByteArray(image);
         base64Img = parcel.readString();
         productCount = parcel.readInt();
+        parentId = parcel.readLong();
+
     }
 
 
@@ -53,6 +57,7 @@ public class SubCategory implements Parcelable{
         dest.writeByteArray(image);
         dest.writeString(base64Img);
         dest.writeInt(productCount);
+        dest.writeLong(parentId);
     }
 
     public static final Parcelable.Creator<SubCategory> CREATOR = new Parcelable.Creator<SubCategory>(){
@@ -107,5 +112,13 @@ public class SubCategory implements Parcelable{
 
     public void setProductCount(int productCount) {
         this.productCount = productCount;
+    }
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
     }
 }

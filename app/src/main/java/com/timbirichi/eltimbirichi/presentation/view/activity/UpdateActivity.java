@@ -97,8 +97,8 @@ public class UpdateActivity extends BaseActivity {
 
 
     // for download database
-    public final static String DB_URL = "http://10.0.2.2/test/";
-    //public final static String DB_URL = "https://www.timbirichi.com/apk/";
+    //public final static String DB_URL = "http://10.0.2.2/test/";
+    public final static String DB_URL = "https://www.timbirichi.com/apk/";
    // public final static String WEB_DB_NAME = "timbirichi.db";
 
     public final static int DOWNLOAD_COMPLETED = 0;
@@ -107,6 +107,7 @@ public class UpdateActivity extends BaseActivity {
     public final static int DOWNLOAD_CANCELLED = 3;
     public final static int DOWNLOAD_INITED = 4;
     public final static int DOWNLOAD_PAUSED = 5;
+    private boolean downloadCompleted;
     private int downloadStatus;
     private int downloadId;
 
@@ -150,6 +151,8 @@ public class UpdateActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         search = false;
 
+
+        downloadCompleted = false;
         setupDownloader();
 
         existDatabase = getIntent().getBooleanExtra(EXTRA_EXIST_DATABASE, false);
@@ -638,14 +641,14 @@ public class UpdateActivity extends BaseActivity {
 
         boolean isDir = false;
         Calendar cal = Calendar.getInstance();
-        String currentDate = Integer.toString(cal.get(Calendar.DAY_OF_MONTH))
+        String currentDate = Integer.toString(cal.get(Calendar.WEEK_OF_MONTH))
                 + Integer.toString(cal.get(Calendar.MONTH))
                 + Integer.toString(cal.get(Calendar.YEAR));
 
 
         // crear fichero y carpeta...
-       // File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH + "/" + currentDate);
-        File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH );
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH + "/" + currentDate);
+       // File file = new File(Environment.getExternalStorageDirectory().getPath() + DB_PATH );
         file.mkdirs();
 
         final String dirPath = file.getPath();
@@ -720,6 +723,7 @@ public class UpdateActivity extends BaseActivity {
                         LocalDataBase.DB_PATH = dirPath + "/" + LocalDataBase.DB_NAME;
                         Log.d("UpdateActivity", "DB_PATH " + LocalDataBase.DB_PATH);
                         databaseViewModel.checkDatabase();
+                        downloadCompleted = true;
                     }
 
                     @Override
@@ -737,7 +741,7 @@ public class UpdateActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if(FileDownloader.getImpl().getSoFar(downloadId) != FileDownloader.getImpl().getTotal(downloadId)){
+        if(!downloadCompleted){
             FileDownloader.getImpl().pause(downloadId);
         } else{
             FileDownloader.getImpl().clearAllTaskData();

@@ -282,7 +282,7 @@ public class PreferencesDataBase extends SQLiteOpenHelper {
         fields.put(Product.PRODUCT_COL_PROVINCE, productBo.getProvince().getId());
         fields.put(Product.PRODUCT_COL_EMAIL, productBo.getEmail());
         fields.put(Product.PRODUCT_COL_PHONE, productBo.getPhone());
-        fields.put(Product.PRODUCT_COL_TIME, productBo.getTime());
+        fields.put(Product.PRODUCT_COL_TIME, productBo.getTime() / 1000);
         fields.put(Product.PRODUCT_COL_VIEWS, productBo.getViews());
         fields.put(Product.PRODUCT_COL_IS_NEW, productBo.isNewProduct());
         fields.put(Product.PRODUCT_COL_PHOTO_COUNT, productBo.getPhotosCount());

@@ -2,6 +2,7 @@ package com.timbirichi.eltimbirichi.presentation.adapter;
 
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.glide.slider.library.svg.GlideApp;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Category;
+import com.timbirichi.eltimbirichi.data.model.Image;
 import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.data.model.SubCategory;
 
@@ -29,12 +31,16 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
     Context context;
     List<SubCategory> categories;
 
+    TypedArray menuIcons;
+
     @NonNull
     SelectedCategoryCallback selectedCategoryCallback;
 
     public SelectedCategoryAdapter(Context context, List<SubCategory> categories) {
         this.context = context;
         this.categories = categories;
+
+        menuIcons = context.getResources().obtainTypedArray(R.array.dynamic_categories_menu);
     }
 
     @NonNull
@@ -51,7 +57,7 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
     @Override
     public void onBindViewHolder(@NonNull SelectedProductViewHolder holder, int position) {
         final SubCategory category = categories.get(position);
-        holder.setValues(category.getBase64Img(), category.getName());
+        holder.setValues(category.getBase64Img(), category.getName(), category.getParentId());
 
         holder.cvMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +86,9 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
         @BindView(R.id.cv_main)
         public CardView cvMain;
 
+        @BindView(R.id.iv_icon)
+        ImageView ivIcon;
+
 
         public SelectedProductViewHolder(View itemView) {
             super(itemView);
@@ -88,7 +97,7 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
         }
 
 
-        public void setValues(String base64Img, String description){
+        public void setValues(String base64Img, String description, long id){
 
             if(base64Img != null){
                 GlideApp.with(context)
@@ -101,7 +110,7 @@ public class SelectedCategoryAdapter extends RecyclerView.Adapter<SelectedCatego
                 ivImage.setImageDrawable(context.getResources().getDrawable(R.drawable.no_imagen));
             }
 
-
+            ivIcon.setImageDrawable(menuIcons.getDrawable((int)id - 1));
             tvDescription.setText(description);
         }
     }

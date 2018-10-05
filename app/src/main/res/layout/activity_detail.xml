@@ -80,7 +80,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/panel_color">
 
             <Button
                 android:id="@+id/btn_call"
@@ -92,8 +93,8 @@
                 android:drawableTop="@drawable/ic_call2"
                 android:text="@string/call"
                 android:textAllCaps="false"
-                android:drawableTint="@color/a_gray_600"
-                android:textColor="@color/a_gray_600" />
+                android:drawableTint="@color/colorAccent"
+                android:textColor="@color/colorAccent" />
 
             <Button
                 android:id="@+id/btn_sms"
@@ -105,8 +106,8 @@
                 android:drawableTop="@drawable/ic_sms"
                 android:text="@string/sms"
                 android:textAllCaps="false"
-                android:drawableTint="@color/a_gray_600"
-                android:textColor="@color/a_gray_600" />
+                android:drawableTint="@color/colorAccent"
+                android:textColor="@color/colorAccent" />
 
             <Button
                 android:id="@+id/btn_email"
@@ -118,9 +119,9 @@
                 android:drawableTop="@drawable/ic_icon_mail_test_new"
                 android:text="@string/email"
                 android:textAllCaps="false"
-                android:drawableTint="@color/a_gray_600"
+                android:drawableTint="@color/colorAccent"
 
-                android:textColor="@color/a_gray_600" />
+                android:textColor="@color/colorAccent" />
 
 
         </LinearLayout>
