@@ -62,6 +62,8 @@
     <string name="cover_page">Portada</string>
     <string name="loading">Cargando...</string>
 
+    <string name="lasted">Última</string>
+
     <string name="cancel">Cancelar</string>
     <string name="delete_confirm">Desea borrar los anuncios guardados?</string>
 

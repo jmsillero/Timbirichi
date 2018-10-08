@@ -45,7 +45,7 @@ public class MetaRepository implements IMetaRepository {
     }
 
     @Override
-    public Observable<String> getDatabaseDate(String path) {
+    public Observable<Meta> getDatabaseDate(String path) {
         return metaDataStore.getDatabaseDate(path);
     }
 }

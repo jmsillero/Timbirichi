@@ -1,6 +1,7 @@
 package com.timbirichi.eltimbirichi.presentation.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timbirichi.eltimbirichi.R;
+import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.presentation.model.FileItem;
 import com.timbirichi.eltimbirichi.presentation.view.activity.UpdateActivity;
 
@@ -29,19 +31,35 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
 
     Context context;
     List<FileItem> files;
-    OnFileItemClickListener onFileItemClickListener;
-
-
-
+    OnFileItemClickListener onFileItemClickListener;    
 
     public FileAdapter(Context context) {
         this.context = context;
         files = new ArrayList<>();
     }
 
-    public void setFileAt(String date, int pos){
-        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nActualización: " + date);
+
+    public void setFileAt(Meta date, int pos){
+        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nActualización: " + date.getStrDate());
+        this.files.get(pos).setDateTime(date.getTimestamp());
+      //  sortDatabaseFiles();
         notifyDataSetChanged();
+    }
+
+    private void sortDatabaseFiles(){
+        int verif;
+        do {
+            verif = -1;
+            for (int i = 0; i < files.size() - 1; i++){
+
+                if (files.get(i).getDateTime() < files.get(i + 1).getDateTime()){
+                    FileItem temp = files.get(i);
+                    files.set(i, files.get(i + 1));
+                    files.set( i + 1, temp);
+                    verif ++;
+                }
+            }
+        } while (verif != -1);
     }
 
     public void setFiles(List<FileItem> files) {
@@ -60,6 +78,8 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
         this.onFileItemClickListener = onFileItemClickListener;
     }
 
+
+
     @Override
     public FilesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_file, parent, false);
@@ -76,7 +96,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
         final String filename;
 
        // if(type == UpdateActivity.FILE)
-        filename = files.get(position).getFilename();// + "\n" + files.get(position).getUpdateDate();
+        filename = files.get(position).getFilename();
         final String path = files.get(position).getPath();
 
 
@@ -89,7 +109,11 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
             }
         });
 
-        holder.fillUi(filename, type);
+        boolean lasted = false;
+        if (files.get(position).getDateTime() != 0 && position == 0){
+            lasted = true;
+        }
+        holder.fillUi(filename, type, lasted);
     }
 
     @Override
@@ -100,7 +124,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
     class FilesViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.item_layout)
-        LinearLayout mLayout;
+        ConstraintLayout mLayout;
 
         @BindView(R.id.img_file)
         ImageView mFileImg;
@@ -108,14 +132,23 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
         @BindView(R.id.tv_file_name)
         TextView mTvFilename;
 
+        @BindView(R.id.iv_lasted)
+        ImageView ivLasted;
+
+        @BindView(R.id.tv_lasted)
+        TextView tvLasted;
+
         public FilesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind( this, itemView);
-
-
         }
 
-        public void fillUi(String filename, int type){
+        public void fillUi(String filename, int type, boolean lasted){
+             if(lasted){
+                 tvLasted.setVisibility(View.VISIBLE);
+                 ivLasted.setVisibility(View.VISIBLE);
+             }
+
              mTvFilename.setText(filename);
              switch (type){
                  case UpdateActivity.GO_BACK:

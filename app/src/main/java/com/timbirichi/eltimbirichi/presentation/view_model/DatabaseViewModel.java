@@ -38,7 +38,7 @@ public class DatabaseViewModel extends ViewModel {
     public final MutableLiveData<Response<Boolean>> checkPreferences = new MutableLiveData<>();
     public final MutableLiveData<Response<Boolean>> copyDatabase = new MutableLiveData<>();
 
-    public final MutableLiveData<Response<Pair<String, Integer>>> databaseDate = new MutableLiveData<>();
+    public final MutableLiveData<Response<Pair<Meta, Integer>>> databaseDate = new MutableLiveData<>();
 
 
     public DatabaseViewModel(CheckDatabaseUseCase checkDatabaseUseCase,
@@ -221,23 +221,23 @@ public class DatabaseViewModel extends ViewModel {
         }
     }
 
-    public final class GetDatabaseDateObserver extends UseCaseObserver<String>{
+    public final class GetDatabaseDateObserver extends UseCaseObserver<Meta>{
         int pos;
         public GetDatabaseDateObserver(int pos) {
             this.pos = pos;
         }
 
         @Override
-        public void onNext(String s) {
-            super.onNext(s);
-            Pair<String, Integer> pair = Pair.create(s, pos);
-            databaseDate.setValue(new Response< Pair<String, Integer>>(Status.SUCCESS, pair, null));
+        public void onNext(Meta meta) {
+            super.onNext(meta);
+            Pair<Meta, Integer> pair = Pair.create(meta, pos);
+            databaseDate.setValue(new Response< Pair<Meta, Integer>>(Status.SUCCESS, pair, null));
         }
 
         @Override
         public void onError(Throwable throwable) {
             super.onError(throwable);
-            databaseDate.setValue(new Response< Pair<String, Integer>>(Status.ERROR, null, throwable));
+            databaseDate.setValue(new Response< Pair<Meta, Integer>>(Status.ERROR, null, throwable));
         }
     }
 

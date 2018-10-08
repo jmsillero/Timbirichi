@@ -99,14 +99,8 @@ public class UpdateActivity extends BaseActivity {
     // for download database
     //public final static String DB_URL = "http://10.0.2.2/test/";
     public final static String DB_URL = "https://www.timbirichi.com/apk/";
-   // public final static String WEB_DB_NAME = "timbirichi.db";
 
-    public final static int DOWNLOAD_COMPLETED = 0;
-    public final static int DOWNLOAD_FAILED = 1;
-    public final static int FILE_CORRUPTED = 2;
-    public final static int DOWNLOAD_CANCELLED = 3;
-    public final static int DOWNLOAD_INITED = 4;
-    public final static int DOWNLOAD_PAUSED = 5;
+
     private boolean downloadCompleted;
     private int downloadStatus;
     private int downloadId;
@@ -261,9 +255,9 @@ public class UpdateActivity extends BaseActivity {
             }
         });
 
-        databaseViewModel.databaseDate.observe(this, new Observer<Response<Pair<String, Integer>>>() {
+        databaseViewModel.databaseDate.observe(this, new Observer<Response<Pair<Meta, Integer>>>() {
             @Override
-            public void onChanged(@Nullable Response< Pair<String, Integer>> stringResponse) {
+            public void onChanged(@Nullable Response< Pair<Meta, Integer>> stringResponse) {
                 switch (stringResponse.status){
                     case LOADING:
                         break;

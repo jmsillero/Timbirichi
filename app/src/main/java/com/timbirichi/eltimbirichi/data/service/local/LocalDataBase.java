@@ -37,7 +37,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
     }
 
 
-    public String getDatabaseDate(String data){
+    public Meta getDatabaseDate(String data){
         try {
             SQLiteDatabase db = SQLiteDatabase.openDatabase(data, null, SQLiteDatabase.OPEN_READONLY);
             String q = " SELECT *"
@@ -48,17 +48,11 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
             Cursor cursor = db.rawQuery(q, null);
 
-//            String selection = Meta.COL_META_CODE + " = '" + META_CODE + "'";
-//            Cursor cursor = db.query(true, Meta.TABLE_META,
-//                    null,selection,
-//                    null,
-//                    null,
-//                    null,
-//                    null,
-//                    "1");
-
             if(cursor.moveToFirst()){
-                return cursor.getString(cursor.getColumnIndex(Meta.COL_META_DATE));
+                Meta meta = new Meta();
+                meta.setStrDate(cursor.getString(cursor.getColumnIndex(Meta.COL_META_DATE)));
+                meta.setTimestamp(cursor.getLong(cursor.getColumnIndex(Meta.COL_META_TIMESTAMP)));
+                return meta;
             } else{
                 throw new SQLiteException();
             }

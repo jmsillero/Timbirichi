@@ -103,7 +103,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_sms"
+                android:drawableTop="@drawable/ic_icono_sms"
                 android:text="@string/sms"
                 android:textAllCaps="false"
                 android:drawableTint="@color/colorAccent"

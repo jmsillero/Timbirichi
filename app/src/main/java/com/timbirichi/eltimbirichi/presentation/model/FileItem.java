@@ -10,6 +10,7 @@ public class FileItem {
     int type;
     int level;
     String updateDate;
+    long dateTime = 0;
 
     public FileItem(String filename, String path, int type, int level) {
         this.filename = filename;
@@ -17,6 +18,7 @@ public class FileItem {
         this.type = type;
         this.level = level;
         this.updateDate = "No compatible";
+        this.dateTime = 0;
     }
 
     public FileItem() {
@@ -60,5 +62,13 @@ public class FileItem {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public long getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(long dateTime) {
+        this.dateTime = dateTime;
     }
 }

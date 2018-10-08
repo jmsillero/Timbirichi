@@ -120,6 +120,7 @@ public class DetailActivity extends BaseActivity {
             GlideApp.with(this)
                     .load(product.getImages() != null ? Base64.decode(product.getImages().get(0).getBase64Img(), Base64.DEFAULT)  : null)
                     .override(800, 800)
+                    .fitCenter()
                     .into(ivProduct);
         }
 
