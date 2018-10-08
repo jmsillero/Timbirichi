@@ -5,6 +5,10 @@ import android.util.Log;
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.model.Product;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import io.reactivex.internal.operators.flowable.FlowableAll;
 
 public class Utils {
@@ -26,6 +30,13 @@ public class Utils {
 
     public static  String removeLastDirectory(String path){
         return path.substring(0, path.lastIndexOf('/'));
+    }
+
+
+    public static String convertTimeStampToStrDate(long timestamp){
+        String formatD = "dd MMMM yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatD, new Locale("ES", "es"));
+        return dateFormat.format(new Date(timestamp));
     }
 
     //+53 53

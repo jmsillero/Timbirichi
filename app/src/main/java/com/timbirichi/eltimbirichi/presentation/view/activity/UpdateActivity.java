@@ -263,7 +263,15 @@ public class UpdateActivity extends BaseActivity {
                         break;
 
                     case SUCCESS:
-                        fileAdapter.setFileAt(stringResponse.data.first, stringResponse.data.second);
+
+                        countSuccess ++;
+
+                        if(countSuccess + count == databases.size()){
+                            fileAdapter.setFileAt(stringResponse.data.first, stringResponse.data.second, true);
+                        } else{
+                            fileAdapter.setFileAt(stringResponse.data.first, stringResponse.data.second, false);
+                        }
+
                         break;
 
                     case ERROR:
@@ -278,6 +286,8 @@ public class UpdateActivity extends BaseActivity {
             }
         });
     }
+
+
 
     private void openMainActivity(Meta meta){
         Intent intent = new Intent(this, MainActivity.class);
@@ -486,9 +496,8 @@ public class UpdateActivity extends BaseActivity {
         return list;
     }
 
-
-
     int count;
+    int countSuccess;
     List<FileItem> databases = new ArrayList<>();
 
 
@@ -496,6 +505,7 @@ public class UpdateActivity extends BaseActivity {
     public void onBtnSearchDatabaseClick(){
         search = true;
         count = 0;
+        countSuccess = 0;
         final List<FileItem> sds = getAllsds();
 
         //eliminar los dos ultimos items para no buscar en ellos...
@@ -545,10 +555,6 @@ public class UpdateActivity extends BaseActivity {
         }
 
         new ListAync().execute();
-
-
-
-
 
     }
 

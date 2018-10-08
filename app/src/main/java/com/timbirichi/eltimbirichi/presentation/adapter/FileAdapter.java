@@ -16,6 +16,7 @@ import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.presentation.model.FileItem;
 import com.timbirichi.eltimbirichi.presentation.view.activity.UpdateActivity;
+import com.timbirichi.eltimbirichi.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
 
     Context context;
     List<FileItem> files;
-    OnFileItemClickListener onFileItemClickListener;    
+    OnFileItemClickListener onFileItemClickListener;
 
     public FileAdapter(Context context) {
         this.context = context;
@@ -39,10 +40,17 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FilesViewHolde
     }
 
 
-    public void setFileAt(Meta date, int pos){
-        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nActualización: " + date.getStrDate());
+
+
+    public void setFileAt(Meta date, int pos, boolean finished){
+
+
+        this.files.get(pos).setFilename(this.files.get(pos).getFilename() + "\nFecha: " + Utils.convertTimeStampToStrDate(date.getTimestamp()));
         this.files.get(pos).setDateTime(date.getTimestamp());
-      //  sortDatabaseFiles();
+
+        if(finished){
+            sortDatabaseFiles();
+        }
         notifyDataSetChanged();
     }
 

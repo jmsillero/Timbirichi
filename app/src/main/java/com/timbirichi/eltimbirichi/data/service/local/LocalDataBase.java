@@ -51,7 +51,7 @@ public class LocalDataBase extends SQLiteOpenHelper {
             if(cursor.moveToFirst()){
                 Meta meta = new Meta();
                 meta.setStrDate(cursor.getString(cursor.getColumnIndex(Meta.COL_META_DATE)));
-                meta.setTimestamp(cursor.getLong(cursor.getColumnIndex(Meta.COL_META_TIMESTAMP)));
+                meta.setTimestamp(cursor.getLong(cursor.getColumnIndex(Meta.COL_META_TIMESTAMP)) * 1000);
                 return meta;
             } else{
                 throw new SQLiteException();
