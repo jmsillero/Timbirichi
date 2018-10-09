@@ -28,14 +28,52 @@
         style="@style/AppThemeDark">
 
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|center"-->
-        <!--android:clickable="true"-->
-        <!--android:orientation="vertical"-->
-        <!--android:elevation="2dp"-->
-         <!--&gt;-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:elevation="2dp"
+         >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_check"
+            android:id="@+id/ic_check"/>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/updated"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:paddingTop="4dp"
+            android:paddingBottom="12dp"
+            android:layout_gravity="center"
+            android:id="@+id/tv_app_status"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_bold"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12 octubre 2018"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+             android:layout_marginBottom="4dp"
+            android:paddingTop="2dp"
+            android:id="@+id/db_date"/>
 
         <!--<ImageView-->
             <!--android:layout_width="match_parent"-->
@@ -92,7 +130,7 @@
                 <!--android:layout_marginLeft="20dp"-->
                 <!--android:layout_marginRight="20dp"/>-->
         <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
+    </LinearLayout>
 
     </android.support.design.widget.NavigationView>
 

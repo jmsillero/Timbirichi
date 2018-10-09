@@ -292,6 +292,7 @@ public class UpdateActivity extends BaseActivity {
     private void openMainActivity(Meta meta){
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(UpdateActivity.EXTRA_META_INFORMATION, meta);
+        Utils.meta = meta;
         startActivity(intent);
         finish();
     }
@@ -299,6 +300,7 @@ public class UpdateActivity extends BaseActivity {
     private void onDatabaseSavedAndMetaInformationResult(Meta meta){
         Intent data = new Intent();
         data.putExtra(EXTRA_META_INFORMATION, meta);
+        Utils.meta = meta;
         setResult(RESULT_OK, data);
         finish();
     }

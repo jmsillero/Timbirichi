@@ -6,6 +6,7 @@ import com.timbirichi.eltimbirichi.data.model.Meta;
 import com.timbirichi.eltimbirichi.data.model.Product;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -33,12 +34,46 @@ public class Utils {
     }
 
 
+    /**
+     * Calcula segun la fecha de la base de datos y la fecha actual si la base de datos
+     * esta actualizada
+     * Nota: La BD esta desactualizada con dos dias
+     * @param timestamp
+     * @return true si la BD esta actualizada, false si la BD esta desactualizada
+     */
+    public static boolean checkIsDatabaseUpdated(long timestamp){
+        Calendar currentCalendar = Calendar.getInstance();
+        Date currentDate = currentCalendar.getTime();
+
+        Date databaseDate = new Date(timestamp);
+        Calendar databaseCalendar = Calendar.getInstance();
+        databaseCalendar.setTime(databaseDate);
+
+        databaseCalendar.add(Calendar.DAY_OF_YEAR, 2);
+        if(databaseCalendar.getTime().before(currentDate)){
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Convierte un timestamp en fecha formateada a String
+     * al formato dia mes anno
+     * @param timestamp
+     * @return fecha formateada como String
+     */
     public static String convertTimeStampToStrDate(long timestamp){
         String formatD = "dd MMMM yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatD, new Locale("ES", "es"));
         return dateFormat.format(new Date(timestamp));
     }
 
+    /**
+     * Determinar si un numero tiene el formato de numeros de celulares validos para cuba
+     * @param number
+     * @return true si el numero entrado es un numero valido de celular en cuba
+     */
     //+53 53
     //5353
     //53

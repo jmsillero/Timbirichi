@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.timbirichi.eltimbirichi.R;
@@ -64,6 +66,15 @@ public class MainActivity extends BaseActivity
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+
+    @BindView(R.id.tv_app_status)
+    TextView tvAppStatus;
+
+    @BindView(R.id.ic_check)
+    ImageView ivAppStatus;
+
+    @BindView(R.id.db_date)
+    TextView tvdbDate;
 
     SubCategory catSelected;
 
@@ -394,10 +405,21 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-    // todo: El update meta information lo puedo hacer en el coverPageFragment
-    // todo: Y poner la informacion al final de la pagina...
     private void updateMetaInformation(){
+        tvdbDate.setText(Utils.convertTimeStampToStrDate(Utils.meta.getTimestamp()));
+
+        //base de datos actualizada
+        String dbStatus;
+
+        if(Utils.checkIsDatabaseUpdated(Utils.meta.getTimestamp())){
+            dbStatus = getString(R.string.updated );
+            ivAppStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
+        } else{
+            dbStatus = getString(R.string.out_date);
+            ivAppStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_warning));
+        }
+
+        tvAppStatus.setText(dbStatus);
 
     }
 

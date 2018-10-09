@@ -240,8 +240,8 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
     }
 
     private void openMainActivity(Meta meta){
-        // todo: pasar la informacion meta de la base de datos al activity
         Intent intent = new Intent(this, MainActivity.class);
+        Utils.meta = meta;
         intent.putExtra(UpdateActivity.EXTRA_META_INFORMATION, meta);
         startActivity(intent);
         finish();

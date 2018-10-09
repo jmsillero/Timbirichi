@@ -52,6 +52,7 @@
     <string name="order_price">Precio</string>
     <string name="order_relevant">Relevantes</string>
     <string name="order_date">Fecha</string>
+    <string name="date_bold"><b>Desde</b></string>
     <string name="filter">Filtro</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="product_detail">Detalles</string>
@@ -63,6 +64,8 @@
     <string name="loading">Cargando...</string>
 
     <string name="lasted">Última</string>
+    <string name="updated">Base de datos está actualizada</string>
+    <string name="out_date">Base de datos desactualizada</string>
 
     <string name="cancel">Cancelar</string>
     <string name="delete_confirm">Desea borrar los anuncios guardados?</string>
