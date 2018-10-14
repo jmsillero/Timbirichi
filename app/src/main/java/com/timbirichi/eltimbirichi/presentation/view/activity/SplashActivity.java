@@ -17,10 +17,13 @@ import android.os.Bundle;
 
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Meta;
+import com.timbirichi.eltimbirichi.data.model.Timbirichi;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
 import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
+import com.timbirichi.eltimbirichi.presentation.view_model.VersionViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
+import com.timbirichi.eltimbirichi.presentation.view_model.factory.VersionViewModelFactory;
 import com.timbirichi.eltimbirichi.utils.Utils;
 
 import java.text.DecimalFormat;
@@ -39,6 +42,11 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
     @Inject
     DatabaseViewModelFactory databaseViewModelFactory;
     DatabaseViewModel databaseViewModel;
+
+
+    @Inject
+    VersionViewModelFactory versionViewModelFactory;
+    VersionViewModel versionViewModel;
 
 
     @Override
@@ -83,12 +91,14 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
 
         setupDatabaseViewModel();
         setupCheckAndCopyDatabase();
+        setupCheckVersion();
 
         handler = new Handler();
         task = new Runnable() {
             @Override
             public void run() {
-                databaseViewModel.checkPreferences();
+               // databaseViewModel.checkPreferences();
+                versionViewModel.checkNewAppVersion();
             }
         };
 
@@ -97,6 +107,30 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
         } else {
             handler.postDelayed(task, 3000);
         }
+    }
+
+    private void setupCheckVersion(){
+        versionViewModel = ViewModelProviders.of(this, versionViewModelFactory).get(VersionViewModel.class);
+
+        versionViewModel.version.observe(this, new Observer<Response<Timbirichi>>() {
+            @Override
+            public void onChanged(@Nullable Response<Timbirichi> timbirichiResponse) {
+                switch (timbirichiResponse.status){
+                    case LOADING:
+                        break;
+
+                    case SUCCESS:
+                        Utils.timbirichiAppVersionInfo = timbirichiResponse.data;
+                        databaseViewModel.checkPreferences();
+                        break;
+
+                    case ERROR:
+                        //showErrorDialog(getString(R.string.check_version_error));
+                        databaseViewModel.checkPreferences();
+                        break;
+                }
+            }
+        });
     }
 
     private void setupCheckAndCopyDatabase(){
@@ -258,5 +292,10 @@ public class SplashActivity extends BaseActivity implements ActivityCompat.OnReq
     @Override
     public void initInject() {
         getActivityComponent().inject(this);
+    }
+
+    @Override
+    public void startDownload() {
+
     }
 }

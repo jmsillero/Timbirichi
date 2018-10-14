@@ -168,30 +168,40 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <com.arlib.floatingsearchview.FloatingSearchView
-        android:id="@+id/floating_search_view"
+
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        app:floatingSearch_close_search_on_keyboard_dismiss="true"
-        app:floatingSearch_backgroundColor="@android:color/background_light"
-        app:floatingSearch_leftActionColor="@color/colorPrimary"
-        app:floatingSearch_dimBackground="false"
-        app:floatingSearch_dismissOnOutsideTouch="true"
-        app:floatingSearch_leftActionMode="showHamburger"
-        app:floatingSearch_searchBarMarginLeft="10dp"
-        app:floatingSearch_searchBarMarginRight="10dp"
-        app:floatingSearch_searchBarMarginTop="4dp"
-        app:floatingSearch_searchHint="@string/find_in_timbirichi"
-        app:floatingSearch_showSearchKey="true"
-        app:floatingSearch_suggestionsListAnimDuration="250"
+        android:layout_height="wrap_content"
+        android:background="@color/panel_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/floating_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            app:floatingSearch_backgroundColor="@android:color/background_light"
+            app:floatingSearch_leftActionColor="@color/colorPrimary"
+            app:floatingSearch_dimBackground="false"
+            app:floatingSearch_dismissOnOutsideTouch="true"
+            app:floatingSearch_leftActionMode="showHamburger"
+            app:floatingSearch_searchBarMarginLeft="10dp"
+            app:floatingSearch_searchBarMarginRight="10dp"
+            app:floatingSearch_searchBarMarginTop="4dp"
+            app:floatingSearch_searchHint="@string/find_in_timbirichi"
+            app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_suggestionsListAnimDuration="250"
+            />
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
 

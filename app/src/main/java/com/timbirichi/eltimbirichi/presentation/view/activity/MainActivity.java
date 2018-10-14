@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,11 +24,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadSampleListener;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.timbirichi.eltimbirichi.BuildConfig;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.data.model.Category;
 import com.timbirichi.eltimbirichi.data.model.Product;
 import com.timbirichi.eltimbirichi.data.model.Province;
 import com.timbirichi.eltimbirichi.data.model.SubCategory;
+import com.timbirichi.eltimbirichi.data.model.Timbirichi;
+import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
 import com.timbirichi.eltimbirichi.presentation.model.Response;
 import com.timbirichi.eltimbirichi.presentation.model.Status;
 import com.timbirichi.eltimbirichi.presentation.view.base.BaseActivity;
@@ -43,7 +51,9 @@ import com.timbirichi.eltimbirichi.presentation.view_model.DatabaseViewModel;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewModelFactory;
 import com.timbirichi.eltimbirichi.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -51,6 +61,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import io.reactivex.internal.subscriptions.SubscriptionArbiter;
+
+import static android.app.Activity.RESULT_OK;
+import static com.timbirichi.eltimbirichi.presentation.view.activity.UpdateActivity.APP_PATH;
+import static com.timbirichi.eltimbirichi.utils.Utils.getMegasFromBytes;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,6 +96,8 @@ public class MainActivity extends BaseActivity
 
     String findText = "";
 
+    private int downloadId;
+
     public static final int CODE_DATABASE_UPDATE = 2003;
 
     @Inject
@@ -101,6 +117,15 @@ public class MainActivity extends BaseActivity
         catSelected.setId(SubCategory.CATEGORY_LASTED);
 
         initButterNife();
+
+
+        if(Utils.timbirichiAppVersionInfo != null){
+            int checkVersionResult = Utils.compareVersions(Utils.timbirichiAppVersionInfo.getVersion(), BuildConfig.VERSION_NAME);
+            if(checkVersionResult == Utils.HAS_NEW_DOWNLOAD_VERSION){
+                showInfoDonwloadDialog();
+            }
+        }
+
 
 //        mSearchView.attachNavigationDrawerToMenuButton(drawer);
 //
@@ -506,6 +531,100 @@ public class MainActivity extends BaseActivity
         intent.putExtra(UpdateActivity.EXTRA_EXIST_DATABASE, true);
         startActivityForResult(intent, CODE_DATABASE_UPDATE);
 
+    }
+
+    @Override
+    public void startDownload() {
+        downloadId =  createDownloadTask().start();
+    }
+
+    // todo: Pasar esto para un viewModel aqui esta donde no le corresponde
+    private BaseDownloadTask createDownloadTask() {
+
+        boolean isDir = false;
+        Calendar cal = Calendar.getInstance();
+        String currentDate = Integer.toString(cal.get(Calendar.WEEK_OF_MONTH))
+                + Integer.toString(cal.get(Calendar.MONTH))
+                + Integer.toString(cal.get(Calendar.YEAR));
+
+
+
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + APP_PATH + "/" + currentDate);
+        file.mkdirs();
+
+        final String dirPath = file.getPath();
+        final String apkFileName = dirPath + "/" + getString(R.string.app_name) + "_v" + Utils.timbirichiAppVersionInfo.getVersion() + ".apk";
+       // final String apkFileName = dirPath + "/" + getString(R.string.app_name) + "_v" + Utils.timbirichiAppVersionInfo.getVersion() + ".apk";
+
+        return FileDownloader.getImpl().create(Utils.timbirichiAppVersionInfo.getDownloadUrl())
+                .setPath(apkFileName, isDir)
+
+                .setCallbackProgressTimes(300)
+                .setMinIntervalUpdateSpeed(400)
+                .setAutoRetryTimes(10)
+                .setTag(LocalDataBase.DB_NAME)
+                .setListener(new FileDownloadSampleListener() {
+
+                    @Override
+                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        super.pending(task, soFarBytes, totalBytes);
+                        showLoadingDialog("Iniciando descarga pendiente " + task.getFilename());
+                    }
+
+                    @Override
+                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        super.progress(task, soFarBytes, totalBytes);
+
+                        if (totalBytes == -1){
+                            mProgressDialog.setIndeterminate(true);
+                        } else{
+                            mProgressDialog.setMax(totalBytes);
+                            mProgressDialog.setProgress(soFarBytes);
+                            mProgressDialog.setMessage(String.format("Quedan por descargar: %d MB de: %d MB. \n Velocidad de descarga: %d KB/s",
+                                    getMegasFromBytes(task.getSmallFileSoFarBytes()), getMegasFromBytes(task.getSmallFileTotalBytes()), task.getSpeed()) );
+                        }
+                    }
+
+                    @Override
+                    protected void error(BaseDownloadTask task, Throwable e) {
+                        super.error(task, e);
+                        mProgressDialog.setIndeterminate(false);
+                        hideProgressDialog();
+                        showDownloadErrorDialog(String.format("Error al descargar base de datos. \n Velocidad de descarga: %d KB/s",
+                                task.getSpeed()));
+                    }
+
+                    @Override
+                    protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
+                        super.connected(task, etag, isContinue, soFarBytes, totalBytes);
+                        setProgressDialogMessage("Descargando base de datos timbirichi");
+                    }
+
+                    @Override
+                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        super.paused(task, soFarBytes, totalBytes);
+                        setProgressDialogMessage("Pausado");
+                    }
+
+                    @Override
+                    protected void completed(BaseDownloadTask task) {
+                        super.completed(task);
+                        setProgressDialogMessage(String.format("Quedan por descargar: %d MB de: %d MB. \n Velocidad de descarga: %d KB/s",
+                                getMegasFromBytes(task.getSmallFileSoFarBytes()), getMegasFromBytes(task.getSmallFileTotalBytes()), task.getSpeed()));
+
+                        mProgressDialog.setIndeterminate(false);
+                        mProgressDialog.setMax(task.getSmallFileTotalBytes());
+                        mProgressDialog.setProgress(task.getSmallFileSoFarBytes());
+                        hideProgressDialog();
+                        finish();
+                        Utils.updateApp(MainActivity.this, new File(apkFileName));
+                    }
+
+                    @Override
+                    protected void warn(BaseDownloadTask task) {
+                        super.warn(task);
+                    }
+                });
     }
 
 

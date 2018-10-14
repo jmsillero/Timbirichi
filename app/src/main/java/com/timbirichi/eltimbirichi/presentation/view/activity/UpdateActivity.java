@@ -80,6 +80,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.timbirichi.eltimbirichi.utils.Utils.getMegasFromBytes;
+
 public class UpdateActivity extends BaseActivity {
 
     public final static int FILE = 0;
@@ -94,6 +96,7 @@ public class UpdateActivity extends BaseActivity {
     public final static String EXTRA_META_INFORMATION = "com.timbirichi.eltimbirichi.meta_information";
 
     public final static String DB_PATH = "/timbirichidb/";
+    public final static String APP_PATH = "/timbirichiapp/";
 
 
     // for download database
@@ -320,7 +323,7 @@ public class UpdateActivity extends BaseActivity {
                 if(fileType == AUTOMATIC_SEARCH){
                     onBtnSearchDatabaseClick();
                 }else if (fileType == DOWNLOAD){
-                  downloadId =  createDownloadTask().start();
+                  startDownload();
                 }else if (fileType != FILE){
                     if (fileType != GO_BACK){
                         currentLevel ++;
@@ -390,6 +393,7 @@ public class UpdateActivity extends BaseActivity {
                             && !sel.isHidden();
                 }
             };
+
 
             String[] fileList = path.list(filter);
             File currentFile;
@@ -611,30 +615,7 @@ public class UpdateActivity extends BaseActivity {
         return databases;
     }
 
-    public void showDownloadErrorDialog(String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setTitle(R.string.app_name);
-        builder.setIcon(R.drawable.ic_error);
 
-
-        builder.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                downloadId =  createDownloadTask().start();
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                PRDownloader.cancelAll();
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     /**
      * Descarga de la base de datos
@@ -735,9 +716,7 @@ public class UpdateActivity extends BaseActivity {
                 });
     }
 
-    private int getMegasFromBytes(int bytes){
-        return (bytes / 1024) / 1024;
-    }
+
 
     @Override
     protected void onDestroy() {
@@ -751,7 +730,10 @@ public class UpdateActivity extends BaseActivity {
     }
 
 
-
+    @Override
+    public void startDownload() {
+        downloadId =  createDownloadTask().start();
+    }
 
 
 }

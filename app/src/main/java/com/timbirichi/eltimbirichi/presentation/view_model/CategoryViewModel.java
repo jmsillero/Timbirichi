@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModel;
 import com.timbirichi.eltimbirichi.data.model.Category;
 import com.timbirichi.eltimbirichi.data.model.Province;
 import com.timbirichi.eltimbirichi.data.model.SubCategory;
+import com.timbirichi.eltimbirichi.data.model.Timbirichi;
+import com.timbirichi.eltimbirichi.domain.use_case.application.CheckVersionUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.base.UseCaseObserver;
 import com.timbirichi.eltimbirichi.domain.use_case.category.GetCategoriesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.product.LoadRandomSubCategoriesUseCase;
@@ -18,8 +20,10 @@ public class CategoryViewModel extends ViewModel {
     GetCategoriesUseCase getCategoriesUseCase;
     LoadRandomSubCategoriesUseCase loadRandomSubCategoriesUseCase;
 
+
     public final MutableLiveData<Response<List<Category>>> categories = new MutableLiveData<>();
     public final MutableLiveData<Response<List<SubCategory>>> subcategories = new MutableLiveData<>();
+
 
     public CategoryViewModel(GetCategoriesUseCase getCategoriesUseCase,
                              LoadRandomSubCategoriesUseCase loadRandomSubCategoriesUseCase) {

@@ -279,4 +279,9 @@ public class DetailActivity extends BaseActivity {
     public void initInject() {
         getActivityComponent().inject(this);
     }
+
+    @Override
+    public void startDownload() {
+
+    }
 }

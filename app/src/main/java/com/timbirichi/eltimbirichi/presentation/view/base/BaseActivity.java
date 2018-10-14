@@ -5,18 +5,33 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.downloader.PRDownloader;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadSampleListener;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.timbirichi.eltimbirichi.BuildConfig;
 import com.timbirichi.eltimbirichi.ElTimbirichiApplication;
 import com.timbirichi.eltimbirichi.R;
 import com.timbirichi.eltimbirichi.dagger.component.ActivityComponent;
 import com.timbirichi.eltimbirichi.dagger.component.DaggerActivityComponent;
 import com.timbirichi.eltimbirichi.dagger.module.ActivityModule;
+import com.timbirichi.eltimbirichi.data.service.local.LocalDataBase;
+import com.timbirichi.eltimbirichi.presentation.view.activity.UpdateActivity;
+import com.timbirichi.eltimbirichi.utils.Utils;
+
+import java.io.File;
+import java.util.Calendar;
 
 import butterknife.ButterKnife;
+
+import static com.timbirichi.eltimbirichi.presentation.view.activity.UpdateActivity.APP_PATH;
+import static com.timbirichi.eltimbirichi.presentation.view.activity.UpdateActivity.DB_PATH;
 
 /**
  * Created by JM on 11/18/2017.
@@ -91,6 +106,54 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+
+    public void showDownloadErrorDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setTitle(R.string.app_name);
+        builder.setIcon(R.drawable.ic_error);
+
+
+        builder.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startDownload();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PRDownloader.cancelAll();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    protected void showInfoDonwloadDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.has_new_version))
+                .setTitle(R.string.app_name);
+        builder.setIcon(R.drawable.ic_update);
+
+        builder.setPositiveButton(R.string.install, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                startDownload();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     protected void showErrorDialog(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message)
@@ -156,4 +219,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public abstract  void initInject();
+
+    public abstract  void startDownload();
 }

@@ -8,6 +8,7 @@ import com.timbirichi.eltimbirichi.domain.repository.ICategoryRepository;
 import com.timbirichi.eltimbirichi.domain.repository.IMetaRepository;
 import com.timbirichi.eltimbirichi.domain.repository.IProductRepository;
 import com.timbirichi.eltimbirichi.domain.repository.IProvinceRepository;
+import com.timbirichi.eltimbirichi.domain.repository.IVersionRepository;
 
 import javax.inject.Singleton;
 
@@ -29,6 +30,7 @@ public interface ApplicationComponent {
     IProductRepository productRepository();
     IProvinceRepository provinceRepository();
     IBannerRepository provideBannerRepository();
+    IVersionRepository provideVersionRepository();
 
 
 

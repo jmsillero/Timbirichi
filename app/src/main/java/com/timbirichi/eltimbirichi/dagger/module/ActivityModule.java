@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.timbirichi.eltimbirichi.dagger.scope.ActivityScope;
+import com.timbirichi.eltimbirichi.domain.use_case.application.CheckVersionUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.category.GetCategoriesUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.CheckDatabaseUseCase;
 import com.timbirichi.eltimbirichi.domain.use_case.database.CheckPreferencesDatabaseUseCase;
@@ -28,6 +29,7 @@ import com.timbirichi.eltimbirichi.presentation.view_model.factory.CategoryViewM
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.DatabaseViewModelFactory;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.ProductViewModelFactory;
 import com.timbirichi.eltimbirichi.presentation.view_model.factory.ProvinceViewModelFactory;
+import com.timbirichi.eltimbirichi.presentation.view_model.factory.VersionViewModelFactory;
 
 import javax.inject.Named;
 
@@ -129,6 +131,11 @@ public class ActivityModule {
                 clearFavoritesUseCase,
                 findProductByIdUseCase,
                 getProductByIdUseCase);
+    }
+
+    @Provides
+    VersionViewModelFactory provideVersionViewModelFactory(CheckVersionUseCase checkVersionUseCase){
+        return new VersionViewModelFactory(checkVersionUseCase);
     }
 
 
