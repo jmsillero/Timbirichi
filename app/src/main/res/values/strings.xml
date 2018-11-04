@@ -24,7 +24,7 @@
 
     <string name="categories">Categoría</string>
     <string name="publish">Publicar</string>
-    <string name="favorites">Anuncios guardados</string>
+    <string name="favorites">Guardados</string>
     <string name="contact">Contactar</string>
 
     <string name="price">Precio: </string>
@@ -64,7 +64,7 @@
     <string name="loading">Cargando...</string>
 
     <string name="lasted">Última</string>
-    <string name="updated">Base de datos está actualizada</string>
+    <string name="updated">Base de datos actualizada</string>
     <string name="out_date">Base de datos desactualizada</string>
 
     <string name="cancel">Cancelar</string>

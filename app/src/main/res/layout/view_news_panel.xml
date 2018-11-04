@@ -7,7 +7,7 @@
     android:layout_margin="2dp">
 
 
-    <com.timbirichi.eltimbirichi.presentation.view.custom.NewsView
+    <com.timbirichi.app.presentation.view.custom.NewsView
         android:id="@+id/prod_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:rotate="false"
         app:elevation="2dp"/>
 
-    <com.timbirichi.eltimbirichi.presentation.view.custom.NewsView
+    <com.timbirichi.app.presentation.view.custom.NewsView
         android:id="@+id/prod_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

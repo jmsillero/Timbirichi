@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+    <com.timbirichi.app.presentation.view.custom.CustomFabView
         android:id="@+id/btn_category"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:icon="@drawable/ic_categories_prod"
         app:color="@color/panel_color"/>
 
-    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+    <com.timbirichi.app.presentation.view.custom.CustomFabView
         android:id="@+id/btn_publish"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:icon="@drawable/ic_publish"
         app:color="@color/panel_color"/>
 
-    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+    <com.timbirichi.app.presentation.view.custom.CustomFabView
         android:id="@+id/btn_favorites"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         app:icon="@drawable/ic_saved"
         app:color="@color/panel_color"/>
 
-    <com.timbirichi.eltimbirichi.presentation.view.custom.CustomFabView
+    <com.timbirichi.app.presentation.view.custom.CustomFabView
         android:id="@+id/btn_last"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

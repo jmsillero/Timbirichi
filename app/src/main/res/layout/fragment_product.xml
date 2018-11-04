@@ -55,26 +55,28 @@
                     android:layout_height="0dp"
                     android:layout_weight=".9"
                     custom:auto_cycle="true"
-                    app:pager_animation="ZoomOut"
-                    />
+                    android:background="@color/panel_color"
+                    app:pager_animation="ZoomOut"/>
 
                 <com.glide.slider.library.Indicators.PagerIndicator
                     android:id="@+id/custom_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
                     android:layout_weight=".1"
                     android:gravity="center"
-                    custom:selected_color="@color/panel_color"
+                    android:layout_marginTop="-4dp"
+                    android:layout_gravity="center"
+                    android:background="@color/panel_color"
+                    custom:selected_color="@color/colorAccent"
                     custom:selected_height="7dp"
                     custom:selected_width="7dp"
-                    custom:shape="oval"
                     custom:unselected_color="@color/gray"
                     custom:unselected_height="7dp"
-                    custom:unselected_width="7dp" />
+                    custom:unselected_width="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    custom:shape="oval"/>
             </LinearLayout>
-
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view_container"
@@ -137,6 +139,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/panel_color"
+        android:id="@+id/search_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -188,7 +191,7 @@
             android:background="#fff"
             android:gravity="center">
 
-            <com.timbirichi.eltimbirichi.presentation.view.custom.BottonBarBtnView
+            <com.timbirichi.app.presentation.view.custom.BottonBarBtnView
                 android:id="@+id/btn_filter_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -199,7 +202,7 @@
                 app:order_up="@drawable/ic_up"
                 app:order_active="true"/>
 
-            <com.timbirichi.eltimbirichi.presentation.view.custom.BottonBarBtnView
+            <com.timbirichi.app.presentation.view.custom.BottonBarBtnView
                 android:id="@+id/btn_filter_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -211,7 +214,7 @@
                />
 
 
-            <com.timbirichi.eltimbirichi.presentation.view.custom.BottonBarBtnView
+            <com.timbirichi.app.presentation.view.custom.BottonBarBtnView
                 android:id="@+id/btn_filter_views"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
