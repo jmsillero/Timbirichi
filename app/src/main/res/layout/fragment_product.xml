@@ -9,19 +9,20 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.fragment.ProductFragment">
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="64dp"
+            android:orientation="vertical">
 
-
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="64dp"
-        android:id="@+id/main_scroll">
-
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
 
 
 
@@ -78,6 +79,13 @@
                     custom:shape="oval"/>
             </LinearLayout>
 
+
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view_container"
                 android:layout_width="match_parent"
@@ -126,14 +134,13 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_products"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -238,10 +245,5 @@
                 android:textColor="@color/a_gray_600" />
         </LinearLayout>
     </android.support.design.widget.BottomNavigationView>
-
-
-
-
-
 
 </android.support.constraint.ConstraintLayout>
