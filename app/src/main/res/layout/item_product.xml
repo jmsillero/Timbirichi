@@ -15,33 +15,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_product"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            app:riv_border_color="@android:color/white"
-            app:riv_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_title"
-            app:riv_corner_radius="10dp"
-            android:visibility="invisible"
-
-            app:srcCompat="@drawable/no_imagen" />
-
         <ImageView
-            android:id="@+id/iv_product1"
+            android:id="@+id/iv_product"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/no_imagen" />
+            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_product1"-->
+            <!--android:layout_width="120dp"-->
+            <!--android:layout_height="120dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:srcCompat="@drawable/no_imagen" />-->
 
         <TextView
             android:id="@+id/tv_title"
