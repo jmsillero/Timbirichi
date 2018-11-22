@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:clickable="true"
+    android:background="@drawable/category_item_background"
+    android:orientation="horizontal"
+    android:layout_height="48dp">
 
-    <TextView
-        android:id="@+id/expandedListItem"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:paddingTop="10dp"
-        android:gravity="center|left"
-        android:textColor="@color/panel_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_product_count"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_product_count"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/ic_call"
         android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/colorAccent"
         android:gravity="center"
         android:text="120"
-        app:layout_constraintBottom_toBottomOf="@+id/expandedListItem"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/expandedListItem" />
+        android:textColor="@color/colorAccent"
+          />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/expandedListItem"
+        android:layout_width="304dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center|left"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/tv_product_count"
+        android:paddingLeft="10dp"
+        android:text="asdfasdfasdfasfd"
+        android:textColor="@color/panel_color"
+        android:layout_toRightOf="@+id/tv_product_count" />
+
+
+
+
+
+</RelativeLayout>

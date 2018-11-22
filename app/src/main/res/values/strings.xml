@@ -72,6 +72,7 @@
 
     <string name="update_database">Actualizar Base de datos</string>
     <string name="new_database">Adicionar base de datos</string>
+    <string name="cats">Categorías</string>
 
     <string name="database_incompatible">La base de datos seleccionada es incompatible con Timbirichi, por favor seleccione otra.</string>
     <string name="database_incompatible_search">La base de datos seleccionada es incompatible con Timbirichi, por favor seleccione otra.</string>
