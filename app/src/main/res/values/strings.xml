@@ -66,6 +66,7 @@
     <string name="lasted">Última</string>
     <string name="updated">Base de datos actualizada</string>
     <string name="out_date">Base de datos desactualizada</string>
+    <string name="updating_database">Actualizando base de datos</string>
 
     <string name="cancel">Cancelar</string>
     <string name="delete_confirm">Desea borrar los anuncios guardados?</string>
