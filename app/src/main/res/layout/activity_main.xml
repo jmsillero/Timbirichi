@@ -23,6 +23,7 @@
         android:background="@color/panel_color"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/textColor"
+        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
         style="@style/AppThemeDark">
 
