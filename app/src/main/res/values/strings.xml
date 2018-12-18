@@ -128,6 +128,7 @@
     <string name="device"><b>Dispositivo:</b></string>
     <string name="app"><b>App:</b></string>
     <string name="app_version"><b>Versión App:</b></string>
+    <string name="app_version_splash"><b>Versión de la aplicación</b></string>
     <string name="android_version"><b>Versión Android:</b></string>
 
     <string name="p_email_title"><u>Titulo del anuncio: </u></string>
@@ -140,6 +141,11 @@
     <string name="p_email_phone"><b>Telefono: </b></string>
     <string name="p_email_isnew"><b>Nuevo: </b></string>
 
+
+    <string name="app_version_error">La base de datos seleccionada no es compatible con esta versión de timbirichi, por favor descargue la última versión de la aplicación.</string>
+    <string name="db_version_error">La base de datos seleccionada no es compatible con esta versión de timbirichi, por favor descargue la última base de datos.</string>
+
+
     <string name="find_in_timbirichi">Buscar en timbirichi...</string>
     <string name="find_in_favorites">Buscar en guardados...</string>
     <string name="find_in_category">Buscar en </string>
@@ -148,8 +154,8 @@
     <string name="min">Mínimo</string>
     <string name="max">Máximo</string>
 
-    <string name="image">Imágen</string>
-    <string name="no_image">Sin imágen</string>
+    <string name="image">Imagen</string>
+    <string name="no_image">Sin imagen</string>
     <string name="province">Provincia: </string>
 
     <string name="external_sd">Buscar en tarjeta MicroSD</string>

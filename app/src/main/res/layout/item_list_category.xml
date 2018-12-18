@@ -4,40 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:clickable="true"
-    android:background="@drawable/category_item_background"
+
     android:orientation="horizontal"
-    android:layout_height="48dp">
+    android:layout_height="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/category_item_background"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_product_count"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="120"
+            android:background="@drawable/product_count_background"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/expandedListItem"
+            android:layout_width="304dp"
+            android:layout_gravity="center"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center|left"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_product_count"
+            android:paddingLeft="10dp"
+            android:text="asdfasdfasdfasfd"
+            android:textColor="@color/panel_color"
+            android:layout_toRightOf="@+id/tv_product_count" />
+
+    </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/tv_product_count"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:text="120"
-        android:textColor="@color/colorAccent"
-          />
-
-    <TextView
-        android:id="@+id/expandedListItem"
-        android:layout_width="304dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center|left"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/tv_product_count"
-        android:paddingLeft="10dp"
-        android:text="asdfasdfasdfasfd"
-        android:textColor="@color/panel_color"
-        android:layout_toRightOf="@+id/tv_product_count" />
 
 
 

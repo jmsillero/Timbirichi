@@ -10,9 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/panel_color"
+        android:textStyle="bold"
         android:text="asdfasdf"
+        android:textAllCaps="true"
         android:padding="8dp"
         android:gravity="center"
-        android:textSize="22sp"/>
+        android:textSize="20sp"/>
 </RelativeLayout>

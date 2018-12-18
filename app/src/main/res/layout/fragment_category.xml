@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
+    android:background="@color/panel_color"
     android:layout_height="match_parent"
     tools:context=".presentation.view.fragment.CategoryFragment">
 

@@ -10,20 +10,16 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.view.fragment.CoverPageFragment">
 
-
-
     <android.support.v4.widget.NestedScrollView
-
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <com.facebook.shimmer.ShimmerFrameLayout
@@ -41,9 +37,6 @@
                     android:background="@color/background" />
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-
-
-
             <LinearLayout
                 android:id="@+id/container_banner"
                 android:layout_width="match_parent"
@@ -51,7 +44,6 @@
                 android:orientation="vertical"
                 android:background="@color/panel_color"
                 android:layout_marginTop="@dimen/search_button_margin_bottom"
-
                 android:visibility="gone">
                 <com.glide.slider.library.SliderLayout
                     android:id="@+id/slider"
