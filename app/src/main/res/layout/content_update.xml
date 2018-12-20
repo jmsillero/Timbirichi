@@ -14,54 +14,54 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_search_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         >
+        android:layout_height="match_parent">
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline5"
             android:layout_width="1dp"
             android:layout_height="1dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".1" />
+            app:layout_constraintGuide_percent=".05" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline6"
             android:layout_width="1dp"
             android:layout_height="1dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".9" />
+            app:layout_constraintGuide_percent=".95" />
 
         <Button
             android:id="@+id/btn_automatic_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/header_category_background"
             android:text="Buscar base de datos"
             android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
         <Button
             android:id="@+id/btn_internet_download"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/header_category_background"
             android:text="Actualizar de internet"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toBottomOf="@+id/btn_automatic_search" />
+            app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/colorAccent"
             android:text="Base de datos actual:"
+            android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintStart_toStartOf="@+id/textView11" />
 
@@ -69,8 +69,8 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="12 Noviembre 2018"
             android:textColor="@android:color/white"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
@@ -81,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/gray"
             android:text="Anuncios: 75899"
+            android:textColor="@color/gray"
             app:layout_constraintBottom_toTopOf="@+id/textView12"
             app:layout_constraintStart_toStartOf="@+id/textView12" />
 
@@ -91,12 +91,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/gray"
             android:text="Peso: 45GB"
+            android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/guideline5" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".4" />
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
@@ -105,14 +110,14 @@
         android:layout_height="match_parent"
         android:layout_gravity="center|start"
         android:gravity="center"
-        android:layout_margin="8dp"
         android:visibility="gone"
+        android:layout_margin="8dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start|center"
             android:layout_marginTop="8dp"
             android:text="Buscando base de datos dentro del dispositivo"
             android:textColor="@color/colorAccent"
@@ -122,10 +127,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|start"
-
+            android:layout_gravity="start|center"
             android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:gravity="start|center"
             android:text="Este proceso proceso puede tardar unos segundos. \n\nSea paciente :)"
             android:textColor="@color/gray"
             android:textSize="14sp"
@@ -139,6 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
+            android:layout_marginTop="16dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             app:SpinKit_Color="@color/gray"
@@ -153,15 +158,15 @@
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:visibility="gone"
         android:layout_margin="8dp"
+        android:visibility="gone"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start|center"
             android:layout_marginTop="8dp"
             android:text="Descargando mediante internet"
             android:textColor="@color/colorAccent"
@@ -171,9 +176,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start|center"
             android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:gravity="start|center"
             android:text="Este proceso proceso puede tardar en relación a su conexión.\n\nSea Pacientes :)"
             android:textColor="@color/gray"
             android:textSize="14sp"
@@ -188,19 +193,21 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="24dp"
             android:textAllCaps="true"
             android:text="proceso"/>
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginEnd="24dp"
             android:layout_width="match_parent"
             android:layout_height="34dp"
+            android:indeterminateDrawable="@drawable/ic_add_circle"
             android:max="100"
             android:progress="67"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="24dp"
+            android:layout_marginRight="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -215,13 +222,41 @@
             android:textAllCaps="true"
             android:text="45 MB/180MB           00:06:54"/>
 
-        <Button
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_margin="8dp"
-            android:padding="8dp"
-            android:background="@drawable/ic_add_circle"
-            android:rotation="45"/>
+
+<LinearLayout
+    android:id="@+id/btn_cancel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <Button
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+
+        android:layout_gravity="center"
+        android:padding="8dp"
+        android:background="@drawable/ic_add_circle"
+        android:rotation="45"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:text="Cancelar"/>
+
+
+
+</LinearLayout>
+
+
 
 
     </LinearLayout>
@@ -229,13 +264,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="fill"
+        android:visibility="gone"
+        android:orientation="vertical"
         android:id="@+id/layout_database_list" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdfasdfasdf"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_files"
-            android:visibility="gone"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="8dp"
@@ -251,5 +293,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
     </LinearLayout>
+
+
 
 </LinearLayout>
