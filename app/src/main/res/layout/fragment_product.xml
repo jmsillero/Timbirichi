@@ -6,6 +6,7 @@
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
+    android:background="@color/panel_color"
     android:layout_height="match_parent"
     tools:context=".presentation.view.fragment.ProductFragment">
 
@@ -99,8 +100,12 @@
         android:visibility="gone"
         app:srcCompat="@drawable/ic_sad" />
 
+
+
         <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_products"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

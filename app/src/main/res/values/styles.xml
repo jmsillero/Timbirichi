@@ -63,6 +63,33 @@
     <!--<item name="android:background">@color/black_overlay</item>-->
     <!--</style>-->
 
+    <style name="AppTheme.NoActionBar.ProductDetailTitle">
+         <item name="android:layout_marginLeft">16dp</item>
+         <item name="android:layout_marginRight">16dp</item>
+         <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar.ProductDetailTextBold" parent="AppTheme.NoActionBar.ProductDetailTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar.ProductDetailText" parent="AppTheme.NoActionBar.ProductDetailTitle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/gray</item>
+
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -76,6 +103,12 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:colorBackground">@color/colorPrimary</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="ToolBarTransparent" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:gravity" >center</item>
+        <item name="android:layout_gravity">center</item>
+
     </style>
 
     <style name="AppTheme.FullScreen.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

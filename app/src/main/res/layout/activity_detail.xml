@@ -38,7 +38,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:collapseIcon="@drawable/s1"
                 app:navigationIcon="@drawable/ic_back"
                 app:popupTheme="@style/AppTheme.FullScreen.PopupOverlay" >
 
@@ -65,6 +64,7 @@
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="right|bottom"
         app:srcCompat="@drawable/ic_saved"
+        android:visibility="gone"
         android:layout_marginEnd="10dp" />
 
     <android.support.design.widget.BottomNavigationView
@@ -75,6 +75,7 @@
         android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
         android:layout_gravity="center|bottom"
+        android:visibility="gone"
         app:elevation="8dp">
 
         <LinearLayout

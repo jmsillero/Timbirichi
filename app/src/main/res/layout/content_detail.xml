@@ -7,9 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".presentation.view.activity.DetailActivity"
     tools:showIn="@layout/activity_detail"
-    android:background="@color/background">
-
-
+    android:background="@color/panel_color">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,110 +16,136 @@
         android:paddingBottom="90dp"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="2dp">
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp"
+            android:orientation="vertical"
+            android:background="@drawable/database_item_background">
 
-            <android.support.constraint.ConstraintLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
+                android:text="@string/title"
+                style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="40dp"
-                    android:text="Computadora de escritorio"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Computadora de escritorio"
+                style="@style/AppTheme.NoActionBar.ProductDetailTextBold"/>
 
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:text="$ 100.00 CUC"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_province"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="La Habana"
-                    app:layout_constraintStart_toStartOf="@+id/tv_price"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
-                <TextView
-                    android:id="@+id/tv_new"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="Nuevo"
-                    android:visibility="invisible"
-                    android:textColor="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Publicado: "
-                    app:layout_constraintStart_toStartOf="@+id/tv_province"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_province" />
-
-                <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="TextView"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
-                    app:layout_constraintStart_toEndOf="@+id/textView3" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="2dp">
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp"
+            android:orientation="vertical"
+            android:background="@drawable/database_item_background">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Computadora de escritorio"
+                style="@style/AppTheme.NoActionBar.ProductDetailText"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height=".7dp"
+                android:background="@color/gray"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/locality"
+                style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
+
+            <TextView
+                android:id="@+id/tv_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Computadora de escritorio"
+                style="@style/AppTheme.NoActionBar.ProductDetailText"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height=".7dp"
+                android:background="@color/gray"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/published"
+                style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Computadora de escritorio"
+                style="@style/AppTheme.NoActionBar.ProductDetailText"/>
+
+
+
+        </LinearLayout>
+
+        <!--Falta los datos del contacto-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp"
+            android:orientation="vertical"
+            android:background="@drawable/database_item_background">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/publish_description"
+                style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
             <TextView
                 android:id="@+id/tv_description"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/text_margin"
-                android:text="@string/large_text" />
-        </android.support.v7.widget.CardView>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Computadora de escritorio"
+                style="@style/AppTheme.NoActionBar.ProductDetailText"/>
+
+
+
+        </LinearLayout>
+
+
 
 
     </LinearLayout>

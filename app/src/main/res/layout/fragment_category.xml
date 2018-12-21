@@ -79,6 +79,7 @@
         android:layout_marginTop="8dp"
         android:divider="@color/panel_color"
         android:childDivider="@color/panel_color"
+        android:indicatorRight="?android:attr/expandableListPreferredItemIndicatorLeft"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
