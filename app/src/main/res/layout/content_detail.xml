@@ -12,10 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
-        android:paddingBottom="90dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical">
 
+<!--Title-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_contact_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Computadora de escritorio"
@@ -43,6 +43,7 @@
 
         </LinearLayout>
 
+<!--Price-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
                 style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/tv_contact_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Computadora de escritorio"
@@ -83,7 +84,7 @@
                 style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
             <TextView
-                android:id="@+id/tv_province"
+                android:id="@+id/tv_contact_province"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Computadora de escritorio"
@@ -104,7 +105,7 @@
                 style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_contact_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Computadora de escritorio"
@@ -114,8 +115,7 @@
 
         </LinearLayout>
 
-        <!--Falta los datos del contacto-->
-
+<!--Contact-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,21 +131,227 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/publish_description"
+                android:text="@string/detail_contact"
                 style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
 
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_contact_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Computadora de escritorio"
-                style="@style/AppTheme.NoActionBar.ProductDetailText"/>
+                style="@style/AppTheme.NoActionBar.ProductDetailTextBold"/>
+
+            <View
+            android:layout_width="match_parent"
+            android:layout_height=".7dp"
+            android:background="@color/gray"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:id="@+id/gl_phone">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_phone"
+                    style="@style/AppTheme.NoActionBar.ProductDetailTitle"
+                    android:layout_column="0"
+                    android:layout_row="0"/>
+
+                <TextView
+                    android:id="@+id/tv_contact_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Computadora de escritorio"
+                    style="@style/AppTheme.NoActionBar.ProductDetailText"
+                    android:layout_column="0"
+                    android:layout_row="1"/>
+
+
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_column="1"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="16dp"
+                    android:layout_row="0"
+                    android:layout_rowSpan="2"
+                    android:background="@android:color/transparent"
+                    android:foregroundGravity="center"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_next"
+                    tools:ignore="RtlHardcoded" />
+
+            </GridLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height=".7dp"
+                android:background="@color/gray"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:id="@+id/gl_email">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_email"
+                    style="@style/AppTheme.NoActionBar.ProductDetailTitle"
+                    android:layout_column="0"
+                    android:layout_row="0"/>
+
+                <TextView
+                    android:id="@+id/tv_contact_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Computadora de escritorio"
+                    style="@style/AppTheme.NoActionBar.ProductDetailText"
+                    android:layout_column="0"
+                    android:layout_row="1"/>
+
+
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_column="1"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="16dp"
+                    android:layout_row="0"
+                    android:layout_rowSpan="2"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:cropToPadding="false"
+                    android:foregroundGravity="center"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_next"
+                    tools:ignore="RtlHardcoded" />
+
+            </GridLayout>
 
 
 
         </LinearLayout>
 
+<!--Description-->
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="4dp"
+        android:orientation="vertical"
+        android:background="@drawable/database_item_background">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/publish_description"
+            style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Computadora de escritorio"
+            style="@style/AppTheme.NoActionBar.ProductDetailText"/>
+
+
+
+    </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_ultra"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_margin="4dp"
+            android:background="@drawable/ultra_item_background"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_ultra_product"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:autoText="false"
+                android:ellipsize="end"
+                android:enabled="false"
+                android:gravity="center|left"
+                android:lines="3"
+                android:maxLines="3"
+                android:text="TextView asdfasdf a asdfasdfasdf asdfasdf  \n asdf asdf asdf asdf asdf"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/iv_ultra_product"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="$100 cuc"
+                android:textColor="@color/panel_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+
+
+            <TextView
+                android:id="@+id/tv_province"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="La Habana"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tv_price"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+        </android.support.constraint.ConstraintLayout>
 
 
     </LinearLayout>

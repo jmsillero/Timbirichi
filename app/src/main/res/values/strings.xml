@@ -27,6 +27,7 @@
     <string name="favorites">Guardados</string>
     <string name="contact">Contactar</string>
 
+
     <string name="price">Precio: </string>
     <string name="new_product">Nuevo</string>
     <string name="used_product">Usado</string>
@@ -151,6 +152,8 @@
     <string name="p_email_phone"><b>Telefono: </b></string>
     <string name="p_email_isnew"><b>Nuevo: </b></string>
 
+    <string name="detail_contact">Contacto</string>
+
 
     <string name="app_version_error">La base de datos seleccionada no es compatible con esta versión de timbirichi, por favor descargue la última versión de la aplicación.</string>
     <string name="db_version_error">La base de datos seleccionada no es compatible con esta versión de timbirichi, por favor descargue la última base de datos.</string>
@@ -178,7 +181,7 @@
     <string name="serching_databases">Buscando bases de datos compatibles con timbirichi en el dispositivo...</string>
     <string name="find_database_in_device">Si no recuerda la ubicación de la base de datos, puede encontrarla haciendo clic aquí</string>
 
-    <string name="contact_phone">Telefono</string>
+    <string name="contact_phone">Teléfono</string>
     <string name="contact_call">Llamar</string>
     <string name="contact_sms">Enviar sms</string>
     <string name="contact_email">Correo</string>
@@ -214,7 +217,6 @@
 
     <string name="enter">Entrar</string>
     <string name="call_by_phone">Llamar por teléfono</string>
-
 
 
     <string name="title_activity_update">UpdateActivity</string>
