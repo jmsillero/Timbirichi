@@ -26,7 +26,6 @@
                 android:id="@+id/shimmer_view_container"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginTop="@dimen/search_button_margin_bottom"
                 app:shimmer_duration="800">
 
                 <View
@@ -43,7 +42,6 @@
                 android:layout_height="180dp"
                 android:orientation="vertical"
                 android:background="@color/panel_color"
-                android:layout_marginTop="@dimen/search_button_margin_bottom"
                 android:visibility="gone">
 
                 <android.support.v7.widget.RecyclerView
@@ -145,38 +143,38 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/panel_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!--<LinearLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/panel_color"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/floating_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp"
-            app:floatingSearch_close_search_on_keyboard_dismiss="true"
-            app:floatingSearch_backgroundColor="@android:color/background_light"
-            app:floatingSearch_leftActionColor="@color/colorPrimary"
-            app:floatingSearch_dimBackground="false"
-            app:floatingSearch_dismissOnOutsideTouch="true"
-            app:floatingSearch_leftActionMode="showHamburger"
-            app:floatingSearch_searchBarMarginLeft="10dp"
-            app:floatingSearch_searchBarMarginRight="10dp"
-            app:floatingSearch_searchBarMarginTop="4dp"
-            app:floatingSearch_searchHint="@string/find_in_timbirichi"
-            app:floatingSearch_showSearchKey="true"
-            app:floatingSearch_suggestionsListAnimDuration="250"
-            />
+        <!--<com.arlib.floatingsearchview.FloatingSearchView-->
+            <!--android:id="@+id/floating_search_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="66dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="2dp"-->
+            <!--app:floatingSearch_close_search_on_keyboard_dismiss="true"-->
+            <!--app:floatingSearch_backgroundColor="@android:color/background_light"-->
+            <!--app:floatingSearch_leftActionColor="@color/colorPrimary"-->
+            <!--app:floatingSearch_dimBackground="false"-->
+            <!--app:floatingSearch_dismissOnOutsideTouch="true"-->
+            <!--app:floatingSearch_leftActionMode="showHamburger"-->
+            <!--app:floatingSearch_searchBarMarginLeft="10dp"-->
+            <!--app:floatingSearch_searchBarMarginRight="10dp"-->
+            <!--app:floatingSearch_searchBarMarginTop="4dp"-->
+            <!--app:floatingSearch_searchHint="@string/find_in_timbirichi"-->
+            <!--app:floatingSearch_showSearchKey="true"-->
+            <!--app:floatingSearch_suggestionsListAnimDuration="250"-->
+            <!--/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 
 </android.support.constraint.ConstraintLayout>

@@ -13,8 +13,8 @@
     <string name="version">Versión: </string>
 
 
-    <string name="search_title">Buscar...</string>
-    <string name="search_hint">Buscar...</string>
+    <string name="search_title">Buscar en %1$s ...</string>
+    <string name="search_hint">Buscar en timbirichi...</string>
 
     <string name="accept">Aceptar</string>
 
@@ -45,6 +45,7 @@
     <string name="the_last">Lo último</string>
 
     <string name="do_filter">Filtrar</string>
+    <string name="filters">Filtros</string>
 
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -54,7 +55,7 @@
     <string name="order_relevant">Relevantes</string>
     <string name="order_date">Fecha</string>
     <string name="date_bold"><b>Desde</b></string>
-    <string name="filter">Filtro</string>
+    <string name="filter">Filtrar</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="product_detail">Detalles</string>
     <string name="contact_activity">Acerca de...</string>
@@ -153,6 +154,11 @@
     <string name="p_email_isnew"><b>Nuevo: </b></string>
 
     <string name="detail_contact">Contacto</string>
+    <string name="status">Estado</string>
+    <string name="status_new">Nuevo</string>
+    <string name="status_like_new">Como nuevo</string>
+    <string name="status_used">Usado</string>
+    <string name="status_broke">Roto</string>
 
 
     <string name="app_version_error">La base de datos seleccionada no es compatible con esta versión de timbirichi, por favor descargue la última versión de la aplicación.</string>
@@ -167,7 +173,7 @@
     <string name="min">Mínimo</string>
     <string name="max">Máximo</string>
 
-    <string name="image">Imagen</string>
+    <string name="image">Con imagen</string>
     <string name="no_image">Sin imagen</string>
     <string name="province">Provincia: </string>
 

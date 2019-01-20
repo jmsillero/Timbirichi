@@ -10,154 +10,88 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.fragment.ProductFragment">
 
-    <include layout="@layout/custom_toolbar"
-        android:id="@+id/custom_toolbar">
-
-    </include>
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_container">
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        app:shimmer_duration="800">
-
-        <!-- Adding 7 rows of placeholders -->
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_banner"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        app:shimmer_duration="1000">
-
-        <View
-        android:id="@+id/gallery_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/background" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-        <include layout="@layout/item_progress" />
-
-        <include layout="@layout/item_progress" />
-
-        <include layout="@layout/item_progress" />
-
-        <include layout="@layout/item_progress" />
-
-        <include layout="@layout/item_progress" />
-
-        <include layout="@layout/item_progress" />
-
-        <include layout="@layout/item_progress" />
-        </LinearLayout>
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/container_banner"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical"-->
-            <!--android:background="@color/panel_color"-->
-            <!--android:visibility="gone" >-->
-
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rv_banner"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-            <!--</android.support.v7.widget.RecyclerView>-->
-
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:layout_marginLeft="16dp"-->
-                <!--android:layout_marginRight="16dp"-->
-                <!--android:background="@color/gray"/>-->
-
-
-        <!--</LinearLayout>-->
-
-        <TextView
-        android:id="@+id/tv_no_products"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
-        android:text="@string/no_products"
-        android:visibility="gone" />
-
-        <ImageView
-        android:id="@+id/iv_sad"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_gravity="center"
-        android:tint="@color/colorAccent"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_sad" />
-
-        <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_products"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/search_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/panel_color"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/floating_search_view"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp"
-            app:floatingSearch_backgroundColor="@android:color/background_light"
-            app:floatingSearch_close_search_on_keyboard_dismiss="true"
-            app:floatingSearch_dimBackground="false"
-            app:floatingSearch_dismissOnOutsideTouch="true"
-            app:floatingSearch_dividerColor="@color/colorPrimary"
-            app:floatingSearch_leftActionColor="@color/colorPrimary"
-            app:floatingSearch_leftActionMode="showHamburger"
-            app:floatingSearch_searchBarMarginLeft="10dp"
-            app:floatingSearch_searchBarMarginRight="10dp"
-            app:floatingSearch_searchBarMarginTop="4dp"
-            app:floatingSearch_searchHint="Search..."
-            app:floatingSearch_showSearchKey="true"
-            app:floatingSearch_suggestionsListAnimDuration="250"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            app:shimmer_duration="800">
 
+            <!-- Adding 7 rows of placeholders -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:shimmer_duration="1000">
+
+                    <View
+                        android:id="@+id/gallery_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/background" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <include layout="@layout/item_progress" />
+
+                <include layout="@layout/item_progress" />
+
+                <include layout="@layout/item_progress" />
+
+                <include layout="@layout/item_progress" />
+
+                <include layout="@layout/item_progress" />
+
+                <include layout="@layout/item_progress" />
+
+                <include layout="@layout/item_progress" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <TextView
+            android:id="@+id/tv_no_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="@string/no_products"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_sad"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center"
+            android:tint="@color/colorAccent"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_sad" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
