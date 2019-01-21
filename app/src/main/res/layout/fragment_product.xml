@@ -16,7 +16,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -94,71 +94,71 @@
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/products_navigation">
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="0dp"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:background="?android:attr/windowBackground"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:menu="@menu/products_navigation">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#fff"
-            android:gravity="center">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="#fff"-->
+            <!--android:gravity="center">-->
 
-            <com.timbirichi.app.presentation.view.custom.BottonBarBtnView
-                android:id="@+id/btn_filter_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:indicator="@drawable/ic_date2"
-                app:order_down="@drawable/ic_down"
-                app:order_text="@string/order_date"
-                app:order_up="@drawable/ic_up"
-                app:order_active="true"/>
+            <!--<com.timbirichi.app.presentation.view.custom.BottonBarBtnView-->
+                <!--android:id="@+id/btn_filter_date"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:indicator="@drawable/ic_date2"-->
+                <!--app:order_down="@drawable/ic_down"-->
+                <!--app:order_text="@string/order_date"-->
+                <!--app:order_up="@drawable/ic_up"-->
+                <!--app:order_active="true"/>-->
 
-            <com.timbirichi.app.presentation.view.custom.BottonBarBtnView
-                android:id="@+id/btn_filter_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:indicator="@drawable/ic_price2"
-                app:order_down="@drawable/ic_down"
-                app:order_text="@string/order_price"
-                app:order_up="@drawable/ic_up"
-                />
+            <!--<com.timbirichi.app.presentation.view.custom.BottonBarBtnView-->
+                <!--android:id="@+id/btn_filter_price"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:indicator="@drawable/ic_price2"-->
+                <!--app:order_down="@drawable/ic_down"-->
+                <!--app:order_text="@string/order_price"-->
+                <!--app:order_up="@drawable/ic_up"-->
+                <!--/>-->
 
 
-            <com.timbirichi.app.presentation.view.custom.BottonBarBtnView
-                android:id="@+id/btn_filter_views"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:indicator="@drawable/ic_views2"
-                app:order_down="@drawable/ic_down"
-                app:order_text="@string/order_relevant"
-                app:order_up="@drawable/ic_up" />
+            <!--<com.timbirichi.app.presentation.view.custom.BottonBarBtnView-->
+                <!--android:id="@+id/btn_filter_views"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:indicator="@drawable/ic_views2"-->
+                <!--app:order_down="@drawable/ic_down"-->
+                <!--app:order_text="@string/order_relevant"-->
+                <!--app:order_up="@drawable/ic_up" />-->
 
-            <Button
-                android:id="@+id/btn_filter"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_filters2"
-                android:text="@string/filter"
-                android:textAllCaps="false"
-                android:drawableTint="@color/a_gray_600"
-                android:textColor="@color/a_gray_600" />
-        </LinearLayout>
-    </android.support.design.widget.BottomNavigationView>
+            <!--<Button-->
+                <!--android:id="@+id/btn_filter"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:drawableTop="@drawable/ic_filters2"-->
+                <!--android:text="@string/filter"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:drawableTint="@color/a_gray_600"-->
+                <!--android:textColor="@color/a_gray_600" />-->
+        <!--</LinearLayout>-->
+    <!--</android.support.design.widget.BottomNavigationView>-->
 
 </android.support.constraint.ConstraintLayout>

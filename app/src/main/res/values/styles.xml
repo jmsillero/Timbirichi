@@ -116,4 +116,11 @@
 
     <style name="AppTheme.FullScreen.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MaterialSearchViewStyle">
+        <!--<item name="searchB">@color/white_ish</item>-->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:hint">@string/search_hint</item>
+    </style>
+
 </resources>

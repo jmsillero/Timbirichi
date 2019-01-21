@@ -140,7 +140,7 @@
         android:id="@+id/nav_filter"
         android:layout_gravity="end">
 
-        <include layout="@layout/view_right_filter"/>
+
     </android.support.design.widget.NavigationView>
 
 

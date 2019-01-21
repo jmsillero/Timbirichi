@@ -229,5 +229,13 @@
     <string name="title_activity_main3">Main3Activity</string>
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_publish">PublishActivity</string>
+    <string-array name="order">
+        <item>Último</item>
+        <item>Más antiguo</item>
+        <item>Más barato</item>
+        <item>Más caro</item>
+        <item>Relevantes</item>
+        <item>Menos visitados</item>
+    </string-array>
 
 </resources>
