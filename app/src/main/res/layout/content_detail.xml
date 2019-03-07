@@ -10,6 +10,7 @@
     android:background="@color/panel_color">
 
     <LinearLayout
+        android:id="@+id/layout_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
@@ -120,73 +121,73 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/database_item_background"
             android:orientation="vertical"
-            android:background="@drawable/database_item_background">
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp">
 
             <TextView
+                style="@style/AppTheme.NoActionBar.ProductDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/detail_contact"
-                style="@style/AppTheme.NoActionBar.ProductDetailTitle"/>
+                android:text="@string/detail_contact" />
 
             <TextView
                 android:id="@+id/tv_contact_name"
+                style="@style/AppTheme.NoActionBar.ProductDetailTextBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Computadora de escritorio"
-                style="@style/AppTheme.NoActionBar.ProductDetailTextBold"/>
+                android:text="Computadora de escritorio" />
 
             <View
-            android:layout_width="match_parent"
-            android:layout_height=".7dp"
-            android:background="@color/gray"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"/>
+                android:layout_width="match_parent"
+                android:layout_height=".7dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/gray" />
 
             <GridLayout
+                android:id="@+id/gl_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:id="@+id/gl_phone">
+                android:columnCount="2">
 
 
                 <TextView
+                    style="@style/AppTheme.NoActionBar.ProductDetailTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/contact_phone"
-                    style="@style/AppTheme.NoActionBar.ProductDetailTitle"
                     android:layout_column="0"
-                    android:layout_row="0"/>
+                    android:layout_row="0"
+                    android:text="@string/contact_phone" />
 
                 <TextView
                     android:id="@+id/tv_contact_phone"
+                    style="@style/AppTheme.NoActionBar.ProductDetailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Computadora de escritorio"
-                    style="@style/AppTheme.NoActionBar.ProductDetailText"
                     android:layout_column="0"
-                    android:layout_row="1"/>
+                    android:layout_row="1"
+                    android:text="Computadora de escritorio" />
 
 
-                <ImageButton
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_column="1"
-                    android:layout_gravity="right|center"
-                    android:layout_marginRight="16dp"
-                    android:layout_row="0"
-                    android:layout_rowSpan="2"
-                    android:background="@android:color/transparent"
-                    android:foregroundGravity="center"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/ic_next"
-                    tools:ignore="RtlHardcoded" />
+                <!--<ImageButton-->
+                <!--android:layout_width="48dp"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:layout_column="1"-->
+                <!--android:layout_gravity="right|center"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:layout_row="0"-->
+                <!--android:layout_rowSpan="2"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:foregroundGravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--app:srcCompat="@drawable/ic_next"-->
+                <!--tools:ignore="RtlHardcoded" />-->
 
             </GridLayout>
 
@@ -194,54 +195,53 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height=".7dp"
-                android:background="@color/gray"
-                android:layout_marginTop="4dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/gray" />
 
             <GridLayout
+                android:id="@+id/gl_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:id="@+id/gl_email">
+                android:columnCount="2">
 
 
                 <TextView
+                    style="@style/AppTheme.NoActionBar.ProductDetailTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/contact_email"
-                    style="@style/AppTheme.NoActionBar.ProductDetailTitle"
                     android:layout_column="0"
-                    android:layout_row="0"/>
+                    android:layout_row="0"
+                    android:text="@string/contact_email" />
 
                 <TextView
                     android:id="@+id/tv_contact_email"
+                    style="@style/AppTheme.NoActionBar.ProductDetailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Computadora de escritorio"
-                    style="@style/AppTheme.NoActionBar.ProductDetailText"
                     android:layout_column="0"
-                    android:layout_row="1"/>
+                    android:layout_row="1"
+                    android:text="Computadora de escritorio" />
 
 
-                <ImageButton
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_column="1"
-                    android:layout_gravity="right|center"
-                    android:layout_marginRight="16dp"
-                    android:layout_row="0"
-                    android:layout_rowSpan="2"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:cropToPadding="false"
-                    android:foregroundGravity="center"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/ic_next"
-                    tools:ignore="RtlHardcoded" />
+                <!--<ImageButton-->
+                <!--android:layout_width="48dp"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:layout_column="1"-->
+                <!--android:layout_gravity="right|center"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:layout_row="0"-->
+                <!--android:layout_rowSpan="2"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:cropToPadding="false"-->
+                <!--android:foregroundGravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--app:srcCompat="@drawable/ic_next"-->
+                <!--tools:ignore="RtlHardcoded" />-->
 
             </GridLayout>
-
 
 
         </LinearLayout>
@@ -286,7 +286,24 @@
             android:layout_marginTop="4dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true">
+
+            <Button
+                android:id="@+id/v_ultra"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/transparent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_ultra_product"

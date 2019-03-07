@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/background"
+    android:theme="@style/AppThemeDark"
     tools:context=".presentation.view.activity.DetailActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -33,21 +34,6 @@
                 android:src="@drawable/ic_timbirichi"
                 android:id="@+id/iv_product" />
 
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/fb_favorites"-->
-                <!--android:layout_width="52dp"-->
-                <!--android:layout_height="52dp"-->
-                <!--android:layout_gravity="bottom|right"-->
-                <!--android:layout_marginBottom="16dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:padding="8dp"-->
-                <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:srcCompat="@drawable/ic_favorite_empty" />-->
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -65,86 +51,7 @@
 
     <include layout="@layout/content_detail" />
 
-
-
-
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fb_favorites"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:clickable="true"-->
-        <!--android:tint="@android:color/white"-->
-        <!--app:backgroundTint="@color/colorAccent"-->
-        <!--app:elevation="2dp"-->
-        <!--app:fabSize="normal"-->
-        <!--app:layout_anchor="@+id/app_bar"-->
-        <!--app:layout_anchorGravity="right|bottom"-->
-        <!--app:srcCompat="@drawable/ic_saved"-->
-        <!--android:visibility="gone"-->
-        <!--android:layout_marginEnd="10dp" />-->
-
-    <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/navigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="0dp"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:background="?android:attr/windowBackground"-->
-        <!--android:layout_gravity="center|bottom"-->
-        <!--android:visibility="gone"-->
-        <!--app:elevation="8dp">-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:background="@color/panel_color">-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_call"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:drawableTop="@drawable/ic_call2"-->
-                <!--android:text="@string/call"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:drawableTint="@color/colorAccent"-->
-                <!--android:textColor="@color/colorAccent" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_sms"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:drawableTop="@drawable/ic_icon_sms"-->
-                <!--android:text="@string/sms"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:drawableTint="@color/colorAccent"-->
-                <!--android:textColor="@color/colorAccent" />-->
-
-            <!--<Button-->
-                <!--android:id="@+id/btn_email"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:drawableTop="@drawable/ic_icon_mail_test_new"-->
-                <!--android:text="@string/email"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:drawableTint="@color/colorAccent"-->
-
-                <!--android:textColor="@color/colorAccent" />-->
-
-
-        <!--</LinearLayout>-->
-    <!--</android.support.design.widget.BottomNavigationView>-->
+    <include layout="@layout/floating_action_menu" />
 
 
 </android.support.design.widget.CoordinatorLayout>

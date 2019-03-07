@@ -25,7 +25,7 @@
     <string name="categories">Categoría</string>
     <string name="publish">Publicar</string>
     <string name="favorites">Guardados</string>
-    <string name="contact">Contactar</string>
+    <string name="contact">Contacto</string>
 
 
     <string name="price">Precio: </string>
@@ -39,8 +39,19 @@
 
 
     <string name="call">Llamar</string>
-    <string name="sms">Mensaje</string>
+    <string name="sms">Sms</string>
     <string name="email">Correo</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="messenger">Messenger</string>
+    <string name="click_to_init">Pulse para iniciar</string>
+    <string name="others_link">Otros enlaces:</string>
+
+    <string name="web_page">Web</string>
+    <string name="facebook_page">Facebook</string>
+    <string name="google_play">Google play</string>
+    <string name="whatsapp_group">Grupo whatsapp</string>
+    <string name="telegram_group">Grupo telegram</string>
+    <string name="left_rating">Deje su valoración</string>
 
     <string name="the_last">Lo último</string>
 
@@ -73,7 +84,7 @@
     <string name="cancel">Cancelar</string>
     <string name="delete_confirm">Desea borrar los anuncios guardados?</string>
 
-    <string name="update_database">Actualizar Base de datos</string>
+    <string name="update_database">Actualizar datos</string>
     <string name="new_database">Adicionar base de datos</string>
     <string name="cats">Categorías</string>
 
@@ -199,8 +210,10 @@
     <string name="timbirichi_email">anuncio@timbirichi.com</string>
     <string name="timbirichi_email_contact">soporte@timbirichi.com</string>
     <string name="timbirichi_facebook">https://www.facebook.com/timbirichi.clasificados</string>
+    <string name="timbirichi_googleplay">https://play.google.com/store/apps/details?id=com.timbirichi.app  </string>
     <string name="timbirichi_twitter">http://twitter.com/timbirichi</string>
     <string name="timbirichi_web">https://www.timbirichi.com/</string>
+    <string name="timbirichi_web_text">www.timbirichi.com</string>
 
     <string name="no_products">Su búsqueda no arrojó resultado, intente buscar nuevamente</string>
     <string name="no_favorites">Usted no tiene anuncios guardados</string>
